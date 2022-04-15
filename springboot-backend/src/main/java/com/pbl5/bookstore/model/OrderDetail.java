@@ -1,6 +1,7 @@
 package com.pbl5.bookstore.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public class OrderDetail {
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
+    @JsonIgnore
     @ManyToOne
     @MapsId("orderId")
     @JoinColumn(name = "order_id", nullable = false)

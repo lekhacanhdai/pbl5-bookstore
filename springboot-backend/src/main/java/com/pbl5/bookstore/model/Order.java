@@ -1,5 +1,6 @@
 package com.pbl5.bookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class Order {
     @JoinColumn(name = "discount_id", nullable = false)
     private Discount discount;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

@@ -1,6 +1,7 @@
 package com.pbl5.bookstore.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,6 +31,7 @@ public class Discount {
         this.value = value;
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "discount", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 

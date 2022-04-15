@@ -1,5 +1,6 @@
 package com.pbl5.bookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,6 +37,7 @@ public class User {
     @Column
     private String avatar;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
@@ -48,7 +50,7 @@ public class User {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    private Acount acount;
+    private Account account;
 
     public User(String firstName, String lastName, String userName, String address, String phoneNumber, String avatar) {
         this.firstName = firstName;

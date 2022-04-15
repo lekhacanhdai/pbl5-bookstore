@@ -1,5 +1,6 @@
 package com.pbl5.bookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class Cart {
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartDetail> cartDetails;
 
+    @JsonIgnore
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")

@@ -1,5 +1,6 @@
 package com.pbl5.bookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,6 +33,7 @@ public class Review {
     @Column
     private int rate;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;

@@ -1,6 +1,7 @@
 package com.pbl5.bookstore.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class Publisher {
     @Column(name = "publisher_name")
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "publisher", cascade = CascadeType.ALL)
     private List<Book> books = new ArrayList<Book>();
 

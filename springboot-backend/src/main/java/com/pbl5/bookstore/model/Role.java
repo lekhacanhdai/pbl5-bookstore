@@ -1,5 +1,6 @@
 package com.pbl5.bookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,8 +28,9 @@ public class Role {
     @Column
     private String description;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
-    private List<Acount> acounts = new ArrayList<>();
+    private List<Account> accounts = new ArrayList<>();
 
     public Role(String name, String slug, String description) {
         this.name = name;

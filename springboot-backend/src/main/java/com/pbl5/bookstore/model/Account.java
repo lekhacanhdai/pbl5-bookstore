@@ -1,5 +1,6 @@
 package com.pbl5.bookstore.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,8 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "acounts", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class Acount {
+@Table(name = "accounts", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+public class Account {
     @Id
     @Column(name = "user_id")
     private long id;
@@ -24,16 +25,17 @@ public class Acount {
     @Column
     private String password;
 
+    @JsonIgnore
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToMany
-    @JoinTable(name = "role_acount", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "role_account", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
 
-    public Acount(String email, String password) {
+    public Account(String email, String password) {
         this.email = email;
         this.password = password;
     }
