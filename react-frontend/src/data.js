@@ -55,7 +55,7 @@ export const categories = [
   },
 ];
 
-export const newBooks = [
+export const bestSellingBooks = [
   {
     id: 1,
     img: "https://cdn-amz.fadoglobal.io/images/I/81a4kCNuH+L.jpg",
