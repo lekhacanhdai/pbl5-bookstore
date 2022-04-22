@@ -1,11 +1,11 @@
 import { Badge } from "@material-ui/core";
-import { Search, ShoppingCartOutlined } from "@material-ui/icons";
+import { Category, Search, ShoppingCartOutlined } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
-  height: 60px; ;
+  height: 65px; 
   ${mobile({height: "50px"})};
 `;
 
@@ -22,33 +22,39 @@ const Left = styled.div`
   display: flex;
   align-items: center;
 `;
-const Language = styled.span`
-  font-size: 14px;
-  cursor: pointer;
-  ${mobile({ display:"none"})};
-`;
 
-const SearchContainer = styled.div`
-  border: 0.5px solid lightgray;
-  display: flex;
-  align-items: center;
-  margin-left: 25px;
+const Logo = styled.h1`
+  font-weight: bold;
+  margin-left: 20px;
+  color: #3B69B7;
+  ${mobile({ fontSize:"24px"})};
 `;
-
 const Input = styled.input`
+  width: 100%;
+  font-size: 15px;
   border: none;
-  ${mobile({ width:"50px"})};
-`;
+  margin: 0 10px;
+  &:focus{outline:none}
+`
 
 const Center = styled.div`
   flex: 1;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const Logo = styled.h1`
-  font-weight: bold;
-  ${mobile({ fontSize:"24px"})};
+const SearchContainer = styled.div`
+  border: 1px solid #3B69B7;
+  width: 100%;
+  display: flex;
+  padding: 5px;
+  align-items: center;
+  border-radius: 50px;
+
 `;
+
 
 const Right = styled.div`
   flex: 1;
@@ -61,6 +67,7 @@ const Right = styled.div`
 const MenuItem = styled.div`
   font-style: 14px;
   cursor: pointer;
+  color: #3B69B7;
   margin-left: 25px;
   ${mobile({ fontSize:"12px", marginLeft: "12px"})};
 `;
@@ -70,20 +77,20 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <Language>EN</Language>
-          <SearchContainer>
-            <Input placeholder="Search"/>
-            <Search style={{ color: "gray", fontSize: 26 }} />
-          </SearchContainer>
+        <Logo>BookStore</Logo>
         </Left>
         <Center>
-          <Logo>BookStore</Logo>
+          <Category style={{ color: "#3B69B7", margin: "10px", fontSize: 30, cursor:"pointer"}}/>
+          <SearchContainer>
+            <Input placeholder="Search"/>
+            <Search style={{ color: "#3B69B7", fontSize: 26, cursor:"pointer" }} />
+          </SearchContainer>
         </Center>
         <Right>
           <MenuItem>REGISTER</MenuItem>
           <MenuItem>SIGN IN</MenuItem>
           <MenuItem>
-            <Badge badgeContent={4} color="primary">
+            <Badge badgeContent={0} color="#3B69B7">
               <ShoppingCartOutlined />
             </Badge>
           </MenuItem>
