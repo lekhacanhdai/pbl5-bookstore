@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { Component } from 'react'
 import styled from "styled-components"
-import { popularProducts } from '../data'
 import Product from './Product'
+import BookService from '../service/BookService'
 
 const Container = styled.div`
   display: flex;
@@ -26,19 +26,36 @@ const ProductsContainer = styled.div`
     justify-content: center;
     align-items: center;
 `
-const Products = () => {
-  return (
-    <Container>
-      <TitleContainer>
-        <Title>Popular Products</Title>
-      </TitleContainer>
-      <ProductsContainer>
-        {popularProducts.map((item)=>(
-            <Product item={item} key={item.id}/>
-        ))}
-    </ProductsContainer>
-    </Container>
-  )
+
+class Products extends Component{
+  constructor(params){
+    super(params);
+    this.state={
+      books: []
+    }
+  }
+
+  componentDidMount(){
+    BookService.getAllBook().then((result)=>
+    {
+      this.setState({books: result.data})
+    }).catch((err)=>{})
+  }
+
+  render(){
+    return (
+      <Container>
+        <TitleContainer>
+          <Title>Popular Products</Title>
+        </TitleContainer>
+        <ProductsContainer>
+          {this.state.books.map((item) => (
+              <Product item={item} key={item.id}/>
+          ))}
+        </ProductsContainer>
+      </Container>
+    )
+  }
 }
 
 export default Products
