@@ -5,7 +5,8 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
-  height: 60px; ;
+  background-color: #fff;
+  height: 70px; ;
   ${mobile({height: "50px"})};
 `;
 
@@ -62,6 +63,9 @@ const MenuItem = styled.div`
   font-style: 14px;
   cursor: pointer;
   margin-left: 25px;
+  & :hover{
+    cursor: pointer;
+  }
   ${mobile({ fontSize:"12px", marginLeft: "12px"})};
 `;
 

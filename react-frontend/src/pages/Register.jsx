@@ -35,11 +35,9 @@ const Input = styled.input`
   margin: 20px 10px 0px 0px;
   padding: 10px;
 `;
-const Agreement = styled.span`
-  font-size: 12px;
-  margin: 20px 0px;
-`;
+
 const Button = styled.button`
+  margin-top: 20px;
   width: 40%;
   border: none;
   padding: 15px 20px;
@@ -48,22 +46,36 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const Toast = styled.div`
+  display: inline-block;
+  display: flex;
+  background-color: #fff;
+  padding: 20px 0;    
+  border-left: 4px solid;
+  min-width: 400px;
+  max-width: 450px;
+  align-items: center;
+  border-radius: 2px ;
+  box-shadow: 0 5px 8px rgba(0,0,0,0.08);
+  transition: all linear 0.3s;
+  position: fixed;
+  top: 32px;
+  right: 32px;
+`;
+
 const Register = () => {
   return (
     <Container>
+      {/* <Toast>Đăng kí thành công</Toast> */}
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
         <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
-          <Agreement>
-            By creating an account, I consent to the processing of my personal
-            data in accordance with the <b>PRIVACY POLICY</b>
-          </Agreement>
+          <Input placeholder="Name" />
+          <Input placeholder="Last name" />
+          <Input placeholder="Username" />
+          <Input placeholder="Email" />
+          <Input placeholder="Password" />
+          <Input placeholder="Confirm password" />
           <Button>CREATE</Button>
         </Form>
       </Wrapper>
