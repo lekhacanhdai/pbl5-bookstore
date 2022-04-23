@@ -55,10 +55,10 @@ const Product = ({item}) => {
   return (
     <Container>
         <ImageContainer>
-            <Image src={item.img}/>
+            <Image src={item.image}/>
         </ImageContainer>
         <NameContainer>
-            <Name>{item.name}</Name>
+            <Name>{item.title}</Name>
             <Price>{item.price}</Price>
             <Button>ADD TO CART</Button>
         </NameContainer>
