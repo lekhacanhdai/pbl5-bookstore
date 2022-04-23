@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_id")
     private long id;
 
     @Column(name = "first_name")
@@ -48,8 +48,9 @@ public class User {
     @PrimaryKeyJoinColumn
     private Cart cart;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "account_id")
     private Account account;
 
     public User(String firstName, String lastName, String userName, String address, String phoneNumber, String avatar) {

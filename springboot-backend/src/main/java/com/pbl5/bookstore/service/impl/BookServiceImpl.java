@@ -27,7 +27,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book findBookById(long id) {
         return bookRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Book not exis with id " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Book not exist with id " + id));
     }
 
     @Override
