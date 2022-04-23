@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
+  background-color:#fff;
   height: 65px; 
   ${mobile({height: "50px"})};
 `;

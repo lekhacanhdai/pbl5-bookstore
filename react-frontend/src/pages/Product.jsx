@@ -231,11 +231,11 @@ const Product = () => {
           <Title>Call me by your name</Title>
           <IntroContainer>
             <Intro>
-              <Publisher>Nhà xuất bản:</Publisher>
-              <Provider>Nhà cung cấp:</Provider>
+              <Publisher>Nhà xuất bản: A Đêì</Publisher>
+              <Provider>Nhà cung cấp: Thùy linh</Provider>
             </Intro>
             <Intro>
-              <Author>Tác giả:</Author>
+              <Author>Tác giả:Lươn Ngọc Đạt</Author>
             </Intro>
           </IntroContainer>
           <AssessContainer>
