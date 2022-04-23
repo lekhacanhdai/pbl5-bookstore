@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "accounts", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Account {
     @Id
-    @Column(name = "user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column
@@ -26,17 +26,24 @@ public class Account {
     private String password;
 
     @JsonIgnore
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "user_id")
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     private User user;
 
     @ManyToMany
-    @JoinTable(name = "role_account", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "role_account",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
 
     public Account(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public Account(String email, String password, User user) {
+        this.email = email;
+        this.password = password;
+        this.user = user;
     }
 }

@@ -3,16 +3,15 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
-  flex: 1;
-  margin: 3px;
-  height: 70vh;
+  height: 200px;
+  width: 150px;
   position: relative;
-`;
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  ${mobile({ height:"30vh"})}
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  :hover{
+    transform: scale(1.1);
+  }
 `;
 const Info = styled.div`
   position: absolute;
@@ -25,25 +24,28 @@ const Info = styled.div`
   justify-content: center;
   flex-direction: column;
 `;
-const Title = styled.h1`
-  color: white;
-  margin-bottom: 20px;
+const Image = styled.img`
+  width: 60%;
 `;
-const Button = styled.button`
-  border: none;
-  padding: 10px;
-  background-color: white;
-  color: gray;
-  cursor: pointer;
-  font-weight: 600;
+const TitleContainer = styled.div`
+  display: flex;
+  margin-top: 15px;
+  align-items: center;
+  justify-content: center;
+`
+const Title = styled.h3`
+  font-size: 18px;
+   font-weight: 400;
+  color: #3B69B7;
 `;
 const CategoryItem = ({ item }) => {
   return (
     <Container>
-      <Image src={item.img} />
       <Info>
-        <Title>{item.title}</Title>
-        <Button>SHOP NOW</Button>
+        <Image src={item.img} />
+        <TitleContainer>
+          <Title>{item.title}</Title>
+        </TitleContainer>
       </Info>
     </Container>
   );

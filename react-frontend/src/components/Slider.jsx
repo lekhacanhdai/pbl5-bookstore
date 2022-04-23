@@ -5,8 +5,10 @@ import { sliderItems } from "../data";
 import { mobile } from "../responsive";
 
 const Container = styled.div`
+  background-color: #6c9ef4;
   width: 100%;
-  height: 100vh;
+  height: 65vh;
+  align-items: center;
   display: flex;
   position: relative;
   overflow: hidden;
@@ -15,7 +17,7 @@ const Container = styled.div`
 const Arrow = styled.div`
   width: 50px;
   height: 50px;
-  background-color: #fcebeb;
+  background-color: #ffffff;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -38,13 +40,16 @@ const Wrapper = styled.div`
 `;
 const Slide = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   display: flex;
   align-items: center;
   background-color: #${(props) => props.bg};
 `;
 const ImgContainer = styled.div`
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex: 1;
 `;
 const Image = styled.img`
@@ -69,6 +74,10 @@ const Button = styled.button`
   font-style: 20px;
   background-color: transparent;
   cursor: pointer;
+  :hover{
+      background-color: white;
+      transform: scale(1.1);
+  }
 `;
 
 const Slider = () => {
@@ -94,7 +103,7 @@ const Slider = () => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Button>SHOW NOW</Button>
+              <Button>SHOP NOW</Button>
             </InfoContainer>
           </Slide>
         ))}
@@ -106,4 +115,4 @@ const Slider = () => {
   );
 };
 
-export default Slider;
+export default Slider
