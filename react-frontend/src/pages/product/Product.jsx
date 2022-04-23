@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import Navbar from "../components/Navbar";
-import Newsletter from "../components/Newsletter";
-import Footer from "../components/Footer";
+import Navbar from "../../components/Navbar";
+import Newsletter from "../../components/Newsletter";
+import Footer from "../../components/Footer";
 import { Add, Remove } from "@material-ui/icons";
-import { mobile } from "../responsive";
+import { mobile } from "../../responsive";
 import 'antd/dist/antd.css';
 import { Comment, Avatar, Rate } from 'antd';
-
+import './Product.css';
 // import { createRoot } from 'react-dom/client';
 
 const Container = styled.div`
@@ -239,7 +239,7 @@ const Product = () => {
             </Intro>
           </IntroContainer>
           <AssessContainer>
-                <Rate></Rate>
+                <Rate disabled defaultValue={5}></Rate>
                 <TxtRate>(0 đánh giá)</TxtRate>
           </AssessContainer>
           <Price>20.000 đ</Price>
@@ -304,7 +304,7 @@ const Product = () => {
                   5
                   <Txtratiochild>/5</Txtratiochild>
                 </Txtratio>
-                <Rate></Rate>
+                <Rate disabled defaultValue={5}></Rate>
                 <TxtRate>(0 đánh giá)</TxtRate>
               </Percent>
               <Percent>

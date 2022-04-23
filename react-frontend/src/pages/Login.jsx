@@ -17,6 +17,7 @@ const Container = styled.div`
       center;
 `;
 const Wrapper = styled.div`
+  border-radius: 20px;
   width: 25%;
   padding: 20px;
   background-color: white;
@@ -38,6 +39,7 @@ const Input = styled.input`
   padding: 10px;
 `;
 const Button = styled.button`
+  border-radius: 25px;
   width: 30%;
   border: none;
   padding: 15px 20px;
@@ -65,7 +67,7 @@ const Login = () => {
         <Title>SIGN IN</Title>
         <Form>
           <Input placeholder="Username" />
-          <Input placeholder="Email" />
+          <Input placeholder="Password" />
           <Button>LOGIN</Button>
           <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
           <Link>CREATE A NEW ACCOUNT</Link>
