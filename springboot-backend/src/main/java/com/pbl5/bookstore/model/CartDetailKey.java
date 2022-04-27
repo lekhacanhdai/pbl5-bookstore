@@ -14,9 +14,9 @@ import java.io.Serializable;
 @Embeddable
 public class CartDetailKey implements Serializable {
     @Column(name = "book_id")
-    private long bookId;
+    private Long bookId;
 
     @Column(name = "cart_id")
-    private long cartId;
+    private Long cartId;
 
 }

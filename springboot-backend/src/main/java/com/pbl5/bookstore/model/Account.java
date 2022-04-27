@@ -17,7 +17,7 @@ import java.util.List;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column
     private String email;
@@ -25,14 +25,15 @@ public class Account {
     @Column
     private String password;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private User user;
+
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Cart cart;
 
     @ManyToMany
     @JoinTable(name = "role_account",
-            joinColumns = @JoinColumn(name = "user_id"),
+            joinColumns = @JoinColumn(name = "account_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
 
@@ -41,9 +42,11 @@ public class Account {
         this.password = password;
     }
 
-    public Account(String email, String password, User user) {
+    public Account(String email, String password, User user, Cart cart, List<Role> roles) {
         this.email = email;
         this.password = password;
         this.user = user;
+        this.cart = cart;
+        this.roles = roles;
     }
 }

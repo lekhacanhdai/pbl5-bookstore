@@ -16,8 +16,8 @@ import java.util.List;
 @Table(name = "users")
 public class User {
     @Id
-    @Column(name = "account_id")
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -44,12 +44,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Cart cart;
-
-    @OneToOne
-    @MapsId
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account account;
 
@@ -60,5 +56,9 @@ public class User {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.avatar = avatar;
+    }
+
+    public User(Account account) {
+        this.account = account;
     }
 }

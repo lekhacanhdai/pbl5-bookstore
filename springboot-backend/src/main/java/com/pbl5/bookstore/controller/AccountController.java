@@ -23,6 +23,8 @@ public class AccountController {
 
     @PostMapping("/accounts")
     private ResponseEntity<Account> addNewAccount(@RequestBody Account account){
+        account.getCart().setAccount(account);
+        account.getUser().setAccount(account);
         return ResponseEntity.ok(acountService.saveAccount(account));
     }
 

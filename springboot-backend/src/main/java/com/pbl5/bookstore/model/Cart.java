@@ -15,15 +15,18 @@ import java.util.List;
 @Table(name = "carts")
 public class Cart {
     @Id
-    @Column(name = "user_id")
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
     private List<CartDetail> cartDetails;
 
     @JsonIgnore
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "user_id")
-    private User user;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id")
+    private Account account;
+
+    public Cart(Account account) {
+        this.account = account;
+    }
 }

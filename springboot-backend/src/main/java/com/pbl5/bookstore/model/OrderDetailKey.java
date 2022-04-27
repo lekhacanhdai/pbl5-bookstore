@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Embeddable
 public class OrderDetailKey implements Serializable {
     @Column(name = "book_id")
-    private long bookId;
+    private Long bookId;
 
     @Column(name = "order_id")
     private long orderId;
