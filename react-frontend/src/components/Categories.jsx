@@ -31,7 +31,7 @@ const CategoriesContainer = styled.div`
     justify-content: space-between;
     flex-wrap: wrap;
 `
-const Danhmucs = () => {
+const   Danhmucs = () => {
   return (
     <Container>
         <TitleContainer>
