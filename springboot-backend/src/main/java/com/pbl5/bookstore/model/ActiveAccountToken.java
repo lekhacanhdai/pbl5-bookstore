@@ -21,13 +21,14 @@ public class ActiveAccountToken {
 
     @Column(nullable = false)
     private String token;
-
+    @JsonIgnore
     @Column(nullable = false, name = "created_date")
     private LocalDateTime createdDate;
-
+    @JsonIgnore
     @Column(nullable = false, name = "expires_at")
     private LocalDateTime expiresAt;
 
+    @JsonIgnore
     @Column(name = "confirmed_at")
     private LocalDateTime confirmAt;
 

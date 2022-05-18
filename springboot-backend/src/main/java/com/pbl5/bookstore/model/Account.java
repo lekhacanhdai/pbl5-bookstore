@@ -1,6 +1,7 @@
 package com.pbl5.bookstore.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,9 +37,11 @@ public class Account implements UserDetails {
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private User user;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Cart cart;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private ActiveAccountToken activeAccountToken;
 
