@@ -15,6 +15,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -30,18 +35,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        CustomAuthenticationFilter authenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+        CustomAuthenticationFilter authenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(), accountService);
         authenticationFilter.setFilterProcessesUrl("/api/v1/login");
-        http.csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        http.cors().and()
+                .csrf().disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers("/api/v1/registration/**",
+                        "/api/v1/login/**",
+                        "/api/v1/token/refresh/**",
+                        "/api/v1/books",
+                        "/api/v1/books/{id}",
+                        "/api/v1/genres/")
+                .permitAll()
+                .and()
+                .authorizeRequests()
+
                 .antMatchers("/api/v1/registration/**","/api/v1/login/**", "/api/v1/token/refresh/**", "/api/v1/books/**", "/api/v1/accounts/**", "/admin/api/v1/accounts/**", "/admin/api/v1/books/**").permitAll()
+
+                .antMatchers(HttpMethod.GET,"/api/v1/books/**",
+                        "/api/v1/carts/{id}/**",
+                        "/api/v1/books/add-to-cart/{id}/**").hasAuthority("ROLE_USER")
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/api/v1/books").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.POST,"/api/v1/books/**").hasAuthority("ROLE_USER")
                 .and().authorizeRequests()
-                //http.authorizeRequests()
                 .anyRequest()
                 .authenticated();
         http.addFilter(authenticationFilter);
@@ -53,4 +73,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+    @Bean
+    CorsConfigurationSource corsConfigurationSource()
+    {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }
+

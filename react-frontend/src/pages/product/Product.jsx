@@ -149,7 +149,6 @@ const Propro = styled.div`
 
 const Pro1 = styled.div`
   margin-top: 8px;
-  text-align: left;
   color: #87838b;
   font-size: 1.1em;
 `;
@@ -296,46 +295,44 @@ const Product = () => {
       </Wrapper>
       <Wrapper>
         <InfoContainer>
-          <Infpro>Đánh giá sản phẩm</Infpro>
-          <InfoContainer>
-            <Ratepro>
-              <Percent>
-                <Txtratio>
-                  5
-                  <Txtratiochild>/5</Txtratiochild>
-                </Txtratio>
-                <Rate disabled defaultValue={5}></Rate>
-                <TxtRate>(0 đánh giá)</TxtRate>
-              </Percent>
-              <Percent>
-                <Percentchild>
-                  <Percentchild1>5 sao</Percentchild1>
-                  <Percentchild2></Percentchild2>
-                  <Percentchild3>100%</Percentchild3>
-                </Percentchild>
-                <Percentchild>
-                  <Percentchild1>4 sao</Percentchild1>
-                  <Percentchild2></Percentchild2>
-                  <Percentchild3>100%</Percentchild3>
-                </Percentchild>
-                <Percentchild>
-                  <Percentchild1>3 sao</Percentchild1>
-                  <Percentchild2></Percentchild2>
-                  <Percentchild3>100%</Percentchild3>
-                </Percentchild>
-                <Percentchild>
-                  <Percentchild1>2 sao</Percentchild1>
-                  <Percentchild2></Percentchild2>
-                  <Percentchild3>100%</Percentchild3>
-                </Percentchild>
-                <Percentchild>
-                  <Percentchild1>1 sao</Percentchild1>
-                  <Percentchild2></Percentchild2>
-                  <Percentchild3>100%</Percentchild3>
-                </Percentchild>
-              </Percent>
-            </Ratepro>
-          </InfoContainer>
+          <Infpro>Đánh giá sản phẩm</Infpro>  
+          <Ratepro>
+            <Percent>
+              <Txtratio>
+                5
+                <Txtratiochild>/5</Txtratiochild>
+              </Txtratio>
+              <Rate disabled defaultValue={5}></Rate>
+              <TxtRate>(0 đánh giá)</TxtRate>
+            </Percent>
+            <Percent>
+              <Percentchild>
+                <Percentchild1>5 sao</Percentchild1>
+                <Percentchild2></Percentchild2>
+                <Percentchild3>100%</Percentchild3>
+              </Percentchild>
+              <Percentchild>
+                <Percentchild1>4 sao</Percentchild1>
+                <Percentchild2></Percentchild2>
+                <Percentchild3>100%</Percentchild3>
+              </Percentchild>
+              <Percentchild>
+                <Percentchild1>3 sao</Percentchild1>
+                <Percentchild2></Percentchild2>
+                <Percentchild3>100%</Percentchild3>
+              </Percentchild>
+              <Percentchild>
+                <Percentchild1>2 sao</Percentchild1>
+                <Percentchild2></Percentchild2>
+                <Percentchild3>100%</Percentchild3>
+              </Percentchild>
+              <Percentchild>
+                <Percentchild1>1 sao</Percentchild1>
+                <Percentchild2></Percentchild2>
+                <Percentchild3>100%</Percentchild3>
+              </Percentchild>
+            </Percent>
+          </Ratepro>
           <ExampleComment>
             <ExampleComment></ExampleComment>
           </ExampleComment>
