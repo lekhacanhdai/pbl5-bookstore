@@ -15,11 +15,12 @@ import Detail from "./admin/pages/detail/Detail";
 import Profile from "./admin/pages/profile/Profile";
 import Comment from "./admin/pages/comment/Comment";
 import { userInputs } from "./admin/formSource";
-import { Routes, Route,BrowserRouter as Router } from 'react-router-dom';
+import { Routes, Route,BrowserRouter as Router, Switch } from 'react-router-dom';
 
 const App = () => {
   return (  
     <Router>
+      
         <Routes>
             <Route path="/login" element={<Login/>} />
             <Route path="/register" element={<Register/>} />
@@ -38,6 +39,7 @@ const App = () => {
             <Route path="/admin/product/new" element={<NewBook inputs={userInputs} title="Add new book"/>} />
             <Route path="/admin/user/new" element={<NewUser inputs={userInputs} title="Add new user"/>} />
         </Routes>
+      
     </Router>
   );
 };

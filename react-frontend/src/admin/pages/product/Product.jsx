@@ -12,8 +12,7 @@ const User = () => {
       <Sidebar/>
       <div className="listContainer">
         <Navbar/>
-        <Datatable/>
-        
+        <Datatable/>        
       </div>
     </div>
   )

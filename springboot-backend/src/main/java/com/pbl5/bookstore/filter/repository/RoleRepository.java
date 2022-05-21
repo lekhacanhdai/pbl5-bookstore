@@ -1,4 +1,4 @@
-package com.pbl5.bookstore.repository;
+package com.pbl5.bookstore.filter.repository;
 
 import com.pbl5.bookstore.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;

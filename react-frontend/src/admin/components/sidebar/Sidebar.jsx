@@ -13,7 +13,7 @@ const Sidebar = () => {
   return (
     <div className='sidebar'>
         <div className="top">
-            <Link to="/admin">
+            <Link to="/home">
                 <span className='logo'>BookStore</span>
             </Link>
         </div>
