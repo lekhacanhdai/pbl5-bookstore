@@ -26,4 +26,9 @@ public class CartServiceImpl implements CartService {
         return cartRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("Book not exist with id" + id));
     }
+
+    @Override
+    public long getCartIdByAccountId(long id) {
+        return cartRepository.getIdByAccountId(id).get(0);
+    }
 }

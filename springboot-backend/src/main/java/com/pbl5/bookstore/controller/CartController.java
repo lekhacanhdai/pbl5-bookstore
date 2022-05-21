@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/")
@@ -26,7 +27,6 @@ public class CartController {
 
     @Autowired
     private BookService bookService;
-
 
     @PostMapping("/carts")
     public ResponseEntity<Cart> addNewCart(@RequestBody Cart cart){
@@ -52,7 +52,8 @@ public class CartController {
 
     @GetMapping("/carts/{id}")
     public ResponseEntity<Cart> getCartById(@PathVariable long id){
-        return ResponseEntity.ok(cartService.findCartById(id));
+        long cartId = cartService.getCartIdByAccountId(id);
+        return ResponseEntity.ok(cartService.findCartById(cartId));
     }
 
 }

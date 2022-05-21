@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/token/refresh/**",
                         "/api/v1/books",
                         "/api/v1/books/{id}",
-                        "/api/v1/genres/")
+                        "/api/v1/genres/**")
                 .permitAll()
                 .and()
                 .authorizeRequests()
@@ -64,7 +64,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilter(authenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
