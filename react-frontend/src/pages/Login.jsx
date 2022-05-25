@@ -1,79 +1,146 @@
-import React from "react";
-import styled from "styled-components";
-import { mobile } from "../responsive";
+import axios from 'axios';
+import React from 'react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import Annoucement from '../components/Annoucement';
+import Navbar from '../components/Navbar';
+import Newsletter from '../components/Newsleter';
+
+const Wrapper = styled.div`
+  margin: 10px 10%;
+  padding: 10px 0px;
+  width: 80%;
+  background-color: #fff;
+  display: flex;
+`;
 
 const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100%;
+  /* background-color: #f5f5f5; */
   display: flex;
-  background-size: cover;
+  border-radius: 20px;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)
-    ),
-    url("https://media.baamboozle.com/uploads/images/14381/1620639865_121714.jpeg")
-      center;
 `;
-const Wrapper = styled.div`
-  border-radius: 20px;
-  width: 25%;
-  padding: 20px;
+const LoginFormContainer = styled.div`
+  width: 800px;
+  height: 400px;
+  display: flex;
+  border-radius: 10px;
+`;
+const Left = styled.div`
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: white;
-  box-shadow: 3px 10px 6px rgba(0,0,0,0.08);
-  ${mobile({ width:"75%"})};
-`;
-const Title = styled.h1`
-  font-size: 24px;
-  font-weight: 300;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 `;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  align-items: center;
+`;
+const Title1 = styled.h1`
+  font-size: 40px;
+  margin-bottom: 20px;
 `;
 const Input = styled.input`
-  flex: 1;
-  min-width: 40%;
-  margin: 10px 0px;
-  padding: 10px;
+  outline: none;
+  border: none;
+  width: 370px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #edf5f3;
+  margin: 5px 0;
+  font-size: 14px;
 `;
 const Button = styled.button`
-  border-radius: 25px;
-  width: 30%;
   border: none;
-  padding: 15px 20px;
-  background-color: teal;
+  margin-top: 20px;
+  outline: none;
+  padding: 12px 0;
+  background-color: #6fbff1;
   color: white;
+  border-radius: 20px;
+  width: 180px;
+  font-weight: bold;
+  font-size: 14px;
   cursor: pointer;
-  margin: 0px 37.5% 10px;
-  justify-content: center;
 `;
-const Link = styled.a`
-  margin: 5px 0px;
-  font-size: 12px;
-  text-decoration: underline;
-  cursor: pointer;
-  text-decoration: none;
-  text-align: right;
-  &:hover {
-    color: #446fdd;
-  }
+const Text = styled.p`
+  margin-top: 10px;
+`;
+const Text2 = styled.p`
+  margin-top: 10px;
+  color: #6fbff1;
+  font-weight: 500;
 `;
 const Login = () => {
+  const [user, setUser] = useState({ email: '', password: '' });
+
+  const handleChange = ({ currentTarget: Input }) => {
+    setUser({ ...user, [Input.name]: Input.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    axios
+      .post('http://localhost:8080/api/v1/login', null, { params: user })
+      .then((res) => {
+        if (res.data.access_token) {
+          localStorage.setItem('user', JSON.stringify(res.data));
+          window.location = '/';
+        }
+      });
+  };
+
   return (
-    <Container>
+    <div style={{ backgroundColor: 'lightgray', padding: '10px 0px' }}>
+      <Annoucement/>
+      <Navbar/>
       <Wrapper>
-        <Title>SIGN IN</Title>
-        <Form>
-          <Input placeholder="Username" />
-          <Input placeholder="Password" />
-          <Button>LOGIN</Button>
-          <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
-        </Form>
+        <Container>
+          <LoginFormContainer>
+            <Left>
+              <Form onSubmit={handleSubmit}>
+                <Title1>Login</Title1>
+                <Input
+                  type="email"
+                  placeholder="Email"
+                  name="email"
+                  onChange={handleChange}
+                  value={user.email}
+                  required
+                />
+                <Input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  onChange={handleChange}
+                  value={user.password}
+                  required
+                />
+                <Button>Login</Button>
+                <Text>Do not have an account, </Text>
+                <Link
+                  to="/register"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <Text2>SIGN UP</Text2>
+                </Link>
+              </Form>
+            </Left>
+          </LoginFormContainer>
+        </Container>
       </Wrapper>
-    </Container>
+      <Newsletter/>
+      <Navbar/>
+    </div>
   );
 };
 

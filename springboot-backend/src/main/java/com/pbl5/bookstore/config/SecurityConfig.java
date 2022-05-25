@@ -48,13 +48,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/token/refresh/**",
                         "/api/v1/books",
                         "/api/v1/books/{id}",
-                        "/api/v1/genres/**")
+                        "/api/v1/genres/**",
+                        "/api/v1/authors",
+                        "/api/v1/publishers")
                 .permitAll()
                 .and()
                 .authorizeRequests()
+
+                .antMatchers("/api/v1/registration/**","/api/v1/login/**", "/api/v1/token/refresh/**", "/api/v1/books/**", "/api/v1/accounts/**", "/admin/api/v1/accounts/**", "/admin/api/v1/books/**").permitAll()
+
                 .antMatchers(HttpMethod.GET,"/api/v1/books/**",
                         "/api/v1/carts/{id}/**",
-                        "/api/v1/books/add-to-cart/{id}/**").hasAuthority("ROLE_USER")
+                        "/api/v1/books/add-to-cart/{id}/**",
+                        "api/v1/cart-details/**")
+                .hasAuthority("ROLE_USER")
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/api/v1/books/**").hasAuthority("ROLE_USER")
