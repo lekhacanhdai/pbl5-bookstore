@@ -2,7 +2,11 @@
     border-right: 0.5px solid rgb(140, 135, 135) ;
     min-height: 100vh;
     width: 200px;
-        
+    
+    a{
+        text-decoration: none;
+    }
+
     .top{
         height: 60px;
         display: flex;

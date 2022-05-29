@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.ToString;
 
 @AllArgsConstructor
-@Getter
 @EqualsAndHashCode
 @ToString
 public class RequestNewAccountDTO {
@@ -18,4 +17,36 @@ public class RequestNewAccountDTO {
     private String address;
     private String phoneNumber;
     private String roleName; // ROLE_USER or ROLE_ADMIN
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
 }

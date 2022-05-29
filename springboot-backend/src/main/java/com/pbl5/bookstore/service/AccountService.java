@@ -19,4 +19,8 @@ public interface AccountService extends UserDetailsService {
     int enableAccount(String email);
 
     Account findAccountByEmail(String email);
+
+    String resetPassword(String email);
+
+    Account changePassword(long id, String password);
 }

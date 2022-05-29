@@ -108,4 +108,21 @@ public class AccountController {
         }
     }
 
+    // api reset password
+
+    @PutMapping("/accounts/reset-password")
+    public ResponseEntity<Map<String , String>> resetPassword(@RequestParam("email") String email){
+        Map<String, String> result = new HashMap<>();
+        String reseted = accountService.resetPassword(email);
+        result.put("status", reseted);
+
+        return ResponseEntity.ok(result);
+    }
+
+    @PutMapping("/accounts/change-password/{id}")
+    public ResponseEntity<Account> changePassword(@PathVariable long id, @RequestBody String password){
+        Account account = accountService.changePassword(id, password);
+        return ResponseEntity.ok(account);
+    }
+
 }

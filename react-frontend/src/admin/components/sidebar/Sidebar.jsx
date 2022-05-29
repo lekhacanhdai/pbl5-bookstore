@@ -13,7 +13,7 @@ const Sidebar = () => {
   return (
     <div className='sidebar'>
         <div className="top">
-            <Link to="/admin">
+            <Link to="/">
                 <span className='logo'>BookStore</span>
             </Link>
         </div>
@@ -59,7 +59,7 @@ const Sidebar = () => {
                         <span>Profile</span>
                     </li>
                 </Link>
-                <Link to="/home" className="link">
+                <Link to="/" className="link">
                     <li>
                         <LoginOutlinedIcon className='icon' />
                         <span>Logout</span>
