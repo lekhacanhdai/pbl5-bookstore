@@ -1,16 +1,11 @@
 package com.pbl5.bookstore;
 
 
-import com.pbl5.bookstore.model.Author;
-import com.pbl5.bookstore.model.Book;
-import com.pbl5.bookstore.model.Publisher;
 import com.pbl5.bookstore.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.Date;
 
 @SpringBootApplication
 public class SpringbootBackendApplication implements CommandLineRunner {

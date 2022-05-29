@@ -53,7 +53,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
 
-                .antMatchers("/api/v1/registration/**","/api/v1/login/**", "/api/v1/token/refresh/**", "/api/v1/books/**", "/api/v1/accounts/**", "/admin/api/v1/accounts/**", "/admin/api/v1/books/**").permitAll()
+                .antMatchers("/api/v1/registration/**",
+                        "/api/v1/login/**",
+                        "/api/v1/token/refresh/**",
+                        "/api/v1/books/**",
+                        "/api/v1/accounts/**",
+                        "/admin/api/v1/accounts/**",
+                        "/admin/api/v1/books/**",
+                        "/admin/api/v1/publishers/**").permitAll()
 
                 .antMatchers(HttpMethod.GET,"/api/v1/books/**",
                         "/api/v1/carts/{id}/**",
