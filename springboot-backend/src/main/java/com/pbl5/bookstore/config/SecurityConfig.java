@@ -51,7 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/genres/**",
                         "/api/v1/authors",
                         "/api/v1/publishers",
-                        "/image/**")
+                        "/image/**",
+                        "/api/v1/accounts/reset-password")
                 .permitAll()
                 .and()
                 .authorizeRequests()
