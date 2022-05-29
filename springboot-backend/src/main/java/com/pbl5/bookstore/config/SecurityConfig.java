@@ -64,7 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/accounts/**",
                         "/admin/api/v1/accounts/**",
                         "/admin/api/v1/books/**",
-                        "/admin/api/v1/publishers/**").permitAll()
+                        "/admin/api/v1/publishers/**",
+                        "/admin/api/v1/genres/**").permitAll()
 
                 .antMatchers(HttpMethod.GET,"/api/v1/books/**",
                         "/api/v1/carts/{id}/**",
