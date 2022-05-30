@@ -2,7 +2,7 @@ package com.pbl5.bookstore.serviceadmin.impl;
 
 import com.pbl5.bookstore.exception.ResourceNotFoundException;
 import com.pbl5.bookstore.model.Book;
-import com.pbl5.bookstore.repository.BookRepository;
+import com.pbl5.bookstore.filter.repository.BookRepository;
 import com.pbl5.bookstore.serviceadmin.BookAdminService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

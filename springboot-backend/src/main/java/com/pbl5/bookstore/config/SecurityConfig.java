@@ -48,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/token/refresh/**",
                         "/api/v1/books",
                         "/api/v1/books/{id}",
-                        "/api/v1/genres/")
+                        "/api/v1/genres/",
+                        "/api/v1/authors")
                 .permitAll()
                 .and()
                 .authorizeRequests()
