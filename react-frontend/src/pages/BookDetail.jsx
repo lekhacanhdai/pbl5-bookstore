@@ -171,7 +171,7 @@ const Product = () => {
     axios
       .get('http://localhost:8080/api/v1/books/' + id)
       .then((res) => {
-        console.log(res);
+        console.log(res)
         setBook(res.data);
         setAuthor(res.data.author);
         setGenre(res.data.genre);
@@ -190,6 +190,7 @@ const Product = () => {
       setQuantity(quantity + 1);
     }
   };
+  
   const handleClick = () => {
     let carts = [];
     if (localStorage.getItem('carts')) {

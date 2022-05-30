@@ -1,46 +1,84 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { bookRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import BookService from "../../../service/BookService";
+import { useLocation } from 'react-router-dom';
+import axios from "axios";
 
 const DatatableBooks = () => {
-
   const [books, setBooks] = useState([]);
-  // const [data, setData] = useState([]);
-  
+  const location = useLocation();
+  const id = location.pathname.split('/')[2];
+  const [item, setItem] = useState([]);
+
   useEffect(() => {
-    BookService.getAllBook()
-    .then(res => {
-      setBooks(res.data)
-      console.log(res.data)
+    BookService.getAllBookAdmin()
+      .then((res) => {
+        console.log(res.data);
+        setBooks(
+          res.data.map((obj) => ({
+            id: obj.id,
+            title: obj.title,
+            publiccationDate: obj.publiccationDate,
+            price: obj.price,
+            companyName: obj.author.companyName,
+          }))
+        );
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    books.forEach((book) => {
+      book.publiccationDate = book.publiccationDate.substring(0, 10);
+    });
+  }, [books]);
+
+  const handleView = () => {
+    axios.get('http://localhost:8080/api/v1/books/' + id)
+    .then((res) => {
+      console.log(res);
+      localStorage.setItem("bookTitle",res.data.title);
+      localStorage.setItem("bookPrice",res.data.price)
+      localStorage.setItem("bookpublicationDate",res.data.publicationDate)
+      localStorage.setItem("bookid",res.data.id)
+      localStorage.setItem("bookAuthor",res.data.author.companyName)
     })
-    .catch((err) => console.log(err))
-  },[])
+    // let book = [];
+    // if(localStorage.getItem('book')){
+    // };
+  }
 
-
-  // {books.map((book) => {
-  //   field: {book.id},
-  //   headerName: {}
-  // })}
-  
   const handleDelete = (id) => {
     setBooks(books.filter((item) => item.id !== id));
   };
 
+  // const handleDelete = (id) => {
+  //   const url = `/${id}`;
+  //   axios.delete(url)
+  //   .then(res => {
+  //     console.log(res);
+  //     const data = books.filter((book) => {
+  //       return book.id !== id
+  //     });
+  //     setBooks(data)
+  //   })
+  // }
+
   const bookColumns = [
-    { 
-      field: "id", 
-      headerName: "ID", 
-      width: 70 },
+    {
+      field: "id",
+      headerName: "ID",
+      width: 70,
+    },
     {
       field: "title",
       headerName: "Title",
       width: 350,
     },
     {
-      field: "email",
+      field: "publiccationDate",
       headerName: "Publication date",
       width: 230,
     },
@@ -50,7 +88,7 @@ const DatatableBooks = () => {
       width: 100,
     },
     {
-      field: "author",
+      field: `companyName`,
       headerName: "Author",
       width: 230,
     },
@@ -63,25 +101,28 @@ const DatatableBooks = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/admin/product/detail" >
-              <div className="viewButton">View</div>
-            </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
-            >
-              Delete
-            </div>
+              <Link to={`/admin/books/${books.id}`} >
+                <div className="viewButton" onClick={() => handleView()}>
+                  View
+                </div>
+              </Link>
+              <div
+                className="deleteButton"
+                onClick={() => handleDelete(params.row.id)}
+              >
+                Delete
+              </div>
           </div>
         );
       },
     },
   ];
+
   return (
     <div className="datatable">
       <div className="datatableTitle">
         Add New Book
-        <Link to="/admin/product/new" className="link">
+        <Link to="/admin/books/new" className="link">
           Add New
         </Link>
       </div>

@@ -1,18 +1,22 @@
 import axios from 'axios';
 
-const BOOK_API_BASE_URL = "http://localhost:8080/api/v1"
+const BOOK_API_BASE_URL = "http://localhost:8080"
 
 class BookService{
-    getAllBook(){
-        return axios.get(BOOK_API_BASE_URL + '/books' );
+    getAllBookAdmin(){
+        return axios.get(BOOK_API_BASE_URL + '/admin/api/v1/books' );
     }
     
-    getBookbyId(idBook){
-        return axios.get(BOOK_API_BASE_URL + '/books?id=' + idBook )
+    getBookbyIdAdmin(idBook){
+        return axios.get(BOOK_API_BASE_URL + '/admin/api/v1/books/' + idBook )
     }
 
-    getPublisherbyId(idPublisher){
-        return axios.get(BOOK_API_BASE_URL + '/publishers=' + idPublisher )
+    getAllAuthor(){
+        return axios.get(BOOK_API_BASE_URL + '/authors')
+    }
+
+    getAuthorbyId(idAuthor){
+        return axios.get(BOOK_API_BASE_URL + '/idAuthor/{' + idAuthor  + '}')
     }
 
     getAllUser(){

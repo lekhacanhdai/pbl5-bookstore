@@ -28,7 +28,11 @@
     .link{
         font-size: 12px;
         width: max-content;
-        border-bottom: 1px solid gray;
+
+        .link-item{
+            text-decoration: none;
+            color: black;
+        }
     }
 
     .percentage{
