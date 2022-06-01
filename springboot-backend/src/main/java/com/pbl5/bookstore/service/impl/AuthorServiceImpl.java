@@ -2,7 +2,7 @@ package com.pbl5.bookstore.service.impl;
 
 import com.pbl5.bookstore.exception.ResourceNotFoundException;
 import com.pbl5.bookstore.model.Author;
-import com.pbl5.bookstore.filter.repository.AuthorRepository;
+import com.pbl5.bookstore.repository.AuthorRepository;
 import com.pbl5.bookstore.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

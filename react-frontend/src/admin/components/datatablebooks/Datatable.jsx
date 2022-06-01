@@ -36,15 +36,15 @@ const DatatableBooks = () => {
   }, [books]);
 
   const handleView = () => {
-    axios.get('http://localhost:8080/api/v1/books/' + id)
-    .then((res) => {
-      console.log(res);
-      localStorage.setItem("bookTitle",res.data.title);
-      localStorage.setItem("bookPrice",res.data.price)
-      localStorage.setItem("bookpublicationDate",res.data.publicationDate)
-      localStorage.setItem("bookid",res.data.id)
-      localStorage.setItem("bookAuthor",res.data.author.companyName)
-    })
+    // axios.get('http://localhost:8080/api/v1/books/' + id)
+    // .then((res) => {
+    //   console.log(res);
+    //   localStorage.setItem("bookTitle",res.data.title);
+    //   localStorage.setItem("bookPrice",res.data.price)
+    //   localStorage.setItem("bookpublicationDate",res.data.publicationDate)
+    //   localStorage.setItem("bookid",res.data.id)
+    //   localStorage.setItem("bookAuthor",res.data.author.companyName)
+    // })
     // let book = [];
     // if(localStorage.getItem('book')){
     // };
@@ -96,7 +96,7 @@ const DatatableBooks = () => {
   const actionColumn = [
     {
       field: "action",
-      headerName: "Action",
+      headerName: "Hành động",
       width: 150,
       renderCell: (params) => {
         return (

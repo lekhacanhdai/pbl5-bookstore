@@ -1,12 +1,12 @@
-import "./widget.scss"
-import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
-import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+import "./widget.scss";
+import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import { Link } from "react-router-dom";
 
-const Widget = ( {type} ) => {
+const Widget = ({ type }) => {
   let data;
 
   const amount = 100;
@@ -14,13 +14,12 @@ const Widget = ( {type} ) => {
 
   switch (type) {
     case "user":
-        data = {
-        title: "USERS",
+      data = {
+        title: "NGƯỜI DÙNG",
         isMoney: false,
         link: (
-          <Link 
-            className="link-item"
-            to="user">See all user
+          <Link className="link-item" to="user">
+            Xem tất cả
           </Link>
         ),
         icon: (
@@ -36,12 +35,11 @@ const Widget = ( {type} ) => {
       break;
     case "order":
       data = {
-        title: "ORDERS",
+        title: "ĐƠN HÀNG",
         isMoney: false,
         link: (
-          <Link 
-            className="link-item"
-            to="order">View all order
+          <Link className="link-item" to="order">
+            Xem tất cả
           </Link>
         ),
         icon: (
@@ -55,14 +53,13 @@ const Widget = ( {type} ) => {
         ),
       };
       break;
-    case "earning":
+    case "renvenue":
       data = {
-        title: "EARNINGS",
+        title: "DOANH THU",
         isMoney: true,
         link: (
-          <Link 
-            className="link-item"
-            to="revenue">View all earning
+          <Link className="link-item" to="revenue">
+            Xem tất cả
           </Link>
         ),
         icon: (
@@ -73,14 +70,13 @@ const Widget = ( {type} ) => {
         ),
       };
       break;
-    case "balance":
+    case "books":
       data = {
-        title: "BALANCE",
+        title: "SÁCH",
         isMoney: true,
         link: (
-          <Link 
-            className="link-item"
-            to="balance">View all balance
+          <Link className="link-item" to="books">
+            Xem tất cả
           </Link>
         ),
         icon: (
@@ -97,7 +93,7 @@ const Widget = ( {type} ) => {
     default:
       break;
   }
-  
+
   return (
     <div className="widget">
       <div className="left">
@@ -118,7 +114,4 @@ const Widget = ( {type} ) => {
   );
 };
 
-  
 export default Widget;
-
-

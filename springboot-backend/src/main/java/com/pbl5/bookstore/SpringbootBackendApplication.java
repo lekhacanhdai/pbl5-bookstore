@@ -1,7 +1,7 @@
 package com.pbl5.bookstore;
 
 
-import com.pbl5.bookstore.filter.repository.PublisherRepository;
+import com.pbl5.bookstore.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

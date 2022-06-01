@@ -1,7 +1,7 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import './datatalble.scss';
+import './datatable.scss';
 
 const DatatableRevenue = () => {
 
@@ -118,7 +118,7 @@ const DatatableRevenue = () => {
   const actionColumn = [
     {
       field: "action",
-      headerName: "Action",
+      headerName: "Hành động",
       width: 200,
       renderCell: (params) => {
         return (

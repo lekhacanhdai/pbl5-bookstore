@@ -99,13 +99,8 @@ const DatatableUsers = () => {
       width: 250,
     },
     {
-      field: "age",
-      headerName: "Age",
-      width: 100,
-    },
-    {
       field: "password",
-      headerName: "Password",
+      headerName: "Mật khẩu",
       width: 200,
     },
   ];
@@ -119,7 +114,7 @@ const DatatableUsers = () => {
   const actionColumn = [
     {
       field: "action",
-      headerName: "Action",
+      headerName: "Hành động",
       width: 200,
       renderCell: (params) => {
         return (

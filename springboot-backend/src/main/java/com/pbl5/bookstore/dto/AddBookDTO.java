@@ -10,6 +10,6 @@ import lombok.*;
 @EqualsAndHashCode
 public class AddBookDTO {
     private Long bookId;
-    private Long cartId;
+    private Long accountId;
     private int quantity;
 }

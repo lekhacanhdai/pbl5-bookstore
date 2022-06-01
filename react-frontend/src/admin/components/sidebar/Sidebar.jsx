@@ -7,6 +7,9 @@ import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import NotificationsActiveOutlinedIcon from "@mui/icons-material/NotificationsActiveOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import HomeWorkIcon from '@mui/icons-material/HomeWork';
+import CategoryIcon from '@mui/icons-material/Category';
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -23,31 +26,49 @@ const Sidebar = () => {
           <Link to="/admin" className="link">
             <li>
               <DashboardIcon className="icon" />
-              <span>Dashboard</span>
+              <span>Bảng kiểm duyệt</span>
             </li>
           </Link>
           <Link to="/admin/user" className="link">
             <li>
               <PersonOutlineOutlinedIcon className="icon" />
-              <span>User</span>
+              <span>Quản lí người dùng</span>
+            </li>
+          </Link>
+          <Link to="/admin/genres" className="link">
+            <li>
+              <CategoryIcon className="icon" />
+              <span>Quản lí danh mục</span>
             </li>
           </Link>
           <Link to="/admin/books" className="link">
             <li>
               <MenuBookOutlinedIcon className="icon" />
-              <span>Products</span>
+              <span>Quản lí sách</span>
+            </li>
+          </Link>
+          <Link to="/admin/authors" className="link">
+            <li>
+              <BorderColorIcon className="icon" />
+              <span>Quản lí tác giả</span>
+            </li>
+          </Link>
+          <Link to="/admin/publishers" className="link">
+            <li>
+              <HomeWorkIcon className="icon" />
+              <span>Quản lí nhà xuất bản</span>
             </li>
           </Link>
           <Link to="/admin/order" className="link">
             <li>
               <TwoWheelerOutlinedIcon className="icon" />
-              <span>Orders</span>
+              <span>Quản lí đơn hàng</span>
             </li>
           </Link>
           <Link to="/admin/revenue" className="link">
             <li>
               <MonetizationOnIcon className="icon" />
-              <span>Revenue</span>
+              <span>Quản lí doanh thu</span>
             </li>
           </Link>
           <Link to="/admin/comment" className="link">
@@ -60,7 +81,7 @@ const Sidebar = () => {
           <Link to="/admin/profile" className="link">
             <li>
               <AccountCircleOutlinedIcon className="icon" />
-              <span>Profile</span>
+              <span>Thông tin</span>
             </li>
           </Link>
         </ul>

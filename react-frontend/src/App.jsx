@@ -19,6 +19,9 @@ import Detail from "./admin/pages/detailbook/Detail";
 import Profile from "./admin/pages/profile/Profile";
 import Comment from "./admin/pages/comment/Comment";
 import Revenue from "./admin/pages/revenue/Revenue";
+import AdminAuthors from "./admin/pages/authors/Author";
+import AdminPublishers from "./admin/pages/publishers/Publisher";
+import AdminGenre from "./admin/pages/genre/Genre";
 import { userInputs } from "./admin/formSource";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 
@@ -37,6 +40,9 @@ const App = () => {
         <Route path="/admin/user" element={<User />} />
         <Route path="/admin/order" element={<Order />} />
         <Route path="/admin/books" element={<ProductAdmin />} />
+        <Route path="/admin/authors" element={<AdminAuthors />} />
+        <Route path="/admin/publishers" element={<AdminPublishers />} />
+        <Route path="/admin/genres" element={<AdminGenre />} />
         <Route path="/admin/revenue" element={<Revenue />} />
         <Route path="/admin/books/:id" element={<Detail />} />
         <Route path="/admin/profile" element={<Profile />} />

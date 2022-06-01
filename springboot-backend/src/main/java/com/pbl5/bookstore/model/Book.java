@@ -87,5 +87,4 @@ public class Book {
         this.image = image;
     }
 
-
 }

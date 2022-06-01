@@ -12,11 +12,15 @@ class BookService{
     }
 
     getAllAuthor(){
-        return axios.get(BOOK_API_BASE_URL + '/authors')
+        return axios.get(BOOK_API_BASE_URL + '/admin/api/v1/authors');
     }
 
-    getAuthorbyId(idAuthor){
-        return axios.get(BOOK_API_BASE_URL + '/idAuthor/{' + idAuthor  + '}')
+    getAllPublisher(){
+        return axios.get(BOOK_API_BASE_URL + '/admin/api/v1/publishers');
+    }
+
+    getAuthorbyId(id){
+        return axios.get(BOOK_API_BASE_URL + '/admin/api/v1/authors/' + id )
     }
 
     getAllUser(){
@@ -25,6 +29,18 @@ class BookService{
 
     getUserById(idUser){
         return axios.get(BOOK_API_BASE_URL + '/user?id=' + idUser)
+    }
+
+    getAllGenre(){
+        return axios.get(BOOK_API_BASE_URL+ './admin/api/v1/genres')
+    }
+
+    postNewAuthor(){
+        return axios.post(BOOK_API_BASE_URL + '/admin/api/v1/authors')
+    }
+
+    putUpdateAuthor(id){
+        return axios.put(BOOK_API_BASE_URL + '/admin/api/v1/authors' + id);
     }
 
 }

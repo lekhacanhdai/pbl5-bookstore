@@ -48,17 +48,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/token/refresh/**",
                         "/api/v1/books",
                         "/api/v1/books/{id}",
-                        "/api/v1/genres/",
-                        "/api/v1/authors")
+                        "/api/v1/genres/**",
+                        "/api/v1/authors",
+                        "/api/v1/publishers",
+                        "/image/**",
+                        "/api/v1/accounts/reset-password")
                 .permitAll()
                 .and()
                 .authorizeRequests()
 
-                .antMatchers("/api/v1/registration/**","/api/v1/login/**", "/api/v1/token/refresh/**", "/api/v1/books/**", "/api/v1/accounts/**", "/admin/api/v1/accounts/**", "/admin/api/v1/books/**").permitAll()
+                .antMatchers("/api/v1/registration/**",
+                        "/api/v1/login/**",
+                        "/api/v1/token/refresh/**",
+                        "/api/v1/books/**",
+                        "/api/v1/accounts/**",
+                        "/admin/api/v1/accounts/**",
+                        "/admin/api/v1/books/**",
+                        "/admin/api/v1/publishers/**",
+                        "/admin/api/v1/genres/**",
+                        "/admin/api/v1/authors/**").permitAll()
 
                 .antMatchers(HttpMethod.GET,"/api/v1/books/**",
                         "/api/v1/carts/{id}/**",
-                        "/api/v1/books/add-to-cart/{id}/**").hasAuthority("ROLE_USER")
+                        "/api/v1/books/add-to-cart/{id}/**",
+                        "api/v1/cart-details/**",
+                        "api/v1/users/**")
+                .hasAuthority("ROLE_USER")
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/api/v1/books/**").hasAuthority("ROLE_USER")
@@ -68,7 +83,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilter(authenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -85,4 +99,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }
 }
-
