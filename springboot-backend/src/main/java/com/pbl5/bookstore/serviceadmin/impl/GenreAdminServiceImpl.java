@@ -4,7 +4,6 @@ import com.pbl5.bookstore.exception.ResourceNotFoundException;
 import com.pbl5.bookstore.model.Genre;
 import com.pbl5.bookstore.repository.GenreRepository;
 import com.pbl5.bookstore.serviceadmin.GenreAdminService;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
