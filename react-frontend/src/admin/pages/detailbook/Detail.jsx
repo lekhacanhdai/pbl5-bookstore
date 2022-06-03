@@ -95,9 +95,9 @@ const Detail = () => {
                 <ul>
                   <li>
                     <span>Tên nhà cung cấp</span>
-                    <input type="text" 
-                    onChange={handleChange}
-                          
+                    <input 
+                      type="text" 
+                      onChange={handleChange}     
                     />
                   </li>
                   <li>

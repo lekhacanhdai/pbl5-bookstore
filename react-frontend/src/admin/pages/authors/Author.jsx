@@ -1,7 +1,7 @@
 import "./author.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Narbav"
-import Datatable from "../../components/datatableauthor/Datatable"
+import Datatable from "../../components/author/datatableauthor/Datatable"
 
 const Author = () => {
   return (

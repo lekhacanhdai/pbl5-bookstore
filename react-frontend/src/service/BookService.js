@@ -1,7 +1,13 @@
 import axios from 'axios';
 
 const BOOK_API_BASE_URL = "http://localhost:8080"
-
+var config = {
+    headers: {
+        authorization: ' JWT fefege...' ,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+    }   
+};
 class BookService{
     getAllBookAdmin(){
         return axios.get(BOOK_API_BASE_URL + '/admin/api/v1/books' );
@@ -32,11 +38,11 @@ class BookService{
     }
 
     getAllGenre(){
-        return axios.get(BOOK_API_BASE_URL+ './admin/api/v1/genres')
+        return axios.get(BOOK_API_BASE_URL+ '/admin/api/v1/genres')
     }
 
-    postNewAuthor(){
-        return axios.post(BOOK_API_BASE_URL + '/admin/api/v1/authors')
+    postNewAuthor(author){
+        return axios.post(BOOK_API_BASE_URL + '/admin/api/v1/authors', author,  config)
     }
 
     putUpdateAuthor(id){

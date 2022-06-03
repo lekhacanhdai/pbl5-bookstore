@@ -1,7 +1,7 @@
 import "./publisher.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Narbav"
-import Datatable from "../../components/datatablepublisher/Datatable"
+import Datatable from "../../components/publisher/datatablepublisher/Datatable"
 
 const Publisher = () => {
   return (

@@ -15,6 +15,7 @@
     "@testing-library/user-event": "^12.1.10",
     "antd": "^4.19.5",
     "axios": "^0.26.1",
+    "cors": "^2.8.5",
     "hoist-non-react-statics": "^3.3.2",
     "node-sass": "^6.0.1",
     "reacharts": "^0.4.5",

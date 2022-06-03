@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const DatatableUsers = () => {
-
   const userRows = [
     {
       id: 1,
@@ -71,7 +70,7 @@ const DatatableUsers = () => {
     },
     {
       id: 10,
-      username: "Roxie",  
+      username: "Roxie",
       img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
       email: "snow@gmail.com",
       age: 65,
@@ -79,11 +78,11 @@ const DatatableUsers = () => {
   ];
 
   const userColumns = [
-    { field: "id", headerName: "ID", width: 70 },
+    { field: "id", headerName: "ID", flex: 0.5 },
     {
       field: "user",
-      headerName: "User",
-      width: 250,
+      headerName: "Người dùng",
+      flex: 4,
       renderCell: (params) => {
         return (
           <div className="cellWithImg">
@@ -96,15 +95,15 @@ const DatatableUsers = () => {
     {
       field: "email",
       headerName: "Email",
-      width: 250,
+      flex: 5.5
     },
     {
       field: "password",
       headerName: "Mật khẩu",
-      width: 200,
+      flex: 3
     },
   ];
-  
+
   const [data, setData] = useState(userRows);
 
   const handleDelete = (id) => {
@@ -115,11 +114,11 @@ const DatatableUsers = () => {
     {
       field: "action",
       headerName: "Hành động",
-      width: 200,
+      flex: 1.5,
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/admin/user/single" >
+            <Link to="/admin/user/single">
               <div className="viewButton">View</div>
             </Link>
             <div
@@ -134,13 +133,12 @@ const DatatableUsers = () => {
     },
   ];
 
-
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New User
+        Thêm người dùng
         <Link to="/admin/user/new" className="link">
-          Add New
+          Thêm
         </Link>
       </div>
       <DataGrid

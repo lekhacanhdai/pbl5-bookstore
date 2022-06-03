@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
-import "./newauthor.scss";
+import "./detailauthor.scss";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-import AddIcon from '@mui/icons-material/Add';
-import BookService from '../../../service/BookService';
+import UpgradeIcon from "@mui/icons-material/Upgrade";
+import BookService from '../../../../service/BookService';
 
-const NewAuthor = ({closeModal}) => {
+
+const DetailAuthor = ({closeModal}) => {
 
     const [author, setAuthor] = useState([]);
 
     useEffect(() => {
-        
-        BookService.postNewAuthor()
+        BookService.getAuthorbyId()
         .then((res) => {
-
+            setAuthor(res.data);
+            console.log(res.data)
         })
         .catch((err) => console.log(err))
     },[])
@@ -27,7 +28,7 @@ const NewAuthor = ({closeModal}) => {
             </span>
             <div className="modal-header">
                 <BorderColorIcon className='icon-header'/>
-                Thêm Tác giả
+                Cập nhật tác giả
             </div>
             <div className="modal-body">
                 <div className="modal-form">
@@ -51,8 +52,8 @@ const NewAuthor = ({closeModal}) => {
                     <input type="text" name='companyName' className='modal-input'/>
                 </div>
                 <div className="button">
-                    <button className='add-author'>
-                    <AddIcon className='icon-add'/>Thêm</button>
+                    <button className='update-author'>
+                    <UpgradeIcon className='icon-update'/>Cập nhật</button>
                 </div>
             </div>
         </div>
@@ -60,4 +61,4 @@ const NewAuthor = ({closeModal}) => {
   )
 }
 
-export default NewAuthor
+export default DetailAuthor

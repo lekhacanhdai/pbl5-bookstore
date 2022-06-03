@@ -3,13 +3,13 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import BookService from "../../../service/BookService";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 const DatatableBooks = () => {
   const [books, setBooks] = useState([]);
   const location = useLocation();
-  const id = location.pathname.split('/')[2];
+  const id = location.pathname.split("/")[2];
   const [item, setItem] = useState([]);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const DatatableBooks = () => {
     // let book = [];
     // if(localStorage.getItem('book')){
     // };
-  }
+  };
 
   const handleDelete = (id) => {
     setBooks(books.filter((item) => item.id !== id));
@@ -70,48 +70,54 @@ const DatatableBooks = () => {
     {
       field: "id",
       headerName: "ID",
-      width: 70,
+      // width: 70,
+      flex: 0.5
     },
     {
       field: "title",
-      headerName: "Title",
-      width: 350,
-    },
-    {
-      field: "publiccationDate",
-      headerName: "Publication date",
-      width: 230,
-    },
-    {
-      field: "price",
-      headerName: "Price",
-      width: 100,
+      headerName: "Tiêu đề",
+      // width: 350,
+      flex: 5
     },
     {
       field: `companyName`,
-      headerName: "Author",
-      width: 230,
+      headerName: "Tác giả",
+      // width: 230,
+      flex: 3
+    },
+    {
+      field: "publiccationDate",
+      headerName: "Ngày xuất bản",
+      // width: 230,
+      flex: 2.5
+    },
+    {
+      field: "price",
+      headerName: "Giá thành",
+      // width: 2,
+      flex: 2
     },
   ];
   const actionColumn = [
     {
       field: "action",
       headerName: "Hành động",
-      width: 150,
+      // width: 150,
+      flex: 1.5,
       renderCell: (params) => {
         return (
           <div className="cellAction">
-              <Link to={`/admin/books/${books.id}`} >
-                <div className="viewButton" onClick={() => handleView()}>
-                  View
-                </div>
-              </Link>
-              <div
-                className="deleteButton"
-                onClick={() => handleDelete(params.row.id)}
-              >
-                Delete
+            <Link to={`/admin/books/${books.id}`}>
+              <div className="viewButton" onClick={() => handleView()}>
+                View
               </div>
+            </Link>
+            <div
+              className="deleteButton"
+              onClick={() => handleDelete(params.row.id)}
+            >
+              Delete
+            </div>
           </div>
         );
       },
@@ -121,9 +127,9 @@ const DatatableBooks = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New Book
+        Thêm sách
         <Link to="/admin/books/new" className="link">
-          Add New
+          Thêm
         </Link>
       </div>
       <DataGrid

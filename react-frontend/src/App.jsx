@@ -50,11 +50,11 @@ const App = () => {
         <Route path="/admin/comment" element={<Comment />} />
         <Route
           path="/admin/books/new"
-          element={<NewBook inputs={userInputs} title="Add new book" />}
+          element={<NewBook inputs={userInputs} title="Thêm sách" />}
         />
         <Route
           path="/admin/user/new"
-          element={<NewUser inputs={userInputs} title="Add new user" />}
+          element={<NewUser inputs={userInputs} title="Thêm người dùng" />}
         />
       </Routes>
     </Router>
