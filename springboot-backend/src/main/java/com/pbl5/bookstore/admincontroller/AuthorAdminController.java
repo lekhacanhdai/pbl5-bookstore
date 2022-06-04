@@ -21,6 +21,11 @@ public class AuthorAdminController {
         return ResponseEntity.ok(authorAdminService.getAllAuthors());
     }
 
+    @GetMapping("/authors/{id}")
+    private ResponseEntity<Author> getAuthorById(@PathVariable long id){
+        return ResponseEntity.ok(authorAdminService.findAuthorById(id));
+    }
+
     @PostMapping("/authors")
     private ResponseEntity<Author> saveAuthor(@RequestBody Author author){
         return ResponseEntity.ok(authorAdminService.saveAuthor(author));
@@ -43,4 +48,5 @@ public class AuthorAdminController {
         response.put("deleted", true);
         return ResponseEntity.ok(response);
     }
+
 }

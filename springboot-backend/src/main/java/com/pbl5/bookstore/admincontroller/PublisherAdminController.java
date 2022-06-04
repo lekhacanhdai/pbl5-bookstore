@@ -22,6 +22,11 @@ public class PublisherAdminController {
         return ResponseEntity.ok(publisherAdminService.getAllPublisher());
     }
 
+    @GetMapping("/publishers/{id}")
+    private ResponseEntity<Publisher> getPublisherById(@PathVariable long id){
+        return ResponseEntity.ok(publisherAdminService.findPublisherById(id));
+    }
+
     @PostMapping("/publishers")
     private  ResponseEntity<Publisher> createPublisher(@RequestBody Publisher publisher){
         return ResponseEntity.ok(publisherAdminService.savePublisher(publisher));

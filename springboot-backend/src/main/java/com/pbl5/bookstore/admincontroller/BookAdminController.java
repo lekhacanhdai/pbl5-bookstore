@@ -21,6 +21,11 @@ public class BookAdminController {
         return ResponseEntity.ok(bookAdminService.getAllBooks());
     }
 
+    @GetMapping("/books/{id}")
+    private ResponseEntity<Book> getBookById(@PathVariable long id){
+        return ResponseEntity.ok(bookAdminService.findBookById(id));
+    }
+
     @PostMapping("/books")
     private ResponseEntity<Book> createBook(@RequestBody Book book){
         return ResponseEntity.ok(bookAdminService.saveBook(book));

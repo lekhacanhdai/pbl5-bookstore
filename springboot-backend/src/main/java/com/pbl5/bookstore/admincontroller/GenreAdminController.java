@@ -21,6 +21,11 @@ public class GenreAdminController {
         return ResponseEntity.ok(genreAdminService.getAllGenres());
     }
 
+    @GetMapping("/genres/{id}")
+    private ResponseEntity<Genre> getGenreById(@PathVariable long id){
+        return ResponseEntity.ok(genreAdminService.findGenreById(id));
+    }
+
     @PostMapping("/genres")
     private ResponseEntity<Genre> saveGenre(@RequestBody Genre genre){
         return ResponseEntity.ok(genreAdminService.saveGenre(genre));
