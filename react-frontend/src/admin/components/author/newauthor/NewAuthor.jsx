@@ -23,17 +23,11 @@ const NewAuthor = ({closeModal}) => {
 
     const handleAdd = async (e) => {
         e.preventDefault();
-        await axios.post('http://localhost:8080/admin/api/v1/authors',({
+        await BookService.postNewAuthor({
             firstName: author.firstName,
             lastName: author.lastName,
-            companyName: author.companyName,
-        }),{
-            headers: {
-                authorization: ' JWT fefege...' ,
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            } 
-        } )
+            companyName: author.companyName
+        })
     }
     
   return (

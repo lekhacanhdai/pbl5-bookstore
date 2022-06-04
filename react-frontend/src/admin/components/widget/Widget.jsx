@@ -3,20 +3,30 @@ import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutl
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
-import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import BookService from "../../../service/BookService";
 
 const Widget = ({ type }) => {
   let data;
 
-  const amount = 100;
   const diff = 20;
+  const [item, setItem] = useState([]);
+
+  useEffect(() => {
+    BookService.getDashboard()
+    .then((res) => {
+      setItem(res.data)  
+    })
+  },[]);
 
   switch (type) {
     case "user":
       data = {
         title: "NGƯỜI DÙNG",
         isMoney: false,
+        number: `${item.userNumber}`,
         link: (
           <Link className="link-item" to="user">
             Xem tất cả
@@ -37,6 +47,7 @@ const Widget = ({ type }) => {
       data = {
         title: "ĐƠN HÀNG",
         isMoney: false,
+        number: `${item.orderNumber}`,
         link: (
           <Link className="link-item" to="order">
             Xem tất cả
@@ -57,6 +68,7 @@ const Widget = ({ type }) => {
       data = {
         title: "DOANH THU",
         isMoney: true,
+        number: `${item.revenueTotal}`,
         link: (
           <Link className="link-item" to="revenue">
             Xem tất cả
@@ -74,13 +86,14 @@ const Widget = ({ type }) => {
       data = {
         title: "SÁCH",
         isMoney: true,
+        number: `${item.bookNumber}`,
         link: (
           <Link className="link-item" to="books">
             Xem tất cả
           </Link>
         ),
         icon: (
-          <AccountBalanceWalletOutlinedIcon
+          <MenuBookOutlinedIcon
             className="icon"
             style={{
               backgroundColor: "rgba(128, 0, 128, 0.2)",
@@ -99,7 +112,8 @@ const Widget = ({ type }) => {
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">
-          {data.isMoney && "$"} {amount}
+          {data.isMoney && "$"}
+          {data.number}
         </span>
         <span className="link">{data.link}</span>
       </div>

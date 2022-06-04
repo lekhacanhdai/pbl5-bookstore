@@ -20,6 +20,14 @@ const DetailAuthor = ({closeModal}) => {
         .catch((err) => console.log(err))
     },[])
     
+    const handleChange = (e) => {
+        
+    }
+
+    const handleUpdate = (id) => {
+
+    }
+
   return (
     <div className='modal'>
         <div className="modal-container">
@@ -35,21 +43,33 @@ const DetailAuthor = ({closeModal}) => {
                     <label for="name" className='modal-label'>
                         Tên
                     </label>
-                    <input type="text" name='firstName' className='modal-input'/>
+                    <input 
+                        name='firstName' 
+                        className='modal-input'
+                        value=""
+                    />
                 </div>
 
                 <div className="modal-form">
                     <label for="name" className='modal-label'>
                         Họ
                     </label>
-                    <input type="text" name='lastName' className='modal-input'/>
+                    <input  
+                        name='lastName' 
+                        className='modal-input'
+                        value=""
+                    />
                 </div>
 
                 <div className="modal-form">
                     <label for="name" className='modal-label'>
                         Tên công ty
                     </label>
-                    <input type="text" name='companyName' className='modal-input'/>
+                    <input 
+                        name='companyName' 
+                        className='modal-input'
+                        value=""
+                    />
                 </div>
                 <div className="button">
                     <button className='update-author'>

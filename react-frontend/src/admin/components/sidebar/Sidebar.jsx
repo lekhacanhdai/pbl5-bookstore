@@ -71,19 +71,19 @@ const Sidebar = () => {
               <span>Quản lí doanh thu</span>
             </li>
           </Link>
-          <Link to="/admin/comment" className="link">
+          {/* <Link to="/admin/comment" className="link">
             <li>
               <NotificationsActiveOutlinedIcon className="icon" />
               <span>Notifications</span>
               <span className="counter">1</span>
             </li>
-          </Link>
-          <Link to="/admin/profile" className="link">
+          </Link> */}
+          {/* <Link to="/admin/profile" className="link">
             <li>
               <AccountCircleOutlinedIcon className="icon" />
               <span>Thông tin</span>
             </li>
-          </Link>
+          </Link> */}
         </ul>
       </div>
     </div>

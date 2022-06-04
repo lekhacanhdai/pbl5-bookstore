@@ -8,6 +8,7 @@ import DetailAuthor from "../detailauthor/Detailauthor";
 
 const DatatableAuthor = () => {
   const [authors, setAuthors] = useState([]);
+  const [author, setAuthor] = useState([])
   const [openmodaladd, setOpenmodalAdd] = useState(false);
   const [openmodalupdate, setOpenmodalUpdate] = useState(false);
 
@@ -17,6 +18,11 @@ const DatatableAuthor = () => {
 
   const handleModalView = () => {
     setOpenmodalUpdate(true);
+  };
+
+  const handleDelete =  async (id) => {
+    await BookService.deleteAuthorById(id);
+    setAuthors(authors.filter(item => item.id != id));
   };
 
   useEffect(() => {
@@ -47,9 +53,7 @@ const DatatableAuthor = () => {
     },
   ];
 
-  const handleDelete = (id) => {
-    setAuthors(authors.filter((item) => item.id !== id));
-  };
+  
 
   const actionColumn = [
     {

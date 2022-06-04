@@ -40,6 +40,10 @@ class BookService{
     getAllGenre(){
         return axios.get(BOOK_API_BASE_URL+ '/admin/api/v1/genres')
     }
+    
+    getDashboard(){
+        return axios.get(BOOK_API_BASE_URL + "/admin/api/v1/dashboard" );
+    }
 
     postNewAuthor(author){
         return axios.post(BOOK_API_BASE_URL + '/admin/api/v1/authors', author,  config)
@@ -49,6 +53,9 @@ class BookService{
         return axios.put(BOOK_API_BASE_URL + '/admin/api/v1/authors' + id);
     }
 
+    deleteAuthorById(id){
+        return axios.delete(BOOK_API_BASE_URL+ '/admin/api/v1/authors/' + id);
+    }
 }
 
 export default new BookService();

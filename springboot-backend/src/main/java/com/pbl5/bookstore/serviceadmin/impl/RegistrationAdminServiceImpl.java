@@ -11,7 +11,6 @@ import com.pbl5.bookstore.service.UserService;
 import com.pbl5.bookstore.serviceadmin.AccountAdminService;
 import com.pbl5.bookstore.serviceadmin.RegistrationAdminService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -49,5 +49,4 @@ public class AuthorAdminController {
         response.put("deleted", true);
         return ResponseEntity.ok(response);
     }
-
 }
