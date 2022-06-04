@@ -6,10 +6,14 @@ import com.pbl5.bookstore.model.Book;
 import com.pbl5.bookstore.model.Cart;
 import com.pbl5.bookstore.model.CartDetail;
 import com.pbl5.bookstore.model.CartDetailKey;
+import com.pbl5.bookstore.model.Order;
+import com.pbl5.bookstore.model.OrderDetail;
 import com.pbl5.bookstore.repository.CartRepository;
 import com.pbl5.bookstore.service.BookService;
 import com.pbl5.bookstore.service.CartDetailService;
 import com.pbl5.bookstore.service.CartService;
+import com.pbl5.bookstore.service.UserService;
+
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +32,9 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private CartDetailService cartDetailService;
+    
+    @Autowired
+    private UserService userService;
 
     @Override
     public Cart saveCart(Cart cart) {
@@ -75,5 +82,26 @@ public class CartServiceImpl implements CartService {
             saveCart(cart);
             return Optional.of(cart);
         }
+    }
+
+    @Override
+    public Order getPaymentInfo(long accountId) {
+        Cart cart = findCartById(accountId);
+        Order order = new Order();
+        
+        for (CartDetail cartDetail: cart.getCartDetails()){
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setBook(cartDetail.getBook());
+            orderDetail.setQuantity(cartDetail.getQuantity());
+            order.getOrderDetails().add(orderDetail);
+        }
+        order.setDeliveryAddress(userService.findUserById(accountId).getAddress());
+        return order;
+    }
+
+    @Override
+    public void deleteAllCartDetail(Cart cart) {
+        cart.getCartDetails().forEach(c -> 
+            cartDetailService.deleteCartDetailById(c.getId()));
     }
 }
