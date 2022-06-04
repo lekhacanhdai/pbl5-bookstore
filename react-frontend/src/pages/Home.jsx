@@ -8,6 +8,8 @@ import Annoucement from '../components/Annoucement';
 import Navbar from '../components/Navbar';
 import Newsletter from '../components/Newsleter';
 import Footer from '../components/Footer';
+import BestSellingBooks from './BestSellingBooks/BestSellingBooks';
+import Slider from '../components/Slider';
 
 const Container = styled.div`
   background-color: lightgray;
@@ -57,7 +59,7 @@ const Home = () => {
     <Container>
       <Annoucement />
       <Navbar />
-      <Advertisement />
+      <Slider />
       <Wrapper>
         <TitleContainer style={{ backgroundColor: '#a8c7f5' }}>
           <Title>Categories</Title>
@@ -68,21 +70,21 @@ const Home = () => {
         <TitleContainer style={{ backgroundColor: '#f5b3a8' }}>
           <Title>Best Selling Books</Title>
         </TitleContainer>
-        <Books />
+        <BestSellingBooks />
       </Wrapper>
       <Wrapper>
         <TitleContainer>
           <Title>All Books</Title>
         </TitleContainer>
         <Books />
-        <ButtonContainer>
+        {/* <ButtonContainer>
           <Link
             to="/books"
             style={{ textDecoration: 'none', color: 'inherit' }}
           >
             <Button>See more</Button>
           </Link>
-        </ButtonContainer>
+        </ButtonContainer> */}
       </Wrapper>
       <Newsletter />
       <Footer />

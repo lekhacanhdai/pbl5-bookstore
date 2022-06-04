@@ -12,6 +12,7 @@ import NewBook from './admin/pages/newbook/New';
 import Order from './admin/pages/order/Order';
 import ProductAdmin from './admin/pages/product/Product';
 import Detail from './admin/pages/detail/Detail';
+import UserProfile from './pages/UserProfile';
 import Profile from './admin/pages/profile/Profile';
 import Comment from './admin/pages/comment/Comment';
 import { userInputs } from './admin/formSource';
@@ -21,9 +22,10 @@ const App = () => {
   return (
     <Router>
       <Routes>
-      <Route path="/" exact element={<Home />} />
+        <Route path="/" exact element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<UserProfile />} />
         <Route path="/books" exact element={<BookList />} />
         <Route path="/books/:id" element={<BookDetail />} />
         <Route path="/carts" element={<Cart />} />
@@ -40,10 +42,9 @@ const App = () => {
           path="/admin/product/new"
           element={<NewBook inputs={userInputs} title="Add new book" />}
         />
-        import Navbar from './components/Navbar';
-        import Annoucement from './components/Annoucement';
-        import Newsletter from './components/Newsleter';
-        import Footer from './components/Footer';
+        import Navbar from './components/Navbar'; import Annoucement from
+        './components/Annoucement'; import Newsletter from
+        './components/Newsleter'; import Footer from './components/Footer';
         <Route
           path="/admin/user/new"
           element={<NewUser inputs={userInputs} title="Add new user" />}
