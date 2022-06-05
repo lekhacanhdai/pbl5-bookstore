@@ -49,4 +49,9 @@ public class BookAdminServiceImpl implements BookAdminService {
     public void deleteBook(long id) {
         bookRepository.delete(findBookById(id));
     }
+
+    @Override
+    public int getBookNumber() {
+        return bookRepository.getBookNumber();
+    }
 }
