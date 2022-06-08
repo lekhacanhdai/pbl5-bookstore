@@ -16,8 +16,16 @@ const DatatableAuthor = () => {
     setOpenmodalAdd(true);
   };
 
-  const handleModalView = () => {
+  
+  const handleModalView = async (id) => {
     setOpenmodalUpdate(true);
+    console.log(openmodalupdate)
+    // console.log(id)
+    await BookService.getAuthorbyId(id)
+    .then((res) => {
+      setAuthor(res.data)
+      console.log(res.data);
+    })
   };
 
   const handleDelete =  async (id) => {
@@ -29,7 +37,6 @@ const DatatableAuthor = () => {
     BookService.getAllAuthor()
       .then((res) => {
         setAuthors(res.data);
-        console.log(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -63,7 +70,7 @@ const DatatableAuthor = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <div className="viewButton" onClick={handleModalView}>
+            <div className="viewButton" onClick={() => handleModalView(params.row.id)}>
               View
             </div>
 

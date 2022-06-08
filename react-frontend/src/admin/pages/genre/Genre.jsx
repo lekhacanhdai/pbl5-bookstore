@@ -1,7 +1,7 @@
 import "./genre.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Narbav"
-import Datatable from "../../components/datatablegenre/Datatable"
+import Datatable from "../../components/genre/datatablegenre/Datatable"
 
 
 

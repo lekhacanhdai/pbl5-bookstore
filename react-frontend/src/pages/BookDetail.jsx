@@ -7,6 +7,7 @@ import Annoucement from '../components/Annoucement';
 import Navbar from '../components/Navbar';
 import Newsletter from '../components/Newsleter';
 import Footer from '../components/Footer';
+import CartService from '../service/CartService';
 
 const Container = styled.div`
   background-color: lightgray;
@@ -159,6 +160,7 @@ const Review = styled.div`
 
 const Product = () => {
   const location = useLocation();
+
   const id = location.pathname.split('/')[2];
   const [book, setBook] = useState([]);
   const [author, setAuthor] = useState({});
@@ -166,6 +168,7 @@ const Product = () => {
   const [publisher, setPublisher] = useState({});
   const [date, setDate] = useState('');
   const [quantity, setQuantity] = useState(1);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     axios
@@ -190,21 +193,29 @@ const Product = () => {
       setQuantity(quantity + 1);
     }
   };
-  
-  const handleClick = () => {
-    let carts = [];
-    if (localStorage.getItem('carts')) {
-      carts = JSON.parse(localStorage.getItem('carts'));
-    }
-    carts.push({
-      bookId: id,
-      img: book.image,
-      price: book.price,
-      name: book.title,
-      quantity: quantity,
-    });
-    localStorage.setItem('carts', JSON.stringify(carts));
-    window.location.reload();
+  const handleAddtocart = () => {
+    const userId = JSON.parse(localStorage.getItem('user')).account.id;
+    console.log(userId);
+    console.log(id);
+
+    CartService.addtoCart(userId, id, quantity);
+    alert('Đã thêm sản phẩm vào giỏ hàng');
+    // const a = { accountId: userId, bookId: id, quantity: quantity };
+    // console.log(a);
+    // axios
+    //   .post('http://localhost:8080/api/v1/books/add-to-cart/' + id, a, {
+    //     headers: {
+    //       Authorization: `Anhdai ${JSON.parse(
+    //         localStorage.getItem('user').access_token
+    //       )}`,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     console.log(res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   return (
@@ -236,7 +247,7 @@ const Product = () => {
               </AmountButtonContainer>
             </AmountContainer>
           </AddContainer>
-          <Button onClick={handleClick}>
+          <Button onClick={handleAddtocart}>
             <ShoppingCartOutlined style={{ marginRight: '10px' }} />
             Add to Cart
           </Button>

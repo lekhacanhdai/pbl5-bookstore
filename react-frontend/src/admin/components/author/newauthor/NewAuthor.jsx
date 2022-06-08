@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import CloseIcon from '@mui/icons-material/Close';
-import axios from 'axios';
 import "./newauthor.scss";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import AddIcon from '@mui/icons-material/Add';
@@ -28,13 +27,14 @@ const NewAuthor = ({closeModal}) => {
             lastName: author.lastName,
             companyName: author.companyName
         })
+        alert("Thêm thành công");
+        window.location.href = window.location.href;
     }
     
   return (
     <div className='modal'>
         <div className="modal-container">
             <form onSubmit={handleAdd}>
-
                 <span className="modal-close">
                     <CloseIcon className='icon-close' onClick={() => closeModal(false)}/>
                 </span>

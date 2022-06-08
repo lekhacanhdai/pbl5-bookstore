@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import CloseIcon from '@mui/icons-material/Close';
-import axios from 'axios';
 import "./newpublisher.scss";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import AddIcon from '@mui/icons-material/Add';
@@ -9,9 +8,7 @@ import BookService from '../../../../service/BookService';
 const NewPublisher = ({closeModal}) => {
 
     const [publisher, setPublisher] = useState({
-        firstName: '',
-        lastName: '',
-        companyName: '',
+        name: ''
     });
 
     const handleChange = (e) =>{
@@ -21,50 +18,50 @@ const NewPublisher = ({closeModal}) => {
         })
     }
 
-    // const handleAdd = async (e) => {
-    //     e.preventDefault();
-    //     BookService.postNewAuthor({
-    //         firstName: author.firstName,
-    //         lastName: author.lastName,
-    //         companyName: author.companyName,
-    //     })
-    //     .then((res) => console.log(res))
-    //     .catch((err) => console.log(err));
-    // }
-    
-  return (
-    <div className='modal'>
-        <div className="modal-container">
-            <form onSubmit={setPublisher}>
+    const handleAdd = async (e) => {
+        e.preventDefault();
+        await BookService.postNewPublisher({
+            name: publisher.name
+        })
 
-                <span className="modal-close">
-                    <CloseIcon className='icon-close' onClick={() => closeModal(false)}/>
-                </span>
-                <div className="modal-header">
-                    <BorderColorIcon className='icon-header'/>
-                    Thêm Tác giả
-                </div>
-                <div className="modal-body">
-                    <div className="modal-form">
-                        <label for="name" className='modal-label'>
-                            Tên nhà xuất bản
-                        </label>
-                        <input 
-                            value={publisher.companyName}
-                            name="publisher"
-                            className='modal-input'
-                            onChange={handleChange}
-                        />
+    }
+
+    
+    return (
+        <div className='modal'>
+            <div className="modal-container">
+                <form onSubmit={handleAdd}>
+    
+                    <span className="modal-close">
+                        <CloseIcon className='icon-close' onClick={() => closeModal(false)}/>
+                    </span>
+                    <div className="modal-header">
+                        <BorderColorIcon className='icon-header'/>
+                        Thêm Nhà xuất bản
                     </div>
-                    <div className="button">
-                        <button className='add-publisher'>
-                        <AddIcon className='icon-add'/>Thêm</button>
+                    <div className="modal-body">
+                        <div className="modal-form">
+                            <label for="name" className='modal-label'>
+                                Tên nhà xuất bản
+                            </label>
+                            <input 
+                                name='name' 
+                                className='modal-input'
+                                onChange={handleChange}
+                                value={publisher.name}
+                            />
+                        </div>
+    
+                        
+                        <div className="button">
+                            <button className='add-author'>
+                            <AddIcon className='icon-add'/>Thêm</button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
-  )
+      )
 }
 
 export default NewPublisher

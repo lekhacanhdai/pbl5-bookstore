@@ -4,10 +4,6 @@ import BookDetail from "./pages/BookDetail";
 import BookList from "./pages/BookList";
 import Register from "./pages/Registration";
 import Login from "./pages/Login";
-import Navbar from "./components/Navbar";
-import Annoucement from "./components/Annoucement";
-import Newsletter from "./components/Newsleter";
-import Footer from "./components/Footer";
 import Cart from "./pages/Cart";
 import User from "./admin/pages/user/User";
 import Single from "./admin/pages/single/Single";
@@ -17,6 +13,7 @@ import Order from "./admin/pages/order/Order";
 import ProductAdmin from "./admin/pages/product/Product";
 import Detail from "./admin/pages/detailbook/Detail";
 import Profile from "./admin/pages/profile/Profile";
+import UserProfile from './pages/UserProfile';
 import Comment from "./admin/pages/comment/Comment";
 import Revenue from "./admin/pages/revenue/Revenue";
 import AdminAuthors from "./admin/pages/authors/Author";
@@ -32,6 +29,7 @@ const App = () => {
         <Route path="/" exact element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<UserProfile />} />
         <Route path="/books" exact element={<BookList />} />
         <Route path="/books/:id" element={<BookDetail />} />
         <Route path="/carts" element={<Cart />} />
@@ -52,6 +50,9 @@ const App = () => {
           path="/admin/books/new"
           element={<NewBook inputs={userInputs} title="Thêm sách" />}
         />
+        import Navbar from './components/Navbar'; import Annoucement from
+        './components/Annoucement'; import Newsletter from
+        './components/Newsleter'; import Footer from './components/Footer';
         <Route
           path="/admin/user/new"
           element={<NewUser inputs={userInputs} title="Thêm người dùng" />}

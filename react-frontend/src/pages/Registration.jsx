@@ -1,170 +1,153 @@
-import axios from 'axios';
 import React from 'react';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import 'antd/dist/antd.css';
 import styled from 'styled-components';
-import Navbar from '../components/Navbar';
-import Annoucement from '../components/Annoucement';
+import { Button, Form, Input } from 'antd';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 import Newsletter from '../components/Newsleter';
 import Footer from '../components/Footer';
-
-const Wrapper = styled.div`
-  margin: 10px 10%;
-  padding: 10px 0px;
-  width: 80%;
-  background-color: #fff;
-  display: flex;
-`;
+import Annoucement from '../components/Annoucement';
+import Navbar from '../components/Navbar';
+import AuthService from '../service/AuthService';
 
 const Container = styled.div`
   width: 100%;
-  min-height: 100%;
-  /* background-color: #f5f5f5; */
-  border-radius: 20px;
+  background-color: lightgray;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
-const SignUpFormContainer = styled.div`
-  width: 800px;
-  height: 400px;
-  display: flex;
-  border-radius: 10px;
-`;
-const Right = styled.div`
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+
+const Wrapper = styled.div`
+  width: 80%;
   background-color: white;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-`;
-const Form = styled.form`
+  border-radius: 10px;
+  margin: 10px 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 20px 0px;
 `;
-const Title2 = styled.h1`
-  margin-top: 0;
-  font-size: 35px;
-  align-self: center;
-  margin-bottom: 20px;
+const FormContainer = styled.div`
+  width: 100%;
 `;
-const Input = styled.input`
-  outline: none;
-  border: none;
-  width: 370px;
-  padding: 15px;
-  border-radius: 10px;
-  background-color: #edf5f3;
-  margin: 5px 0;
-  font-size: 14px;
-`;
-const Error = styled.div`
-  width: 370px;
-  padding: 15px;
-  margin: 5px 0;
-  font-size: 14px;
-  background-color: #f34646;
-  color: white;
-  border-radius: 5px;
-  text-align: center;
-`;
-const Button = styled.button`
-  border: none;
-  margin-top: 20px;
-  outline: none;
-  padding: 12px 0;
-  border-radius: 20px;
-  width: 180px;
-  font-weight: bold;
-  font-size: 14px;
-  background-color: #6fbff1;
-  color: white;
-  cursor: pointer;
-`;
-const Text = styled.p`
-  margin-top: 10px;
-`;
-const Text2 = styled.p`
-  margin-top: 10px;
-  color: #6fbff1;
-  font-weight: 500;
-`;
-
 const Register = () => {
-  const [user, setUser] = useState({
-    email: '',
-    password: '',
-  });
-  const [error, setError] = useState('');
-
-  const handleChange = ({ currentTarget: Input }) => {
-    setUser({ ...user, [Input.name]: Input.value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const url = 'http://localhost:8080/api/users';
-      const { data: res } = await axios.post(url, user);
-      console.log(res.message);
-    } catch (error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
-        setError(error.response.data.message);
+  const onFinish = async (values) => {
+    AuthService.register(values.email, values.password).then(
+      (response) => {
+        alert('Hãy kiểm tra Email và xác nhận để hoàn tất đăng ký!');
+        window.location = '/login';
+      },
+      (error) => {
+        if (error.response.status === 500) {
+          alert('Email này đã được sử dụng!');
+        }
       }
-    }
+    );
   };
 
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
   return (
-    <div style={{ backgroundColor: 'lightgray', padding: '10px 0px' }}>
+    <>
       <Annoucement />
       <Navbar />
-      <Wrapper>
-        <Container>
-          <SignUpFormContainer>
-            <Right>
-              <Form onSubmit={handleSubmit}>
-                <Title2>Create Account</Title2>
-                <Input
-                  type="email"
-                  placeholder="Email"
-                  name="email"
-                  onChange={handleChange}
-                  value={user.email}
-                  required
-                />
-                <Input
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  onChange={handleChange}
-                  value={user.password}
-                  required
-                />
-                {error && <Error>{error}</Error>}
-                <Button>Sign up</Button>
-                <Text>Do you already have an account,</Text>
-                <Link
-                  to="/login"
-                  style={{ textDecoration: 'none', color: 'inherit' }}
-                >
-                  <Text2>LOGIN</Text2>
-                </Link>
-              </Form>
-            </Right>
-          </SignUpFormContainer>
-        </Container>
-      </Wrapper>
+      <Container>
+        <Wrapper>
+          <h1>Đăng ký</h1>
+          <FormContainer>
+            <Form
+              name="basic"
+              labelCol={{
+                span: 8,
+              }}
+              wrapperCol={{
+                span: 10,
+              }}
+              initialValues={{
+                remember: true,
+              }}
+              onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
+              autoComplete="off"
+            >
+              <Form.Item
+                label="Email"
+                name="email"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Email không được để trống!',
+                  },
+                  {
+                    type: 'email',
+                    message: 'Bạn phải nhập email!',
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                label="Password"
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Password không được để trống!',
+                  },
+                  {
+                    min: 4,
+                    message: 'Mật khẩu ít nhất 4 kí tự',
+                  },
+                ]}
+              >
+                <Input.Password />
+              </Form.Item>
+              <Form.Item
+                name="confirm"
+                label="Confirm Password"
+                dependencies={['password']}
+                hasFeedback
+                rules={[
+                  {
+                    required: true,
+                    message: 'Confirm Password không được để trống',
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(rule, value) {
+                      if (!value || getFieldValue('password') === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject('Mật khẩu không giống!');
+                    },
+                  }),
+                ]}
+              >
+                <Input.Password />
+              </Form.Item>
+              <Form.Item
+                wrapperCol={{
+                  offset: 11,
+                  span: 16,
+                }}
+              >
+                <Button type="primary" htmlType="submit">
+                  Đăng ký
+                </Button>
+              </Form.Item>
+            </Form>
+          </FormContainer>
+          <p>
+            Bạn đã có tài khoản? <Link to="/login">Đăng nhập</Link>
+          </p>
+        </Wrapper>
+      </Container>
       <Newsletter />
       <Footer />
-    </div>
+    </>
   );
 };
 

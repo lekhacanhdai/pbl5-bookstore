@@ -13,6 +13,7 @@ const Container = styled.div`
   display: flex;
   background-color: white;
   padding: 10px 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 `;
 const Left = styled.div`
   flex: 1;
@@ -80,13 +81,9 @@ const MenuItem = styled.div`
 const Navbar = () => {
   const logout = () => {
     localStorage.removeItem('user');
-    localStorage.removeItem('carts');
+    localStorage.removeItem('token');
     window.location.reload();
   };
-  let carts = [];
-  if (localStorage.getItem('carts')) {
-    carts = JSON.parse(localStorage.getItem('carts'));
-  }
   return (
     <Container>
       <Left>
@@ -107,9 +104,14 @@ const Navbar = () => {
       <Right>
         {localStorage.getItem('user') ? (
           <>
-            <MenuItem>
-              {JSON.parse(localStorage.getItem('user')).account.user.userName}
-            </MenuItem>
+            <Link
+              to="/profile"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              <MenuItem>
+                {JSON.parse(localStorage.getItem('user')).account.user.userName}
+              </MenuItem>
+            </Link>
             <MenuItem onClick={logout}>Logout</MenuItem>
           </>
         ) : (
@@ -130,7 +132,7 @@ const Navbar = () => {
         )}
         <Link to="/carts" style={{ textDecoration: 'none', color: 'inherit' }}>
           <MenuItem>
-            <Badge badgeContent={carts.length}>
+            <Badge badgeContent={0}>
               <ShoppingCartOutlined style={{ color: '#5b5959' }} />
             </Badge>
           </MenuItem>

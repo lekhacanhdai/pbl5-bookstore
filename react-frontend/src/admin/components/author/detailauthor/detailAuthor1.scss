@@ -7,9 +7,9 @@
     align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, 0.3);
-    z-index: 2;
+    z-index: 99;
     display: flex;
-    // display: none;
+
 
     .modal-container{
         background-color: #fff;
@@ -64,7 +64,7 @@
             .modal-form{
                 display: block;
                 justify-content: space-between;
-                margin: 10px 0px;
+                margin: 20px 0px;
                 
                 .modal-label{
                     display: inline-block;
@@ -75,16 +75,14 @@
                     display: inline-block;
                     float: right;
                     width: 60%;
-                    font-size: 18px;
-                    color: #000;
                 }
             }
 
             .button{
                 text-align: center;
-                margin-top: 20px;
+                margin-top: 25px;
 
-                .add-publisher{
+                .update-author{
                     display: flex;
                     margin: auto;
                     justify-content: center;
@@ -100,7 +98,7 @@
                         cursor: pointer;
                     }
 
-                    .icon-add{
+                    .icon-update{
                         margin-right: 5px;
                     }
                 }
@@ -109,3 +107,4 @@
 
     }
 }
+
