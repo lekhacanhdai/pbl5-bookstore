@@ -11,34 +11,43 @@ import Footer from '../components/Footer';
 
 const Container = styled.div`
   background-color: lightgray;
-  padding: 10px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const Wrapper = styled.div`
+  margin: 10px 0px;
+  width: 80%;
   display: flex;
 `;
 const Left = styled.div`
   flex: 1.5;
-  margin-left: 7%;
+  margin-right: 20px;
   display: flex;
   flex-direction: column;
+  background-color: white;
+  height: 80vh;
+  position: sticky;
+  top: 85px;
 `;
 const GenreItem = styled.div`
-  padding: 10px 20px;
+  :hover {
+    background-color: aliceblue;
+    cursor: pointer;
+  }
 `;
 const Genre = styled.p`
   font-size: 18px;
+  margin-left: 20px;
 `;
 const Right = styled.div`
   flex: 5;
+  background-color: white;
 `;
-const Wrapper = styled.div`
-  width: 90%;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-`;
-const Title = styled.p`
-  margin: 20px 40px;
-  font-size: 25px;
-  font-weight: 600;
+const Hr = styled.div`
+  height: 1px;
+  background-color: lightgray;
+  border: none;
 `;
 
 const BookList = () => {
@@ -57,32 +66,31 @@ const BookList = () => {
   }, []);
   return (
     <>
-    <Annoucement/>
-    <Navbar/>
-    <Container>
-      <Left>
-        <Wrapper style={{ height: '80vh' }}>
-          <GenreItem>
-            <Genre style={{ fontWeight: 'bold' }}>CATEGORY</Genre>
-          </GenreItem>
-          {data.map((item) => (
-            <GenreItem key={item.id}>
-              <Genre>{item.name}</Genre>
+      <Annoucement />
+      <Navbar />
+      <Container>
+        <Wrapper>
+          <Left>
+            <GenreItem>
+              <Genre style={{ fontWeight: 'bold', marginTop: '20px' }}>
+                CATEGORY
+              </Genre>
             </GenreItem>
-          ))}
+            <Hr />
+            {data.map((item) => (
+              <GenreItem key={item.id}>
+                <Genre>{item.name}</Genre>
+                <Hr />
+              </GenreItem>
+            ))}
+          </Left>
+          <Right>
+            <Books />
+          </Right>
         </Wrapper>
-      </Left>
-      <Right>
-        <Wrapper>
-          <Title>Books</Title>
-        </Wrapper>
-        <Wrapper>
-          <Books />
-        </Wrapper>
-      </Right>
-    </Container>
-    <Newsletter/>
-    <Footer/>
+      </Container>
+      <Newsletter />
+      <Footer />
     </>
   );
 };

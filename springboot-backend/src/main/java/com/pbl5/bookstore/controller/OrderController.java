@@ -12,6 +12,9 @@ import com.pbl5.bookstore.model.Order;
 import com.pbl5.bookstore.service.CartService;
 import com.pbl5.bookstore.service.OrderService;
 import com.pbl5.bookstore.service.PaypalService;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
+@Slf4j
 @Controller
 @RequestMapping("api/v1/")
 public class OrderController {
@@ -56,10 +59,11 @@ public class OrderController {
         Cart cart = cartService.findCartById(id);
         cartService.deleteAllCartDetail(cart);
         cart.getCartDetails().clear();
+        log.info("total {}", orderResponse.getTotalBillUSD());
         cartService.saveCart(cart);
 
         if (paypal.equals("true")){
-            Payment payment = paypalService.createPayment(order.getTotalBillUSD(), "Thanh toan paypal", 
+            Payment payment = paypalService.createPayment(orderResponse.getTotalBillUSD(), "Thanh toan paypal", 
             "http://localhost:8080/api/v1/orders/cancel-payment", 
             "http://localhost:8080/api/v1/orders/success-payment/" + orderResponse.getId());
             for (Links link: payment.getLinks()){

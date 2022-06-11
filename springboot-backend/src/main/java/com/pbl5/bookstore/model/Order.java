@@ -51,7 +51,7 @@ public class Order {
             result += orderDetail.getBook().getPrice() * orderDetail.getQuantity();
         }
         if (discount != null){
-            result *= discount.getValue() / 100;
+            result = result * discount.getValue() / 100;
         }
 
         return result;

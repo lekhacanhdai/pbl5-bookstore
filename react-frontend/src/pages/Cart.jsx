@@ -6,219 +6,205 @@ import Navbar from '../components/Navbar';
 import Annoucement from '../components/Annoucement';
 import Newsletter from '../components/Newsleter';
 import Footer from '../components/Footer';
+import { Add, Delete, Remove } from '@mui/icons-material';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import axios from 'axios';
+import CartService from '../service/CartService';
 
 const Container = styled.div`
+  padding-top: 20px;
   width: 100%;
-  border-radius: 20px;
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Wrapper = styled.div`
+  width: 80%;
+  margin: 10px 0px;
+  display: flex;
+`;
+const ListBooksContainer = styled.div`
+  flex: 4;
+  background-color: white;
+  margin-right: 10px;
   padding: 20px;
-`;
-const Title = styled.h1`
-  font-weight: 400;
-  font-size: 30px;
-  text-align: center;
-`;
-const Top = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
+  flex-direction: column;
 `;
-const TopButton = styled.button`
-  padding: 10px;
-  font-weight: 600;
-  border-radius: 20px;
-  border: 1px solid #f46c5a;
-  cursor: pointer;
-  border: ${(props) => props.type === 'filled' && 'none'};
-  background-color: ${(props) =>
-    props.type === 'filled' ? '#f46c5a' : 'transparent'};
-  color: ${(props) => (props.type === 'filled' ? 'white' : '#f46c5a')};
-  :hover {
-    transform: scale(1.1);
-  }
-`;
-const TopTexts = styled.div``;
-const TopText = styled.span`
-  text-decoration: underline;
-  cursor: pointer;
-  margin: 0px 10px;
-`;
-const Bottom = styled.div`
+const Item = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px 0px;
 `;
-const Info = styled.div`
-  flex: 3;
-`;
-const Product = styled.div`
+const Content = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
 `;
-const ProductDetail = styled.div`
+const ImageContainer = styled.div`
   flex: 2;
-  display: flex;
 `;
 const Image = styled.img`
-  width: 200px;
-  border-radius: 20px;
+  width: 100%;
 `;
-const Details = styled.div`
-  padding: 20px;
+const InfoContainer = styled.div`
+  flex: 2;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-`;
-const ProductName = styled.span``;
-const ProductId = styled.span``;
-const PriceDetail = styled.div`
-  flex: 1;
-  display: flex;
   justify-content: center;
-  align-content: center;
-  flex-direction: column;
+  padding-left: 20px;
 `;
-const ProductAmountContainer = styled.div`
+const AmountContainer = styled.div`
+  flex: 1.5;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
-`;
-const ProductAmount = styled.div`
-  font-size: 24px;
-  margin: 5px;
-`;
-const ProductPrice = styled.div`
-  font-size: 30px;
-  font-weight: 200;
-`;
-const Hr = styled.hr`
-  background-color: #eee;
-  border: none;
-  height: 1px;
+  justify-content: center;
 `;
 
-const Summary = styled.div`
-  flex: 1;
-  border: 0.5px solid lightgray;
-  border-radius: 10px;
-  padding: 20px;
-  height: 50vh;
-`;
-const SummaryTitle = styled.h1`
-  font-weight: 200;
-`;
-const SummaryItem = styled.div`
-  margin: 30px 0px;
+const Amount = styled.span`
+  width: 30px;
+  height: 30px;
+  font-size: 25px;
+  border: none;
   display: flex;
-  justify-content: space-between;
-  font-weight: ${(props) => props.type === 'total' && '500'};
-  font-size: ${(props) => props.type === 'total' && '24px'};
+  align-items: center;
+  justify-content: center;
+  margin: 0px 5px;
 `;
-const SummaryItemText = styled.span``;
-const SummaryItemPrice = styled.span``;
-const Button = styled.button`
-  width: 100%;
-  padding: 10px;
-  border-radius: 20px;
-  background-color: #f46c5a;
-  border: 1px solid #f46c5a;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  :hover {
-    transform: scale(1.1);
-  }
+const Con = styled.div`
+  display: flex;
+  align-content: center;
+  justify-content: center;
+`;
+const DelContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+`;
+const Hr = styled.hr`
+  height: 1px;
+  background-color: lightgray;
+  border: none;
+  margin: 10px 0px;
+`;
+const TotalContainer = styled.div`
+  flex: 1;
+  position: sticky;
+  top: 85px;
+  background-color: white;
+  height: 200px;
+  padding: 20px;
 `;
 
 const Cart = () => {
-  let carts = [];
-  if (localStorage.getItem('carts')) {
-    carts = JSON.parse(localStorage.getItem('carts'));
+  const [data, setData] = useState([]);
+  const token = JSON.parse(localStorage.getItem('token'));
+  const userId = JSON.parse(localStorage.getItem('user')).account.id;
+  console.log(token);
+
+  useEffect(() => {
+    CartService.getCartByUserId(userId).then(
+      (response) => {
+        setData(response.data.cartDetails);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, [userId]);
+  console.log(data);
+
+  let total1 = 0;
+  for (let i = 0; i < data.length; i++) {
+    total1 += data[i].quantity * data[i].book.price;
   }
-  console.log(carts);
-  let total = 0;
-  for (let i = 0; i < carts.length; i++) {
-    total += carts[i].quantity * carts[i].price;
-  }
-  console.log(total);
+  console.log(total1);
+
+  const handleQuantity = (type, id) => {
+    if (type === 'dec') {
+      CartService.decreaseQuantity(id.cartId, id.bookId);
+    } else {
+      CartService.increaseQuantity(id.cartId, id.bookId);
+    }
+    window.location.reload();
+  };
+
+  const handleDel = (id) => {
+    console.log(id);
+    CartService.deleteCart(id.cartId, id.bookId).then(
+      (response) => {
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    window.location.reload();
+  };
 
   return (
-    <Container>
+    <>
       <Annoucement />
       <Navbar />
-      <Wrapper>
-        <Title>YOUR BAG</Title>
-        <Top>
-          <Link
-            to="/books"
-            style={{ textDecoration: 'none', color: 'inherit' }}
-          >
-            <TopButton>CONTINUE SHOPPING</TopButton>
-          </Link>
-          <TopTexts>
-            <TopText>Shopping Bag({carts.length})</TopText>
-          </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
-        </Top>
-        <Bottom>
-          <Info>
-            {carts.map((item) => (
-              <div key={item.bookId}>
-                <Product>
-                  <ProductDetail>
-                    <Image src={item.img} />
-                    <Details>
-                      <ProductName>
-                        <b>Product: </b>
-                        {item.title}
-                      </ProductName>
-                      <ProductId>
-                        <b>Id: </b>
-                        {item.bookId}
-                      </ProductId>
-                    </Details>
-                  </ProductDetail>
-                  <PriceDetail>
-                    <ProductAmountContainer>
-                      {/* <Add /> */}
-                      <ProductAmount>{item.quantity}</ProductAmount>
-                      {/* <Remove /> */}
-                    </ProductAmountContainer>
-                    <ProductPrice>{item.price * item.quantity} $</ProductPrice>
-                  </PriceDetail>
-                </Product>
+      <Container>
+        <h1>Your Bag</h1>
+        <Wrapper>
+          <ListBooksContainer>
+            {data.map((item) => (
+              <Item key={item.id}>
+                <Content>
+                  <ImageContainer>
+                    <Image src={item.book.image} />
+                  </ImageContainer>
+                  <InfoContainer>
+                    <p style={{ fontSize: '18px', fontWeight: '300' }}>
+                      {item.book.title}
+                    </p>
+                    <h2>{item.book.price} d</h2>
+                  </InfoContainer>
+                  <AmountContainer>
+                    <Con>
+                      <Remove
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => handleQuantity('dec', item.id)}
+                      />
+                      <Amount>{item.quantity}</Amount>
+                      <Add
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => handleQuantity('inc', item.id)}
+                      />
+                    </Con>
+                    <h2
+                      style={{
+                        color: 'red',
+                        marginTop: '20px',
+                        fontSize: '27px',
+                      }}
+                    >
+                      {item.book.price * item.quantity} d
+                    </h2>
+                  </AmountContainer>
+                  <DelContainer>
+                    <Delete
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => handleDel(item.id)}
+                    />
+                  </DelContainer>
+                </Content>
                 <Hr />
-              </div>
+              </Item>
             ))}
-          </Info>
-          <Summary>
-            <SummaryTitle>ODDER SUMMARY</SummaryTitle>
-            <SummaryItem>
-              <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>{total} d</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>15000 d</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>- 15000 d</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem type="total">
-              <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>{total} d</SummaryItemPrice>
-            </SummaryItem>
-            <Button>CHECKOUT NOW</Button>
-          </Summary>
-        </Bottom>
-      </Wrapper>
+          </ListBooksContainer>
+          <TotalContainer>{total1}</TotalContainer>
+        </Wrapper>
+      </Container>
       <Newsletter />
       <Footer />
-    </Container>
+    </>
   );
 };
 
