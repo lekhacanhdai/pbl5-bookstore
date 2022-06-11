@@ -2,44 +2,68 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import BookService from "../../../../service/BookService";
-import NewPublisher from "../newpublisher/NewPublisher";
+import PublisherModal from "../newpublisher/NewPublisher";
 import DetailPublisher from "../detailpublisher/DetailPublisher";
+import Button from '@mui/material/Button';
 
 const DatatablePublisher = () => {
 
   const [publishers, setPublishers] = useState([]);
-  const [publisher, setPublisher] = useState([]);
-  const [openmodaladd, setOpenmodalAdd] = useState(false);
-  const [openmodalupdate, setOpenmodalUpdate] = useState(false);
 
-  console.log(openmodalupdate)
+  const [open, setOpen] = useState(false)
+  const [formData, setFormData] = useState({ id: '', name: '' })
 
-
-  const handleModalAdd = () => {
-    setOpenmodalAdd(true);
-  };
-  
-  // useEffect(() => {
-
-  // },[])
-
-  const handleModalView = async (id) => {
-    // await BookService.getPublisherbyId(id)
-    // .then((res) => {
-    //   setOpenmodalUpdate(true);
-    //   console.log(openmodalupdate);
-    //   setPublisher(res.data)
-    //   console.log(res.data);
-    // })
-    // console.log(openmodalupdate)
-    setOpenmodalUpdate(true);
-  };
-
-  const handleDelete = async (id) =>{
-    await BookService.deletePublisherById(id);
-    setPublishers(publishers.filter(item => item.id != id));
+  const handleClickOpen = () => {
+    setOpen(true);
   }
-  
+
+  const handleClose = () => {
+    setOpen(false);
+    setFormData({ id: '', name: '' });
+  }
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+
+  const handleFormSubmit = async () => {
+
+    try {
+      const id = parseInt(formData.id);
+      if (id) {
+        const updatePublisher = {
+          name: formData.name
+        }
+        const respone = await BookService.putPublisherById(id, updatePublisher)
+        handleClose();
+        window.location.reload();
+      } else {
+        const newPublisher = {
+          name: formData.name
+        }
+        const response = await BookService.postNewPublisher(newPublisher)
+        handleClose();
+        window.location.reload();
+      }
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  const handleDelete = (id) => {
+    const confirm = window.confirm("Bạn muốn xóa hàng này ?", id)
+    if (confirm) {
+      BookService.deletePublisherById(id);
+      setPublishers(publishers.filter(item => item.id != id));
+    }
+  }
+
+  const handleUpdate = (oldData) => {
+    setFormData(oldData)
+    handleClickOpen()
+  }
+
   useEffect(() => {
     BookService.getAllPublisher()
       .then((res) => {
@@ -48,16 +72,14 @@ const DatatablePublisher = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const userColumns = [
+  const publisherColumns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     {
       field: "name",
       headerName: "Tên nhà xuất bản",
       flex: 12.5
     },
-  ];
 
-  const actionColumn = [
     {
       field: "action",
       headerName: "Hành động",
@@ -65,9 +87,12 @@ const DatatablePublisher = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-              <div className="viewButton" onClick={() => handleModalView(params.row.id)}>
-                Xem</div>
-              <div
+            <div
+              className="viewButton"
+              onClick={() => handleUpdate(params.row)}
+            >
+              Xem</div>
+            <div
               className="deleteButton"
               onClick={() => handleDelete(params.row.id)}
             >
@@ -79,27 +104,34 @@ const DatatablePublisher = () => {
     },
   ];
 
+
+
   return (
+
     <div className="datatable">
-      {openmodalupdate && <DetailPublisher 
-        closeModal={setOpenmodalUpdate} 
-        name={publisher.name}
-        id={publisher.id}
-      />}
+      {
+        <PublisherModal
+          open={open}
+          handleClose={handleClose}
+          data={formData}
+          onChange={onChange}
+          handleFormSubmit={handleFormSubmit}
+        />
+      }
+
       <div className="datatableTitle">
-        Thêm nhà xuất bản
-        <button 
-          className="link" 
-          onClick={handleModalAdd}
+        Quản lí nhà xuất bản
+        <button
+          className="link"
+          onClick={handleClickOpen}
         >
-          Thêm  
+          Thêm
         </button>
-        {openmodaladd && <NewPublisher closeModal={setOpenmodalAdd} />}
       </div>
       <DataGrid
         className="datagrid"
         rows={publishers}
-        columns={userColumns.concat(actionColumn)}
+        columns={publisherColumns}
         pageSize={10}
         rowsPerPageOptions={[10]}
         disableSelectionOnClick

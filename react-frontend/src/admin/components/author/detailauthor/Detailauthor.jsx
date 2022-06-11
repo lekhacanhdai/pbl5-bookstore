@@ -8,40 +8,39 @@ import BookService from '../../../../service/BookService';
 import DatatableAuthor from '../datatableauthor/Datatable';
 
 
-export const DetailAuthor1 = (props) =>{
+
+const DetailAuthor = (props) => {
+
     const [author, setAuthor] = useState([]);
 
-    useEffect(() => {
-        
-    })
-
-  return (
-    <div>detailAuthor1</div>
-  )
-}
-
-const DetailAuthor = ({closeModal}) => {
-
-    const [authorID, setAuthorID] = useState([]);
-
-    useEffect(() => {
-        BookService.getAuthorbyId(authorID)
-        .then((res) => {
-            setAuthorID(res.data);
-            console.log(res.data)
-        })
-        .catch((err) => console.log(err))
-    },[authorID])
+    // useEffect(() => {
+    //     BookService.getAuthorbyId(author)
+    //     .then((res) => {
+    //         setAuthor(res.data);
+    //         console.log(res.data)
+    //     })
+    //     .catch((err) => console.log(err))
+    // },[author])
     
     const handleChange = (e) => {
-        
+        setAuthor({
+            author,
+            [e.target.name]: e.target.value
+        });
     }
 
+    let idauthor = props.id
+
     const handleUpdate = async (e) => {
-        // e.preventDefault();
-        // await BookService.putAuthorById(,{
-            
-        // })
+        e.preventDefault();
+        await BookService.putAuthorById({
+            idauthor
+        },{
+            firstName: author.firstname,
+            lastName: author.lastname,
+            companyName: author.companyname
+        })
+        
     }
 
   return (
@@ -50,7 +49,7 @@ const DetailAuthor = ({closeModal}) => {
             <form onClick={handleUpdate}>
 
                 <span className="modal-close">
-                    <CloseIcon className='icon-close' onClick={() => closeModal(false)}/>
+                    <CloseIcon className='icon-close' onClick={() => props.closeModal(false)}/>
                 </span>
                 <div className="modal-header">
                     <BorderColorIcon className='icon-header'/>
@@ -64,7 +63,7 @@ const DetailAuthor = ({closeModal}) => {
                         <input 
                             name='firstName' 
                             className='modal-input'
-                            value=""
+                            defaultValue={props.firstname}
                             onChange={handleChange}
                         />
                     </div>
@@ -76,7 +75,7 @@ const DetailAuthor = ({closeModal}) => {
                         <input  
                             name='lastName' 
                             className='modal-input'
-                            value=""
+                            defaultValue={props.lastname}
                             onChange={handleChange}
                         />
                     </div>
@@ -88,7 +87,7 @@ const DetailAuthor = ({closeModal}) => {
                         <input 
                             name='companyName' 
                             className='modal-input'
-                            value=""
+                            defaultValue={props.companyname}
                             onChange={handleChange}
                         />
                     </div>

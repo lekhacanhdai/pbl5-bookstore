@@ -51,6 +51,10 @@ class BookService{
         return axios.get(ADMIN_BOOK_API_BASE_URL + "/dashboard" );
     }
 
+    postNewGenre(genre){
+        return axios.post(ADMIN_BOOK_API_BASE_URL+ '/genres', genre);
+    }
+
     postNewAuthor(author){
         return axios.post(ADMIN_BOOK_API_BASE_URL + '/authors', author);
     }

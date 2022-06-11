@@ -1,92 +1,79 @@
-import React, { useEffect, useState } from 'react'
-import CloseIcon from '@mui/icons-material/Close';
-import "./newauthor.scss";
-import BorderColorIcon from '@mui/icons-material/BorderColor';
-import AddIcon from '@mui/icons-material/Add';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import React , { useState, useEffect } from 'react';
 import BookService from '../../../../service/BookService';
 
-const NewAuthor = ({closeModal}) => {
+const AuthorModal = (props) => {
 
-    const [author, setAuthor] = useState({
-        firstName: '',
-        lastName: '',
-        companyName: '',
-    });
-
-    const handleChange = (e) =>{
-        setAuthor({
-            ...author,
-            [e.target.name]: e.target.value
-        })
-    }
-
-    const handleAdd = async (e) => {
-        e.preventDefault();
-        await BookService.postNewAuthor({
-            firstName: author.firstName,
-            lastName: author.lastName,
-            companyName: author.companyName
-        })
-        alert("Thêm thành công");
-        window.location.href = window.location.href;
-    }
-    
-  return (
-    <div className='modal'>
-        <div className="modal-container">
-            <form onSubmit={handleAdd}>
-                <span className="modal-close">
-                    <CloseIcon className='icon-close' onClick={() => closeModal(false)}/>
-                </span>
-                <div className="modal-header">
-                    <BorderColorIcon className='icon-header'/>
-                    Thêm Tác giả
-                </div>
-                <div className="modal-body">
-                    <div className="modal-form">
-                        <label for="name" className='modal-label'>
-                            Tên
-                        </label>
-                        <input 
-                            name='firstName' 
-                            className='modal-input'
-                            onChange={handleChange}
-                            value={author.firstName}
+    return (
+        <div>
+            <Dialog 
+                open={props.open} 
+                onClose={props.handleClose}
+            >
+                <DialogTitle>{props.data.id ? "Cập nhập tác giả" : "Thêm tác giả"}</DialogTitle>
+                
+                <DialogContent>    
+                    <form >
+                        <TextField
+                            name='firstName'
+                            style={{marginTop: "20px"}}
+                            autoFocus
+                            margin="dense"
+                            label="Họ"
+                            fullWidth
+                            variant="outlined"
+                            defaultValue={props.data.firstName}
+                            onChange={e => props.onChange(e)}
                         />
-                    </div>
-
-                    <div className="modal-form">
-                        <label for="name" className='modal-label'>
-                            Họ
-                        </label>
-                        <input 
+                        <TextField
                             name='lastName'
-                            className='modal-input'
-                            onChange={handleChange}
-                            value={author.lastName}
+                            style={{marginTop: "20px"}}
+                            autoFocus
+                            margin="dense"
+                            label="Tên"
+                            fullWidth
+                            variant="outlined"
+                            defaultValue={props.data.lastName}
+                            onChange={e => props.onChange(e)}
                         />
-                    </div>
-
-                    <div className="modal-form">
-                        <label for="name" className='modal-label'>
-                            Tên công ty
-                        </label>
-                        <input 
-                            value={author.companyName}
-                            name="companyName"
-                            className='modal-input'
-                            onChange={handleChange}
+                        <TextField
+                            name='companyName'
+                            style={{marginTop: "20px"}}
+                            autoFocus
+                            margin="dense"
+                            label="Tên công ty"
+                            fullWidth
+                            variant="outlined"
+                            defaultValue={props.data.companyName}
+                            onChange={e => props.onChange(e)}
                         />
-                    </div>
-                    <div className="button">
-                        <button className='add-author'>
-                        <AddIcon className='icon-add'/>Thêm</button>
-                    </div>
-                </div>
-            </form>
+                    </form>                     
+                </DialogContent>
+                <DialogActions>
+                    <Button 
+                        onClick={props.handleClose} 
+                        variant="outlined"
+                        color='secondary'
+                    >
+                        Hủy
+                    </Button>
+                    <Button 
+                        variant="contained"
+                        color='primary'
+                        style={{marginLeft: '20px'}}
+                        onClick={() => props.handleFormSubmit()}
+                    >
+                        {props.data.id ? "Cập nhập": "Thêm"}
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
-    </div>
-  )
+      );
 }
 
-export default NewAuthor
+export default AuthorModal
