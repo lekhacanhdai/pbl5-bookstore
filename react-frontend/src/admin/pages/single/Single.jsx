@@ -5,6 +5,10 @@ import Chart from "../../components/chart/Chart";
 import List from "../../components/table/Table";
 
 const Single = () => {
+  const handleChange = () => {
+
+  }
+
   return (
     <div className="single">
       <Sidebar />
@@ -24,21 +28,31 @@ const Single = () => {
                 <h1 className="itemTitle">Lươn Ngọc Đạt</h1>
                 <div className="detailItem">
                   <span className="itemKey">Email:</span>
-                  <span className="itemValue">...@gmail.com</span>
+                  <input 
+                    type="text" 
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Phone:</span>
-                  <span className="itemValue">+84 123456</span>
+                  <input 
+                    type="text" 
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Address:</span>
-                  <span className="itemValue">
-                    Hòa Khánh, Liên Chiểu, Đà Nẵng
-                  </span>
+                  <input 
+                    type="text" 
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Country:</span>
-                  <span className="itemValue">VietNam</span>
+                  <input 
+                    type="text" 
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
             </div>

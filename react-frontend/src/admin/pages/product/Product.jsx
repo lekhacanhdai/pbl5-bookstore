@@ -5,7 +5,7 @@ import Datatable from "../../components/datatablebooks/Datatable"
 
 
 
-const User = () => {
+const Product = () => {
   
   return (
     <div className="list">
@@ -18,4 +18,4 @@ const User = () => {
   )
 }
 
-export default User
+export default Product

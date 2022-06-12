@@ -1,22 +1,37 @@
-import "./widget.scss"
-import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
-import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+import "./widget.scss";
+import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import BookService from "../../../service/BookService";
 
-const Widget = ( {type} ) => {
+const Widget = ({ type }) => {
   let data;
 
-  const amount = 100;
   const diff = 20;
+  const [item, setItem] = useState([]);
+
+  useEffect(() => {
+    BookService.getDashboard()
+    .then((res) => {
+      setItem(res.data)  
+    })
+  },[]);
 
   switch (type) {
     case "user":
-        data = {
-        title: "USERS",
+      data = {
+        title: "NGƯỜI DÙNG",
         isMoney: false,
-        link: "See all users",
+        number: `${item.userNumber}`,
+        link: (
+          <Link className="link-item" to="user">
+            Xem tất cả
+          </Link>
+        ),
         icon: (
           <PersonOutlineOutlinedIcon
             className="icon"
@@ -30,9 +45,14 @@ const Widget = ( {type} ) => {
       break;
     case "order":
       data = {
-        title: "ORDERS",
+        title: "ĐƠN HÀNG",
         isMoney: false,
-        link: "View all orders",
+        number: `${item.orderNumber}`,
+        link: (
+          <Link className="link-item" to="order">
+            Xem tất cả
+          </Link>
+        ),
         icon: (
           <ShoppingCartOutlinedIcon
             className="icon"
@@ -44,11 +64,16 @@ const Widget = ( {type} ) => {
         ),
       };
       break;
-    case "earning":
+    case "renvenue":
       data = {
-        title: "EARNINGS",
+        title: "DOANH THU",
         isMoney: true,
-        link: "View net earnings",
+        number: `${item.revenueTotal}`,
+        link: (
+          <Link className="link-item" to="revenue">
+            Xem tất cả
+          </Link>
+        ),
         icon: (
           <MonetizationOnOutlinedIcon
             className="icon"
@@ -57,13 +82,18 @@ const Widget = ( {type} ) => {
         ),
       };
       break;
-    case "balance":
+    case "books":
       data = {
-        title: "BALANCE",
+        title: "SÁCH",
         isMoney: true,
-        link: "See details",
+        number: `${item.bookNumber}`,
+        link: (
+          <Link className="link-item" to="books">
+            Xem tất cả
+          </Link>
+        ),
         icon: (
-          <AccountBalanceWalletOutlinedIcon
+          <MenuBookOutlinedIcon
             className="icon"
             style={{
               backgroundColor: "rgba(128, 0, 128, 0.2)",
@@ -76,13 +106,14 @@ const Widget = ( {type} ) => {
     default:
       break;
   }
-  
+
   return (
     <div className="widget">
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">
-          {data.isMoney && "$"} {amount}
+          {data.isMoney && "$"}
+          {data.number}
         </span>
         <span className="link">{data.link}</span>
       </div>
@@ -97,7 +128,4 @@ const Widget = ( {type} ) => {
   );
 };
 
-  
 export default Widget;
-
-

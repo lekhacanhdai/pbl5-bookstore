@@ -174,7 +174,7 @@ const Product = () => {
     axios
       .get('http://localhost:8080/api/v1/books/' + id)
       .then((res) => {
-        console.log(res);
+        console.log(res)
         setBook(res.data);
         setAuthor(res.data.author);
         setGenre(res.data.genre);

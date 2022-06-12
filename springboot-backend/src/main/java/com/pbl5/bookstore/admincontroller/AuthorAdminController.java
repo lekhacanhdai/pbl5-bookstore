@@ -27,6 +27,7 @@ public class AuthorAdminController {
     }
 
     @PostMapping("/authors")
+
     private ResponseEntity<Author> saveAuthor(@RequestBody Author author){
         return ResponseEntity.ok(authorAdminService.saveAuthor(author));
     }
@@ -48,5 +49,4 @@ public class AuthorAdminController {
         response.put("deleted", true);
         return ResponseEntity.ok(response);
     }
-
 }
