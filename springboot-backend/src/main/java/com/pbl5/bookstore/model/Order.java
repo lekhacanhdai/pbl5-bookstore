@@ -20,12 +20,11 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "discount_id", nullable = false)
+    @JoinColumn(name = "discount_id")
     private Discount discount;
 
     @JsonIgnore
@@ -36,7 +35,29 @@ public class Order {
     @Column(name = "date_order")
     private Date dateOrder;
 
+    @Column(name = "payment_status", columnDefinition = "boolean default false")
+    private boolean paymentStatus;
+
+    @Column(name = "delivery_address")
+    private String deliveryAddress;
+
     public Order(Date dateOrder) {
         this.dateOrder = dateOrder;
+    }
+
+    public int getTotalBill(){
+        int result = 0;
+        for (OrderDetail orderDetail: orderDetails){
+            result += orderDetail.getBook().getPrice() * orderDetail.getQuantity();
+        }
+        if (discount != null){
+            result = result * discount.getValue() / 100;
+        }
+
+        return result;
+    }
+
+    public double getTotalBillUSD(){
+        return getTotalBill() / 20000.0;
     }
 }

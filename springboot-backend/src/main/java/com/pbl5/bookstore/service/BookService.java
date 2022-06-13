@@ -9,4 +9,5 @@ public interface BookService {
     public Book findBookById(long id);
     public Book saveBook(Book book);
     public void deleteBook(long id);
+    public List<Book> getBookByGenresId(long id);
 }

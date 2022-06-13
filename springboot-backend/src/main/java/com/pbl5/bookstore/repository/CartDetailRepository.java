@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Repository
-public interface CartDetailRepository extends JpaRepository<CartDetail, Long> {
+public interface CartDetailRepository extends JpaRepository<CartDetail, CartDetailKey> {
     Optional<CartDetail> getCartDetailById(CartDetailKey cartDetailKey);
 
     @Modifying
