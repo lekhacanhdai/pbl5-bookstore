@@ -1,64 +1,107 @@
-import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import BookService from "../../../../service/BookService";
-import NewGenre from "../newgenre/NewGenre";
+import GenreModal from "../genreModal/GenreModal";
+import "./datatable.scss";
 
 const DatatableGenre = () => {
 
   const [genres, setGenres] = useState([]);
-  const [genre, setGenre] = useState([])
-  const [openmodaladd, setOpenmodalAdd] = useState(false);
 
-  const handleModalAdd = () => {
-    setOpenmodalAdd(true)
+  const [open, setOpen] = useState(false)
+  const [formData, setFormData] = useState({ id: '', name: ''})
+
+  const handleClickOpen = () => {
+    setOpen(true);
   }
-  
-  const handleModalView = () => {
 
+  const handleClose = () => {
+    setOpen(false);
+    setFormData({ id: '', name: '' });
   }
-  
-  const handleDelete =  async (id) => {
-    await BookService.deleteAuthorById(id);
-    setGenres(genres.filter(item => item.id != id));
-  };
 
-  useEffect(() => {
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+
+  const handleFormSubmit = async () => {
+
+    try {
+      if (formData.id) {
+        const updateGenre = {
+          name: formData.name
+        }
+        const respone = await BookService.putGenreById(formData.id, updateGenre)
+        alert('Cập nhật thành công !')
+        handleClose();
+        getGenres();
+        setFormData({id: '',name: ''})
+      } else {
+        const newGenre = {
+          name: formData.name
+        }
+        const response = await BookService.postNewGenre(newGenre)
+        alert('Thêm thành công !')
+        handleClose();
+        getGenres();
+        setFormData({ id: '' ,name: ''})
+      }
+    } catch (error) {
+      alert(error);
+    }
+  }
+
+  const handleDelete = (id) => {
+    const confirm = window.confirm("Bạn muốn xóa hàng này ?", id)
+    if (confirm) {
+      BookService.deleteGenreById(id);
+      setGenres(genres.filter(item => item.id != id));
+    }
+  }
+
+  const handleUpdate = (oldData) => {
+    setFormData(oldData)
+    handleClickOpen()
+  }
+
+  const getGenres = () => {
     BookService.getAllGenre()
       .then((res) => {
-        setGenres(res.data);
+        setGenres(res.data)
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+  }
+
+  useEffect(() => {
+    getGenres()
   }, []);
 
-  const userColumns = [
+  const genreColumns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     {
       field: "name",
       headerName: "Thể loại",
       flex: 12.5
     },
-  ];
-
-
-  const actionColumn = [
     {
       field: "action",
       headerName: "Hành động",
-      flex: 1.5,
+      flex: 2,
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <div className="viewButton" onClick={() => handleModalView(params.row.id)}>
-              View
+            <div
+              className="viewButton"
+              onClick={() => handleUpdate(params.row)}
+            >
+              Cập nhập
             </div>
-
             <div
               className="deleteButton"
               onClick={() => handleDelete(params.row.id)}
             >
-              Delete
+              Xóa
             </div>
           </div>
         );
@@ -66,23 +109,34 @@ const DatatableGenre = () => {
     },
   ];
 
+
+
   return (
+
     <div className="datatable">
+      {
+        <GenreModal
+          open={open}
+          handleClose={handleClose}
+          data={formData}
+          onChange={onChange}
+          handleFormSubmit={handleFormSubmit}
+        />
+      }
+
       <div className="datatableTitle">
         Quản lí danh mục
-        <button className="link" onClick={handleModalAdd}>
-          Thêm 
+        <button
+          className="link"
+          onClick={handleClickOpen}
+        >
+          Thêm
         </button>
-        {openmodaladd && <NewGenre
-          closeModal={setOpenmodalAdd}
-          name={genre.name}
-        />}
       </div>
-      
       <DataGrid
         className="datagrid"
         rows={genres}
-        columns={userColumns.concat(actionColumn)}
+        columns={genreColumns}
         pageSize={10}
         rowsPerPageOptions={[10]}
         disableSelectionOnClick

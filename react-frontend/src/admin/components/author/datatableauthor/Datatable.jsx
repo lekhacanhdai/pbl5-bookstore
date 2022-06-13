@@ -1,8 +1,7 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import BookService from "../../../../service/BookService";
-import AuthorModal from "../../author/newauthor/NewAuthor";
-import Button from '@mui/material/Button';
+import AuthorModal from "../authorModal/AuthorModal";
 import "./datatable.scss";
 
 const DatatableAuthor = () => {
@@ -90,12 +89,12 @@ const DatatableAuthor = () => {
     {
       field: "companyName",
       headerName: "Tên công ty",
-      flex: 7.5
+      flex: 8
     },
     {
       field: "action",
       headerName: "Hành động",
-      flex: 1.5,
+      flex: 2,
       renderCell: (params) => {
         return (
           <div className="cellAction">
@@ -103,7 +102,8 @@ const DatatableAuthor = () => {
               className="viewButton"
               onClick={() => handleUpdate(params.row)}
             >
-              Xem</div>
+              Cập nhập
+            </div>
             <div
               className="deleteButton"
               onClick={() => handleDelete(params.row.id)}
