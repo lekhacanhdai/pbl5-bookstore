@@ -10,7 +10,7 @@ import Single from "./admin/pages/single/Single";
 import NewUser from "./admin/pages/newuser/New";
 import NewBook from "./admin/pages/newbook/New";
 import Order from "./admin/pages/order/Order";
-import ProductAdmin from "./admin/pages/product/Product";
+import ProductAdmin from "./admin/pages/book/Book";
 import Detail from "./admin/pages/detailbook/Detail";
 import Profile from "./admin/pages/profile/Profile";
 import UserProfile from './pages/UserProfile';

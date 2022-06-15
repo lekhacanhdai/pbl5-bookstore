@@ -1,16 +1,20 @@
-import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import BookService from "../../../service/BookService";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import "./datatable.scss";
 
-const DatatableBooks = () => {
+const DatatableBooks = (props) => {
   const [books, setBooks] = useState([]);
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [item, setItem] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([])
+
+  const inputEl = useRef("");
 
   useEffect(() => {
     BookService.getAllBookAdmin()
@@ -36,65 +40,60 @@ const DatatableBooks = () => {
   }, [books]);
 
   const handleView = () => {
-    // axios.get('http://localhost:8080/api/v1/books/' + id)
-    // .then((res) => {
-    //   console.log(res);
-    //   localStorage.setItem("bookTitle",res.data.title);
-    //   localStorage.setItem("bookPrice",res.data.price)
-    //   localStorage.setItem("bookpublicationDate",res.data.publicationDate)
-    //   localStorage.setItem("bookid",res.data.id)
-    //   localStorage.setItem("bookAuthor",res.data.author.companyName)
-    // })
-    // let book = [];
-    // if(localStorage.getItem('book')){
-    // };
+
   };
 
   const handleDelete = (id) => {
     setBooks(books.filter((item) => item.id !== id));
   };
 
-  // const handleDelete = (id) => {
-  //   const url = `/${id}`;
-  //   axios.delete(url)
-  //   .then(res => {
-  //     console.log(res);
-  //     const data = books.filter((book) => {
-  //       return book.id !== id
-  //     });
-  //     setBooks(data)
-  //   })
-  // }
+  const handleSearch = (searchTerm) => {
+    try {
+      setSearchTerm(searchTerm)
+      if (searchTerm !== "") {
+        const newData = books.filter((book) => {
+          return Object.values(book)
+            .join("")
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        })
+        setSearchResults(newData)
+      } else {
+        setSearchResults(books)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
+  const getSearch = () => {
+    handleSearch(inputEl.current.value)
+  }
   const bookColumns = [
     {
       field: "id",
       headerName: "ID",
-      // width: 70,
       flex: 0.5
     },
     {
       field: "title",
       headerName: "Tiêu đề",
-      // width: 350,
+
       flex: 5
     },
     {
       field: `companyName`,
       headerName: "Tác giả",
-      // width: 230,
       flex: 3
     },
     {
       field: "publiccationDate",
       headerName: "Ngày xuất bản",
-      // width: 230,
       flex: 2.5
     },
     {
       field: "price",
       headerName: "Giá thành",
-      // width: 2,
       flex: 2
     },
   ];
@@ -102,7 +101,7 @@ const DatatableBooks = () => {
     {
       field: "action",
       headerName: "Hành động",
-      // width: 150,
+
       flex: 1.5,
       renderCell: (params) => {
         return (
@@ -126,15 +125,31 @@ const DatatableBooks = () => {
 
   return (
     <div className="datatable">
+      <div className='navbar'>
+        <div className="wrapper">
+          <div className="search">
+            <input
+              ref={inputEl}
+              type="text"
+              placeholder='Tìm kiếm'
+              value={props.name}
+              onChange={getSearch}
+            />
+            <SearchOutlinedIcon
+              className='search-icon'
+            />
+          </div>
+        </div>
+      </div>
       <div className="datatableTitle">
-        Thêm sách
+        Quản lí sách
         <Link to="/admin/books/new" className="link">
           Thêm
         </Link>
       </div>
       <DataGrid
         className="datagrid"
-        rows={books}
+        rows={(searchTerm.length < 1) ? books : searchResults}
         columns={bookColumns.concat(actionColumn)}
         pageSize={10}
         rowsPerPageOptions={[10]}

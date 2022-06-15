@@ -1,6 +1,5 @@
 import "./revenue.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
-import Navbar from "../../components/navbar/Narbav"
 import Datatable from "../../components/datatableearnings/Datatable"
 
 const Revenue = () => {
@@ -8,7 +7,6 @@ const Revenue = () => {
     <div className="list">
       <Sidebar/>
       <div className="listContainer">
-        <Navbar/>
         <Datatable/>
       </div>
     </div>

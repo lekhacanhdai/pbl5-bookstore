@@ -1,20 +1,20 @@
 import { DataGrid } from "@mui/x-data-grid";
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useEffect, useRef, useState } from "react";
 import BookService from "../../../../service/BookService";
-import AuthorModal from "../authorModal/AuthorModal";
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import PublisherModal from "../modal/PublisherModal";
 import "./datatable.scss";
 
-const DatatableAuthor = () => {
+const DatatablePublisher = (props) => {
 
-    const [authors, setAuthors] = useState([]);
+    const [publishers, setPublishers] = useState([]);
 
     const [open, setOpen] = useState(false)
-    const [formData, setFormData] = useState({ id: '', firstName: '', lastName: '', companyName: '' })
+    const [formData, setFormData] = useState({ id: '', name: '' })
     const [searchTerm, setSearchTerm] = useState("")
     const [searchResults, setSearchResults] = useState([]);
 
-    const inputEl = useRef("")
+    const inputEl = useRef("");
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -22,7 +22,7 @@ const DatatableAuthor = () => {
 
     const handleClose = () => {
         setOpen(false);
-        setFormData({ id: '', firstName: '', lastName: '', companyName: '' });
+        setFormData({ id: '', name: '' });
     }
 
     const onChange = (e) => {
@@ -31,27 +31,25 @@ const DatatableAuthor = () => {
 
 
     const handleFormSubmit = async () => {
-
         try {
-            const id = parseInt(formData.id);
-            if (id) {
-                const updateAuthor = {
-                    firstName: formData.firstName,
-                    lastName: formData.lastName,
-                    companyName: formData.companyName
+            if (formData.id) {
+                const updatePublisher = {
+                    name: formData.name
                 }
-                const respone = await BookService.putAuthorById(id, updateAuthor)
+                const respone = await BookService.putPublisherById(formData.id, updatePublisher)
+                alert('Cập nhập thành công !')
                 handleClose();
-                window.location.reload();
+                getPublishers();
+                setFormData({ id: '', name: '' })
             } else {
-                const newAuthor = {
-                    firstName: formData.firstName,
-                    lastName: formData.lastName,
-                    companyName: formData.companyName
+                const newPublisher = {
+                    name: formData.name
                 }
-                const response = await BookService.postNewAuthor(newAuthor)
+                const response = await BookService.postNewPublisher(newPublisher)
+                alert('Thêm thành công !')
                 handleClose();
-                window.location.reload();
+                getPublishers();
+                setFormData({ id: '', name: '' })
             }
         } catch (error) {
             alert(error);
@@ -61,8 +59,8 @@ const DatatableAuthor = () => {
     const handleDelete = (id) => {
         const confirm = window.confirm("Bạn muốn xóa hàng này ?", id)
         if (confirm) {
-            BookService.deleteAuthorById(id);
-            setAuthors(authors.filter(item => item.id != id));
+            BookService.deletePublisherById(id);
+            setPublishers(publishers.filter(item => item.id != id));
         }
     }
 
@@ -71,57 +69,56 @@ const DatatableAuthor = () => {
         handleClickOpen()
     }
 
-    useEffect(() => {
-        BookService.getAllAuthor()
+    const getPublishers = () => {
+        BookService.getAllPublisher()
             .then((res) => {
-                setAuthors(res.data);
+                setPublishers(res.data);
             })
             .catch((err) => console.log(err));
+    }
+
+    useEffect(() => {
+        getPublishers()
     }, []);
 
-    const handleSearch = (searchTerm) => {
-        try {
+    const handleSearch =  (searchTerm) => {
+        try{
             setSearchTerm(searchTerm)
+            // console.log(searchTerm)
             if (searchTerm !== "") {
-                const newData = authors.filter((author) => {
-                    // console.log(Object.values(author).join("").toLowerCase.includes(searchTerm))
-                    return Object.values(author)
+                const newData = publishers.filter((publisher) => {
+                    return Object.values(publisher)
                     .join("")
-                    .toLowerCase("")
-                    .includes(searchTerm.toLowerCase());
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())
                 })
                 setSearchResults(newData)
+                // console.log(newData)
             } else {
-                setSearchResults(authors)
+                setSearchResults(publishers)
             }
-        } catch (error) {
+        }catch(error){
             console.log(error)
         }
+
     }
 
-    // console.log(authors)
-    // console.log(searchResults)
+    
 
     const getSearch = () => {
-        handleSearch(inputEl.current.value)
+        handleSearch(inputEl.current.value);
     }
-    const authorColumns = [
+
+    
+
+    const publisherColumns = [
         { field: "id", headerName: "ID", flex: 0.5 },
         {
-            field: "firstName",
-            headerName: "Họ",
-            flex: 2.5
+            field: "name",
+            headerName: "Tên nhà xuất bản",
+            flex: 12
         },
-        {
-            field: "lastName",
-            headerName: "Tên",
-            flex: 2.5
-        },
-        {
-            field: "companyName",
-            headerName: "Tên công ty",
-            flex: 8
-        },
+
         {
             field: "action",
             headerName: "Hành động",
@@ -148,12 +145,11 @@ const DatatableAuthor = () => {
     ];
 
 
-
     return (
 
         <div className="datatable">
             {
-                <AuthorModal
+                <PublisherModal
                     open={open}
                     handleClose={handleClose}
                     data={formData}
@@ -161,7 +157,6 @@ const DatatableAuthor = () => {
                     handleFormSubmit={handleFormSubmit}
                 />
             }
-
             <div className='navbar'>
                 <div className="wrapper">
                     <div className="search">
@@ -179,7 +174,7 @@ const DatatableAuthor = () => {
                 </div>
             </div>
             <div className="datatableTitle">
-                Quản lí tác giả
+                Quản lí nhà xuất bản
                 <button
                     className="link"
                     onClick={handleClickOpen}
@@ -190,9 +185,9 @@ const DatatableAuthor = () => {
             <DataGrid
                 className="datagrid"
                 rows={
-                    (searchTerm.length < 1) ? authors : searchResults
+                    (searchTerm.length < 1) ? publishers : searchResults
                 }
-                columns={authorColumns}
+                columns={publisherColumns}
                 pageSize={10}
                 rowsPerPageOptions={[10]}
                 disableSelectionOnClick
@@ -201,4 +196,4 @@ const DatatableAuthor = () => {
     );
 };
 
-export default DatatableAuthor;
+export default DatatablePublisher;

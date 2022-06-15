@@ -210,9 +210,6 @@ const New = () => {
             </div>
           </div>
         </form>
-        <input type="text"
-          value={book.description}
-        />
         {/* <div className="productContainer">
           <div className="RateContainer">
             <p className="title">Đánh giá sản phẩm</p>

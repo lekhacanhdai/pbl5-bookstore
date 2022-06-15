@@ -1,7 +1,8 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import BookService from "../../../../service/BookService";
 import GenreModal from "../genreModal/GenreModal";
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import "./datatable.scss";
 
 const DatatableGenre = () => {
@@ -9,7 +10,13 @@ const DatatableGenre = () => {
   const [genres, setGenres] = useState([]);
 
   const [open, setOpen] = useState(false)
-  const [formData, setFormData] = useState({ id: '', name: ''})
+  const [formData, setFormData] = useState({ id: '', name: '' })
+  const [searchTerm, setSearchTerm] = useState("")
+  const [searchResults, setSearchResults] = useState([])
+
+  const inputEl = useRef("")
+
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,7 +43,7 @@ const DatatableGenre = () => {
         alert('Cập nhật thành công !')
         handleClose();
         getGenres();
-        setFormData({id: '',name: ''})
+        setFormData({ id: '', name: '' })
       } else {
         const newGenre = {
           name: formData.name
@@ -45,7 +52,7 @@ const DatatableGenre = () => {
         alert('Thêm thành công !')
         handleClose();
         getGenres();
-        setFormData({ id: '' ,name: ''})
+        setFormData({ id: '', name: '' })
       }
     } catch (error) {
       alert(error);
@@ -65,6 +72,7 @@ const DatatableGenre = () => {
     handleClickOpen()
   }
 
+
   const getGenres = () => {
     BookService.getAllGenre()
       .then((res) => {
@@ -76,6 +84,31 @@ const DatatableGenre = () => {
   useEffect(() => {
     getGenres()
   }, []);
+
+  const handleSearch = (searchTerm) => {
+    try {
+      setSearchTerm(searchTerm)
+      // console.log(searchTerm)
+      if (searchTerm !== "") {
+        const newData = genres.filter((genre) => {
+          return Object.values(genre)
+            .join("")
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        })
+        setSearchResults(newData)
+        // console.log(newData)
+      } else {
+        setSearchResults(genres)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getSearch = () => {
+    handleSearch(inputEl.current.value);
+  }
 
   const genreColumns = [
     { field: "id", headerName: "ID", flex: 0.5 },
@@ -124,6 +157,22 @@ const DatatableGenre = () => {
         />
       }
 
+      <div className='navbar'>
+        <div className="wrapper">
+          <div className="search">
+            <input
+              ref={inputEl}
+              type="text"
+              placeholder='Tìm kiếm'
+              value={searchTerm}
+              onChange={getSearch}
+            />
+            <SearchOutlinedIcon
+              className='search-icon'
+            />
+          </div>
+        </div>
+      </div>
       <div className="datatableTitle">
         Quản lí danh mục
         <button
@@ -135,7 +184,7 @@ const DatatableGenre = () => {
       </div>
       <DataGrid
         className="datagrid"
-        rows={genres}
+        rows={(searchTerm.length < 1) ? genres : searchResults}
         columns={genreColumns}
         pageSize={10}
         rowsPerPageOptions={[10]}

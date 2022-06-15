@@ -1,9 +1,10 @@
-import "./datatable.scss";
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import "./datatable.scss";
 
-const DatatableUsers = () => {
+const DatatableUsers = (props) => {
   const userRows = [
     {
       id: 1,
@@ -135,6 +136,22 @@ const DatatableUsers = () => {
 
   return (
     <div className="datatable">
+      <div className='navbar'>
+        <div className="wrapper">
+          <div className="search">
+            <input
+              // ref={inputEl}
+              type="text"
+              placeholder='Tìm kiếm'
+              value={props.name}
+            // onChange={getSearch}
+            />
+            <SearchOutlinedIcon
+              className='search-icon'
+            />
+          </div>
+        </div>
+      </div>
       <div className="datatableTitle">
         Thêm người dùng
         <Link to="/admin/user/new" className="link">
