@@ -1,16 +1,16 @@
-import "./revenue.scss"
+import "./book.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
-import Datatable from "../../components/datatableearnings/Datatable"
+import Datatable from "../../components/datatablebooks/Datatable"
 
-const Revenue = () => {
+const Book = () => {
   return (
     <div className="list">
       <Sidebar/>
       <div className="listContainer">
-        <Datatable/>
+        <Datatable/>        
       </div>
     </div>
   )
 }
 
-export default Revenue
+export default Book

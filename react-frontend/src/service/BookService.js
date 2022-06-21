@@ -51,6 +51,10 @@ class BookService{
         return axios.get(ADMIN_BOOK_API_BASE_URL + "/dashboard" );
     }
 
+    postNewGenre(genre){
+        return axios.post(ADMIN_BOOK_API_BASE_URL+ '/genres', genre);
+    }
+
     postNewAuthor(author){
         return axios.post(ADMIN_BOOK_API_BASE_URL + '/authors', author);
     }
@@ -67,12 +71,20 @@ class BookService{
         return axios.put(ADMIN_BOOK_API_BASE_URL+ '/publishers/' + id, publisher);
     }
 
+    putGenreById(id, genre){
+        return axios.put(ADMIN_BOOK_API_BASE_URL + '/genres/' + id,  genre);
+    }
+
     deleteAuthorById(id){
         return axios.delete(ADMIN_BOOK_API_BASE_URL+ '/authors/' + id);
     }
 
     deletePublisherById(id){
         return axios.delete(ADMIN_BOOK_API_BASE_URL + '/publishers/' + id);
+    }
+
+    deleteGenreById(id){
+        return axios.delete(ADMIN_BOOK_API_BASE_URL + '/genres/' + id);
     }
 }
 

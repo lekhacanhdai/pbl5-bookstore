@@ -29,9 +29,9 @@ public class OrderDetail {
     private Order order;
 
     @Column
-    private long amount;
+    private long quantity;
 
-    public OrderDetail(long amount) {
-        this.amount = amount;
+    public OrderDetail(long quantity) {
+        this.quantity = quantity;
     }
 }

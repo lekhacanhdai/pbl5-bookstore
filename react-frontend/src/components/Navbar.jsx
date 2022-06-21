@@ -95,7 +95,7 @@ const Navbar = () => {
         <DensityMedium style={{ color: 'darkgray' }} />
         <KeyboardArrowDown style={{ color: 'darkgray' }} />
         <SearchContainer>
-          <Input placeholder="Search..." />
+          <Input placeholder="Tìm kiếm" />
           <Button>
             <Search style={{ fontSize: '20px' }} />
           </Button>

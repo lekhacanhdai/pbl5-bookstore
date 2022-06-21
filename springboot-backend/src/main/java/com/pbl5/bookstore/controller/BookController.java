@@ -39,6 +39,11 @@ public class BookController {
         return ResponseEntity.ok(book);
     }
 
+    @GetMapping("/books/genres/{id}")
+    public ResponseEntity<List<Book>> getBookByGenresId(@PathVariable long id){
+        return ResponseEntity.ok(bookService.getBookByGenresId(id));
+    }
+
     // update book rest api
 
     @PutMapping("/books/{id}")

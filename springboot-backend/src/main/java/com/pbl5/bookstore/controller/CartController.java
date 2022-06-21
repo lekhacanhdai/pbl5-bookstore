@@ -1,20 +1,12 @@
 package com.pbl5.bookstore.controller;
 
 import com.pbl5.bookstore.dto.AddBookDTO;
-import com.pbl5.bookstore.model.Book;
 import com.pbl5.bookstore.model.Cart;
-import com.pbl5.bookstore.model.CartDetail;
-import com.pbl5.bookstore.model.CartDetailKey;
-import com.pbl5.bookstore.service.BookService;
-import com.pbl5.bookstore.service.CartDetailService;
+import com.pbl5.bookstore.model.Order;
 import com.pbl5.bookstore.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -40,5 +32,11 @@ public class CartController {
     public ResponseEntity<Cart> getCartById(@PathVariable long id){
         long cartId = cartService.getCartIdByAccountId(id);
         return ResponseEntity.ok(cartService.findCartById(cartId));
+    }
+
+    @GetMapping("/carts/payment/{id}")
+    public ResponseEntity<Order> getPaymentInfo(@PathVariable long id){
+        Order order = cartService.getPaymentInfo(id);
+        return ResponseEntity.ok(order);
     }
 }

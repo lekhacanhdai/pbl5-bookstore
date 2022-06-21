@@ -1,4 +1,3 @@
-import Navbar from "../../components/navbar/Narbav";
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./order.scss";
 
@@ -7,7 +6,6 @@ const Order = () => {
     <div className="order">
       <Sidebar />
       <div className="orderContainer">
-        <Navbar />
       </div>
     </div>
   )

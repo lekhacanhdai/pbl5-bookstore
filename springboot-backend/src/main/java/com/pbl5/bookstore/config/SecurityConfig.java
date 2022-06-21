@@ -52,7 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/authors",
                         "/api/v1/publishers",
                         "/image/**",
-                        "/api/v1/accounts/reset-password")
+                        "/api/v1/accounts/reset-password",
+                        "/api/v1/orders/**")
                 .permitAll()
                 .and()
                 .authorizeRequests()
@@ -73,7 +74,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/v1/carts/{id}/**",
                         "/api/v1/books/add-to-cart/{id}/**",
                         "api/v1/cart-details/**",
-                        "api/v1/users/**")
+                        "api/v1/users/**",
+                        // "api/v1/orders/**",
+                        "api/v1/discounts/**")
                 .hasAuthority("ROLE_USER")
                 .and()
                 .authorizeRequests()
@@ -94,7 +97,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE"));
+        configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(Arrays.asList("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

@@ -1,15 +1,13 @@
 import "./publisher.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
-import Navbar from "../../components/navbar/Narbav"
-import Datatable from "../../components/publisher/datatablepublisher/Datatable"
+import Datatable from "../../components/publisher/datatable/Datatable"
 
 const Publisher = () => {
   return (
     <div className="list">
       <Sidebar/>
       <div className="listContainer">
-        <Navbar/>
-        <Datatable/>
+        <Datatable />
       </div>
     </div>
   )

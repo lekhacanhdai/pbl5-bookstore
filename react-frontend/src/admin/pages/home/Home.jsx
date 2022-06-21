@@ -1,7 +1,6 @@
 import React from 'react';
 import "./home.scss";
 import Sidebar from '../../components/sidebar/Sidebar';
-import Navbar from '../../components/navbar/Narbav';
 import Widget from '../../components/widget/Widget';
 import Chart from "../../components/chart/Chart";
 import Table from "../../components/table/Table"
@@ -11,7 +10,7 @@ const Home = () => {
     <div className="home">
       <Sidebar />
       <div className="homeContainer">
-        <Navbar/>
+        
         <div className="widgets">
           <Widget type="user"/>
           <Widget type="order"/>

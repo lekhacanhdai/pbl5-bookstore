@@ -1,61 +1,81 @@
 .datatable {
-    height: 631px;
-    padding: 20px;
-    
-    .datatableTitle{
+  height: 631px;
+  padding:0px 20px;
+
+  .navbar {
+    height: 60px;
+    border-bottom: 0.5px solid white;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+
+    .wrapper {
       width: 100%;
-      font-size: 24px;
-      color: gray;
-      margin-bottom: 10px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-  
-      .link{
-        text-decoration: none;
-        color: green;
-        font-size: 16px;
-        font-weight: 400;
-        border: 1px solid green;
-        padding: 5px;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-    }
-  
-    .cellWithImg {
-      display: flex;
-      align-items: center;
-  
-      .cellImg {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 20px;
-      }
-    }
-  
-  
-    .cellAction {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-  
-      .viewButton {
-        padding: 2px 5px;
-        border-radius: 5px;
-        color: darkblue;
-        border: 1px dotted rgba(0, 0, 139, 0.596);
-        cursor: pointer;
-      }
-      
-      .deleteButton {
-        padding: 2px 5px;
-        border-radius: 5px;
-        color: crimson;
-        border: 1px dotted rgba(220, 20, 60, 0.6);
-        cursor: pointer;
+      justify-content: center;
+
+      .search {
+        border-radius: 15px;
+        width: 50%;
+        display: flex;
+        align-items: center;
+        border: 0.5px solid lightgray;
+        padding: 3px;
+
+        input {
+          width: 100%;
+          border: none;
+          outline: none;
+          background-color: transparent;
+
+          &::placeholder {
+            font-size: 12px;
+          }
+        }
+
+        .search-icon {
+          &:hover {
+            cursor: pointer;
+          }
+        }
       }
     }
   }
+
+  .cellWithImg {
+    display: flex;
+    align-items: center;
+
+    .cellImg {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 20px;
+    }
+  }
+
+  .cellAction {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    .viewButton {
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: darkblue;
+      border: 1px dotted rgba(0, 0, 139, 0.596);
+      cursor: pointer;
+    }
+
+    .deleteButton {
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: crimson;
+      border: 1px dotted rgba(220, 20, 60, 0.6);
+      cursor: pointer;
+    }
+  }
+}

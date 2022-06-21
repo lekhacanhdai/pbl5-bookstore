@@ -1,6 +1,5 @@
 import "./author.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
-import Navbar from "../../components/navbar/Narbav"
 import Datatable from "../../components/author/datatableauthor/Datatable"
 
 const Author = () => {
@@ -8,8 +7,7 @@ const Author = () => {
     <div className="list">
       <Sidebar/>
       <div className="listContainer">
-        <Navbar/>
-        <Datatable/>
+        <Datatable />
       </div>
     </div>
   )

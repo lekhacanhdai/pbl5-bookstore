@@ -1,6 +1,5 @@
 import "./user.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
-import Navbar from "../../components/navbar/Narbav"
 import Datatable from "../../components/datatableusers/Datatable"
 
 const User = () => {
@@ -8,7 +7,6 @@ const User = () => {
     <div className="list">
       <Sidebar/>
       <div className="listContainer">
-        <Navbar/>
         <Datatable/>
       </div>
     </div>
