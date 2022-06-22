@@ -1,22 +1,20 @@
 import { DataGrid } from "@mui/x-data-grid";
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useEffect, useRef, useState } from "react";
 import BookService from "../../../../service/BookService";
-import GenreModal from "../genreModal/GenreModal";
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import GenreModal from "../modal/GenreModal"
 import "./datatable.scss";
 
-const DatatableGenre = () => {
+const DatatableRevenue = (props) => {
 
-    const [genres, setGenres] = useState([]);
+    const [revenues, setRevennues] = useState([]);
 
     const [open, setOpen] = useState(false)
     const [formData, setFormData] = useState({ id: '', name: '' })
     const [searchTerm, setSearchTerm] = useState("")
-    const [searchResults, setSearchResults] = useState([])
+    const [searchResults, setSearchResults] = useState([]);
 
-    const inputEl = useRef("")
-
-
+    const inputEl = useRef("");
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -33,25 +31,24 @@ const DatatableGenre = () => {
 
 
     const handleFormSubmit = async () => {
-
         try {
             if (formData.id) {
-                const updateGenre = {
+                const updatePublisher = {
                     name: formData.name
                 }
-                const respone = await BookService.putGenreById(formData.id, updateGenre)
-                alert('Cập nhật thành công !')
+                const respone = await BookService.putPublisherById(formData.id, updatePublisher)
+                alert('Cập nhập thành công !')
                 handleClose();
-                getGenres();
+                getPublishers();
                 setFormData({ id: '', name: '' })
             } else {
-                const newGenre = {
+                const newPublisher = {
                     name: formData.name
                 }
-                const response = await BookService.postNewGenre(newGenre)
+                const response = await BookService.postNewPublisher(newPublisher)
                 alert('Thêm thành công !')
                 handleClose();
-                getGenres();
+                getPublishers();
                 setFormData({ id: '', name: '' })
             }
         } catch (error) {
@@ -59,82 +56,86 @@ const DatatableGenre = () => {
         }
     }
 
-    const handleDelete = (id) => {
-        const confirm = window.confirm("Bạn muốn xóa hàng này ?", id)
-        if (confirm) {
-            BookService.deleteGenreById(id);
-            setGenres(genres.filter(item => item.id != id));
-        }
-    }
-
-    const handleUpdate = (oldData) => {
-        setFormData(oldData)
+    const handleView = (oldData) => {
+        // setFormData(oldData)
         handleClickOpen()
     }
 
-
-    const getGenres = () => {
-        BookService.getAllGenre()
+    const getPublishers = () => {
+        BookService.getAllPublisher()
             .then((res) => {
-                setGenres(res.data)
+                setRevennues(res.data);
             })
-            .catch((err) => console.log(err))
+            .catch((err) => console.log(err));
     }
 
     useEffect(() => {
-        getGenres()
+        getPublishers()
     }, []);
 
-    const handleSearch = (searchTerm) => {
-        try {
+    const handleSearch =  (searchTerm) => {
+        try{
             setSearchTerm(searchTerm)
             // console.log(searchTerm)
             if (searchTerm !== "") {
-                const newData = genres.filter((genre) => {
-                    return Object.values(genre)
-                        .join("")
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase())
+                const newData = revenues.filter((revenue) => {
+                    return Object.values(revenue)
+                    .join("")
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())
                 })
                 setSearchResults(newData)
-                // console.log(newData)
             } else {
-                setSearchResults(genres)
+                setSearchResults(revenues)
             }
-        } catch (error) {
+        }catch(error){
             console.log(error)
         }
+
     }
+
+    
 
     const getSearch = () => {
         handleSearch(inputEl.current.value);
     }
 
-    const genreColumns = [
-        { field: "id", headerName: "ID", flex: 0.5 },
+    
+
+    const publisherColumns = [
+        { field: "id", headerName: "Mã đơn hàng", flex: 2 },
         {
             field: "name",
-            headerName: "Thể loại",
-            flex: 12.5
+            headerName: "Tên khách hàng",
+            flex: 4
+        },
+        {
+            field: "date",
+            headerName: "Ngày mua",
+            flex: 3
+        },
+        {
+            field: "price",
+            headerName: "Tổng tiền",
+            flex: 2
+        },
+        {
+            field: "paymentstatus",
+            headerName: "Trạng thái",
+            flex: 3
         },
         {
             field: "action",
             headerName: "Hành động",
-            flex: 2,
+            flex: 1,
             renderCell: (params) => {
                 return (
                     <div className="cellAction">
                         <div
                             className="viewButton"
-                            onClick={() => handleUpdate(params.row)}
+                            onClick={() => handleView(params.row)}
                         >
-                            Cập nhập
-                        </div>
-                        <div
-                            className="deleteButton"
-                            onClick={() => handleDelete(params.row.id)}
-                        >
-                            Xóa
+                            Xem
                         </div>
                     </div>
                 );
@@ -143,20 +144,16 @@ const DatatableGenre = () => {
     ];
 
 
-
     return (
 
         <div className="datatable">
-            {
+             {
                 <GenreModal
                     open={open}
                     handleClose={handleClose}
-                    data={formData}
-                    onChange={onChange}
-                    handleFormSubmit={handleFormSubmit}
+                    // data={formData}
                 />
             }
-
             <div className='navbar'>
                 <div className="wrapper">
                     <div className="search">
@@ -173,19 +170,15 @@ const DatatableGenre = () => {
                     </div>
                 </div>
             </div>
+            
             <div className="datatableTitle">
-                Quản lí danh mục
-                <button
-                    className="link"
-                    onClick={handleClickOpen}
-                >
-                    Thêm
-                </button>
+                Quản lí doanh thu
             </div>
             <DataGrid
-                className="datagrid"
-                rows={(searchTerm.length < 1) ? genres : searchResults}
-                columns={genreColumns}
+                rows={
+                    (searchTerm.length < 1) ? revenues : searchResults
+                }
+                columns={publisherColumns}
                 pageSize={10}
                 rowsPerPageOptions={[10]}
                 disableSelectionOnClick
@@ -194,4 +187,4 @@ const DatatableGenre = () => {
     );
 };
 
-export default DatatableGenre;
+export default DatatableRevenue;

@@ -12,7 +12,6 @@ import NewBook from "./admin/pages/newbook/New";
 import Order from "./admin/pages/order/Order";
 import ProductAdmin from "./admin/pages/book/Book";
 import Detail from "./admin/pages/detailbook/Detail";
-import Profile from "./admin/pages/profile/Profile";
 import UserProfile from './pages/UserProfile';
 import Comment from "./admin/pages/comment/Comment";
 import Revenue from "./admin/pages/revenue/Revenue";
@@ -43,7 +42,6 @@ const App = () => {
         <Route path="/admin/genres" element={<AdminGenre />} />
         <Route path="/admin/revenue" element={<Revenue />} />
         <Route path="/admin/books/:id" element={<Detail />} />
-        <Route path="/admin/profile" element={<Profile />} />
         <Route path="/admin/user/single" element={<Single />} />
         <Route path="/admin/comment" element={<Comment />} />
         <Route

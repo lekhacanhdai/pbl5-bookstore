@@ -169,6 +169,7 @@ const Product = () => {
   const [date, setDate] = useState('');
   const [quantity, setQuantity] = useState(1);
 
+
   useEffect(() => {
     window.scrollTo(0, 0);
     axios

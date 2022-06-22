@@ -1,91 +1,143 @@
-import axios from 'axios';
+import axios from "axios";
+import authHeader from "./AuthHeader";
 
-const BOOK_API_BASE_URL = "http://localhost:8080"
+const BOOK_API_BASE_URL = "http://localhost:8080";
 
-const ADMIN_BOOK_API_BASE_URL = "http://localhost:8080/admin/api/v1"
-var config = {
-    headers: {
-        authorization: ' JWT fefege...' ,
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-    }   
-};
-class BookService{
-    getAllBookAdmin(){
-        return axios.get(ADMIN_BOOK_API_BASE_URL + '/books' );
-    }
-    
-    getBookbyIdAdmin(idBook){
-        return axios.get(ADMIN_BOOK_API_BASE_URL + '/books/' + idBook )
-    }
+const ADMIN_BOOK_API_BASE_URL = "http://localhost:8080/admin/api/v1";
 
-    getAllAuthor(){
-        return axios.get(ADMIN_BOOK_API_BASE_URL + '/authors');
-    }
+class BookService {
+  getAllBook() {
+    return axios.get(ADMIN_BOOK_API_BASE_URL + "/books", authHeader());
+  }
 
-    getAllPublisher(){
-        return axios.get(ADMIN_BOOK_API_BASE_URL + '/publishers');
-    }
+  getBookbyId(idBook) {
+    return axios.get(
+      ADMIN_BOOK_API_BASE_URL + "/books/" + idBook, authHeader());
+  }
 
-    getAuthorbyId(id){
-        return axios.get(ADMIN_BOOK_API_BASE_URL + '/authors/' + id )
-    }
+  // getBookbyGenre(genre){
+  //   return axios.get(ADMIN_BOOK_API_BASE_URL + "/books/" + genre, authHeader());
+  // }
 
-    getPublisherbyId(id){
-        return axios.get(ADMIN_BOOK_API_BASE_URL + '/publishers/' + id)
-    }
+  getAllAuthor() {
+    return axios.get(ADMIN_BOOK_API_BASE_URL + "/authors", authHeader());
+  }
 
-    getAllUser(){
-        return axios.get(BOOK_API_BASE_URL+ '/user')
-    }
+  getAllPublisher() {
+    return axios.get(ADMIN_BOOK_API_BASE_URL + "/publishers", authHeader());
+  }
 
-    getUserById(idUser){
-        return axios.get(BOOK_API_BASE_URL + '/user?id=' + idUser)
-    }
+  getAuthorbyId(id) {
+    return axios.get(ADMIN_BOOK_API_BASE_URL + "/authors/" + id, authHeader());
+  }
 
-    getAllGenre(){
-        return axios.get(ADMIN_BOOK_API_BASE_URL+ '/genres')
-    }
-    
-    getDashboard(){
-        return axios.get(ADMIN_BOOK_API_BASE_URL + "/dashboard" );
-    }
+  getPublisherbyId(id) {
+    return axios.get(
+      ADMIN_BOOK_API_BASE_URL + "/publishers/" + id,
+      authHeader()
+    );
+  }
 
-    postNewGenre(genre){
-        return axios.post(ADMIN_BOOK_API_BASE_URL+ '/genres', genre);
-    }
+  getAllUser() {
+    return axios.get(BOOK_API_BASE_URL + "/user", authHeader());
+  }
 
-    postNewAuthor(author){
-        return axios.post(ADMIN_BOOK_API_BASE_URL + '/authors', author);
-    }
+  getUserById(idUser) {
+    return axios.get(BOOK_API_BASE_URL + "/user?id=" + idUser, authHeader());
+  }
 
-    postNewPublisher(publisher){
-        return axios.post(ADMIN_BOOK_API_BASE_URL + '/publishers', publisher);
-    }
+  getAllGenre() {
+    return axios.get(ADMIN_BOOK_API_BASE_URL + "/genres", authHeader());
+  }
 
-    putAuthorById(id, author){
-        return axios.put(ADMIN_BOOK_API_BASE_URL + '/authors/' + id, author);
-    }
+  getDashboard() {
+    return axios.get(ADMIN_BOOK_API_BASE_URL + "/dashboard", authHeader());
+  }
 
-    putPublisherById(id, publisher){
-        return axios.put(ADMIN_BOOK_API_BASE_URL+ '/publishers/' + id, publisher);
-    }
+  postNewBook(book) {
+    return axios.post(ADMIN_BOOK_API_BASE_URL + "/books/", book, authHeader());
+  }
 
-    putGenreById(id, genre){
-        return axios.put(ADMIN_BOOK_API_BASE_URL + '/genres/' + id,  genre);
-    }
+  postNewGenre(genre) {
+    return axios.post(ADMIN_BOOK_API_BASE_URL + "/genres", genre, authHeader());
+  }
 
-    deleteAuthorById(id){
-        return axios.delete(ADMIN_BOOK_API_BASE_URL+ '/authors/' + id);
-    }
+  postNewAuthor(author) {
+    return axios.post(
+      ADMIN_BOOK_API_BASE_URL + "/authors",
+      author,
+      authHeader()
+    );
+  }
 
-    deletePublisherById(id){
-        return axios.delete(ADMIN_BOOK_API_BASE_URL + '/publishers/' + id);
-    }
+  postNewPublisher(publisher) {
+    return axios.post(
+      ADMIN_BOOK_API_BASE_URL + "/publishers",
+      publisher,
+      authHeader()
+    );
+  }
 
-    deleteGenreById(id){
-        return axios.delete(ADMIN_BOOK_API_BASE_URL + '/genres/' + id);
-    }
+  postNewUser(user) {
+    return axios.post(ADMIN_BOOK_API_BASE_URL + "/users" + user, authHeader());
+  }
+
+  putAuthorById(id, author) {
+    return axios.put(
+      ADMIN_BOOK_API_BASE_URL + "/authors/" + id,
+      author,
+      authHeader()
+    );
+  }
+
+  putPublisherById(id, publisher) {
+    return axios.put(
+      ADMIN_BOOK_API_BASE_URL + "/publishers/" + id,
+      publisher,
+      authHeader()
+    );
+  }
+
+  putGenreById(id, genre) {
+    return axios.put(
+      ADMIN_BOOK_API_BASE_URL + "/genres/" + id,
+      genre,
+      authHeader()
+    );
+  }
+
+  putBookById(id, book) {
+    return axios.put(
+      ADMIN_BOOK_API_BASE_URL + "/books/" + id,
+      book,
+      authHeader()
+    );
+  }
+
+  deleteBookById(id) {
+    return axios.delete(ADMIN_BOOK_API_BASE_URL + "/books/" + id, authHeader());
+  }
+
+  deleteAuthorById(id) {
+    return axios.delete(
+      ADMIN_BOOK_API_BASE_URL + "/authors/" + id,
+      authHeader()
+    );
+  }
+
+  deletePublisherById(id) {
+    return axios.delete(
+      ADMIN_BOOK_API_BASE_URL + "/publishers/" + id,
+      authHeader()
+    );
+  }
+
+  deleteGenreById(id) {
+    return axios.delete(
+      ADMIN_BOOK_API_BASE_URL + "/genres/" + id,
+      authHeader()
+    );
+  }
 }
 
 export default new BookService();

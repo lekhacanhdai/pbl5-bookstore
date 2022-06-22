@@ -5,7 +5,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import React , { useState, useEffect } from 'react';
-import BookService from '../../../../service/BookService';
 
 const PublisherModal = (props) => {
 
@@ -15,7 +14,7 @@ const PublisherModal = (props) => {
                 open={props.open} 
                 onClose={props.handleClose}
             >
-                <DialogTitle>{props.data.id ? "Cập nhập nhà xuất bản" : "Thêm nhà xuất bản"}</DialogTitle>
+                <DialogTitle>Chi tiết doanh thu</DialogTitle>
                 
                 <DialogContent>    
                     <form >

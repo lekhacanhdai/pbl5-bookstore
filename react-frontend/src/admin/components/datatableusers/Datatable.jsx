@@ -153,7 +153,7 @@ const DatatableUsers = (props) => {
         </div>
       </div>
       <div className="datatableTitle">
-        Thêm người dùng
+        Quản lí người dùng
         <Link to="/admin/user/new" className="link">
           Thêm
         </Link>

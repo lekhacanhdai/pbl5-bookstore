@@ -1,159 +1,250 @@
 import "./detail.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import UpgradeIcon from "@mui/icons-material/Upgrade";
+import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useEffect, useState } from "react";
 import BookService from "../../../service/BookService";
-import { Comment, Avatar, Rate } from "antd";
-import axios from 'axios';
+import { useLocation, Link } from 'react-router-dom';
 
-const ExampleComment = ({ children }) => (
-  <Comment
-    actions={[<span key="comment-nested-reply-to">Trả lời</span>]}
-    author={<a>Han Solo</a>}
-    avatar={<Avatar />}
-    content={
-      <p>
-        We supply a series of design principles, practical patterns and high
-        quality design resources (Sketch and Axure).
-      </p>
-    }
-  >
-    {children}
-  </Comment>
-);
+// import { Comment, Avatar, Rate } from "antd";
+import Button from '@mui/material/Button';
+
+
 
 const Detail = () => {
-  // const [idbook, setidBook] = useState("")
-  const [authors, setAuthors] = useState([])
-  const [book, setBook] = useState([])
-  // useEffect(() => {
-  //   BookService.getBookbyId(item)
-  //   .then((res) => {
-  //     setidBook(res)
-  //     console.log(res)
-  //   })
-  //   .catch((err) => console.log(err))
-  // },[])
-  const handleUpdate = (id) => {
-    const url = `https:8080/api/v1/books/${id}`
-    axios.put(url,id)
-    .then((res) => {})
-    var arr = [];
-    arr.push({
-      
-    })
-  };
+    const location = useLocation();
 
-  const handleChange = () =>{
+    const idbook = location.pathname.split('/')[3]
+    const [book, setBook] = useState({
+        title: "",
+        publisher: "",
+        author: "",
+        price: "",
+        genre: "",
+        weight: "",
+        size: "",
+        pages: "",
+        publiccationDate: "",
+        description: "",
+    });
+    const [file, setFile] = useState("");
+    const [authors, setAuthors] = useState([]);
+    const [publishers, setPublishers] = useState([]);
+    const [genres, setGenres] = useState([]);
 
-  }
-  
-  const [title, setTitle] = useState(localStorage.getItem('bookTitle'));
-  return (
-    <div className="detail">
-      <Sidebar />
-      <div className="Container">
-        <form onSubmit={handleUpdate}>
-          <div className="productContainer">
-            <div className="imgContainer">
-              <img
-                src="https://cdn0.fahasa.com/media/catalog/product/c/a/call_me_by_your_name_1_2019_01_17_08_49_24.jpg"
-                alt=""
-              />
-            </div>
-            <div className="infoContainer">
-              <h1 className="title">{title}</h1>
-              <div className="info">
-              <div className="detailinfo">
-                  <div className="publisher">Nhà xuất bản:
-                    <input 
-                      type="text" 
-                    />
-                  </div>
-                  <div className="author">Tác giả:
-                    <select name="" id="">
-                      {authors.map((author) => (
-                        <option key={author.id}>{author.companyName}</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <span className="Price">20.000 đ</span>
-              <button>
-                <div>
-                  <UpgradeIcon />
-                </div>
-                Update
-              </button>
-            </div>
-          </div>
-          <div className="productContainer">
-            <div className="infoContainer">
-              <h3 className="title">Thông tin sản phẩm</h3>
-              <div className="detailContainer">
-                <ul>
-                  <li>
-                    <span>Tên nhà cung cấp</span>
-                    <input 
-                      type="text" 
-                      onChange={handleChange}     
-                    />
-                  </li>
-                  <li>
-                    <span>Tác giả</span>
-                    <input type="text" 
-                    onChange={handleChange}
-                          
-                    />
-                  </li>
-                  
-                  <li>
-                    <span>Nhà xuất bản</span>
-                    <input type="text" 
-                    onChange={handleChange}
-                          
-                    />
-                  </li>
-                  <li>
-                    <span>Ngày xuất bản</span>
-                    <input type="text" 
-                    onChange={handleChange}
-                          
-                    />
-                  </li>
-                  <li>
-                    <span>Số trang</span>
-                    <input type="text" 
-                    onChange={handleChange}
-                          
-                    />
-                  </li>
-                  <li>
-                    <span>Kích thước</span>
-                    <input type="text" 
-                    onChange={handleChange}
-                          
-                    />
-                  </li>
-                  <li>
-                    <span>Trọng lượng(gr)</span>
-                    <input type="text" 
-                    onChange={handleChange}
-                          
-                    />
-                  </li>
-                </ul>
-                <textarea    
-                  className="text"              
-                  onChange={handleChange}
-                  >
-                </textarea>
-              </div>
-            </div>
-          </div>
-        </form>
-        {/* <div className="productContainer">
+
+
+    useEffect(() => {
+        BookService.getBookbyId(idbook)
+            .then((res) => {
+                setBook(res.data)
+            })
+            .catch((err) => console.log(err))
+    }, [])
+
+    const handleUpdate = async () => {
+        try{
+            await BookService.putBookById(idbook,book)
+            console.log(book)
+            console.log(idbook)
+
+            alert("Cập nhập thành công !")
+        }catch(error){
+            console.log(error)
+        }
+    };
+
+    const handleFileChange = (e) => {
+        let file = e.target.files[0];
+        setFile(file)
+    }
+
+    useEffect(() => {
+        BookService.getAllPublisher()
+            .then((res) => {
+                setPublishers(res.data)
+            })
+            .catch((err) => console.log(err));
+        BookService.getAllAuthor()
+            .then((res) => {
+                setAuthors(res.data)
+            })
+            .catch((err) => console.log(err));
+        BookService.getAllGenre()
+            .then((res) => {
+                setGenres(res.data)
+            })
+            .catch((err) => console.log(err))
+    }, [])
+
+    // useEffect(() => {
+    //     book.publiccationDate = book.publiccationDate.substring(0, 10);
+    // }, [])
+
+    const handleChange = (e) => {
+        // console.log(e.target.value)
+        setBook({ ...book, [e.target.name]: e.target.value })
+    }
+
+    const [title, setTitle] = useState(localStorage.getItem('bookTitle'));
+
+
+    return (
+        <div className="detail">
+            <Sidebar />
+            <div className="Container">
+                <form>
+                    <div className="productContainer">
+                        <div className="imgContainer">
+                            <img
+                                src={
+                                    file ? URL.createObjectURL(file) : book.image                                }
+                                alt=""
+                            />
+                        </div>
+                        <div className="infoContainer">
+                            <h1 className="title">{book.title}</h1>
+                            <div className="info">
+                                <div className="detailinfo">
+                                    <div className="publisher">Nhà xuất bản:
+                                        <select
+                                            name="publisher"
+                                            className="select"
+                                            onChange={handleChange}
+                                            value={book.publisher.name}
+                                        >
+                                            {publishers.map((publisher) => (
+                                                <option
+                                                    key={publisher.id}
+                                                    value={publisher.name}
+                                                >
+                                                    {publisher.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div className="author">Tác giả:
+                                        <select
+                                            name="author"
+                                            className="select"
+                                            onChange={handleChange}
+                                            value={book.author.companyName}
+                                        >
+                                            {authors.map((author) => (
+                                                <option
+                                                    key={author.id}
+                                                    value={author.companyName}
+                                                >
+                                                    {author.companyName}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <span className="price">
+                                <input
+                                    name="price"
+                                    type="text"
+                                    className="input-price"
+                                    size="5"
+                                    onChange={handleChange}
+                                    value={book.price}
+                                /> đ
+                            </span>
+                            <Button onClick={handleUpdate}>
+                                <span>
+                                    <UpgradeIcon className="icon" />
+                                </span>
+                                <Link to="/admin/books" className="link-addbook">
+                                    Cập nhập
+                                </Link>                                
+                            </Button>
+                            <div className="input-file">
+                                <label htmlFor="file" className="file">
+                                    Image: <DriveFolderUploadOutlinedIcon className="icon" />
+                                </label>
+                                <input
+                                    type="file"
+                                    id="file"
+                                    onChange={handleFileChange}
+                                    style={{ display: "none" }}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="productContainer">
+                        <div className="infoContainer">
+                            <h3 className="title">Thông tin sản phẩm</h3>
+                            <div className="detailContainer">
+                                <ul>
+                                    <li>
+                                        <span>Thể loại</span>
+                                        <select
+                                            name="genre"
+                                            className="select"
+                                            onChange={handleChange}
+                                            value={book.genre.name}
+                                        >
+                                            {genres.map((genre) => (
+                                                <option
+                                                    key={genre.id}
+                                                    value={genre.name}
+                                                >
+                                                    {genre.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <span>Ngày xuất bản</span>
+                                        <input
+                                            name="publiccationDate"
+                                            type="text"
+                                            value={book.publiccationDate.substring(0, 10)}
+                                            onChange={handleChange}
+                                        />
+                                    </li>
+                                    <li>
+                                        <span>Số trang</span>
+                                        <input
+                                            name="pages"
+                                            type="text"
+                                            onChange={handleChange}
+                                            value={book.pages}
+                                        />
+                                    </li>
+                                    <li>
+                                        <span>Kích thước</span>
+                                        <input
+                                            name="size"
+                                            type="text"
+                                            onChange={handleChange}
+                                            value={book.size}
+                                        />
+                                    </li>
+                                    <li>
+                                        <span>Trọng lượng (gr)</span>
+                                        <input
+                                            name="weight"
+                                            type="text"
+                                            onChange={handleChange}
+                                            value={book.weight}
+                                        />
+                                    </li>
+                                </ul>
+                                <textarea
+                                    name="description"
+                                    className="text"
+                                    onChange={handleChange}
+                                    value={book.description}
+                                >
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                {/* <div className="productContainer">
           <div className="RateContainer">
             <p className="title">Đánh giá sản phẩm</p>
             <div className="Ratepro">
@@ -197,9 +288,9 @@ const Detail = () => {
             </ExampleComment>
           </div>
         </div> */}
-      </div>
-    </div>
-  );
+            </div>
+        </div>
+    );
 };
 
 export default Detail;
