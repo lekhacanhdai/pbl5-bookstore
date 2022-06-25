@@ -1,5 +1,6 @@
 package com.pbl5.bookstore.serviceadmin;
 
+import com.pbl5.bookstore.dto.ChartData;
 import com.pbl5.bookstore.dto.OrderData;
 import com.pbl5.bookstore.dto.OrderDetailData;
 
@@ -10,4 +11,6 @@ public interface OrderAdminService {
     int getRevenueTotal();
     List<OrderData> getAllOrder();
     List<OrderDetailData> getOrderDetailById(long id);
+    List<OrderData> getLimit5Order();
+    List<ChartData> getChartData(Boolean status, String year);
 }

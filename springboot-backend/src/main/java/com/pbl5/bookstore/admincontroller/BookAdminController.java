@@ -5,7 +5,9 @@ import com.pbl5.bookstore.serviceadmin.BookAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,12 @@ public class BookAdminController {
     @PostMapping("/books")
     private ResponseEntity<Book> createBook(@RequestBody Book book){
         return ResponseEntity.ok(bookAdminService.saveBook(book));
+    }
+
+    @PostMapping("/books/img/{id}")
+    public ResponseEntity<Book> updateImgBook(@PathVariable long id, @RequestParam("imgBook")MultipartFile multipartFile) throws IOException{
+        Book book = bookAdminService.updateImg(id, multipartFile);
+        return ResponseEntity.ok(book);
     }
 
     @PutMapping("/books/{id}")

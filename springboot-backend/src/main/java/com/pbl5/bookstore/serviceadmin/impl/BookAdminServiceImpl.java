@@ -3,11 +3,15 @@ package com.pbl5.bookstore.serviceadmin.impl;
 import com.pbl5.bookstore.exception.ResourceNotFoundException;
 import com.pbl5.bookstore.model.Book;
 import com.pbl5.bookstore.repository.BookRepository;
+import com.pbl5.bookstore.service.FileUploadUtil;
 import com.pbl5.bookstore.serviceadmin.BookAdminService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -30,6 +34,17 @@ public class BookAdminServiceImpl implements BookAdminService {
     @Override
     public Book update(Book book) {
         return bookRepository.save(book);
+    }
+
+    @Override
+    public Book updateImg(long bookId, MultipartFile multipartFile) throws IOException {
+        Book book = findBookById(bookId);
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        book.setImage(fileName);
+        Book saveBook = bookRepository.save(book);
+        String uploadDir = "src/main/resources/static/image/book/" + book.getId();
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        return book;
     }
 
 //    @Override
