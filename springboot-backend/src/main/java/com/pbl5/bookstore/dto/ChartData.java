@@ -9,6 +9,7 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class ChartData {
+    private String year;
     private String month;
     private long revenueTotal;
 }

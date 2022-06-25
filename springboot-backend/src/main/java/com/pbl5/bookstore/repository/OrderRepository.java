@@ -41,6 +41,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("select distinct new com.pbl5.bookstore.dto.OrderData(o.id,u.userName,o.dateOrder,SUM(b.price * od.quantity),o.paymentStatus) from User u INNER JOIN u.orders o INNER JOIN o.orderDetails od INNER JOIN od.book b group by o.id order by o.dateOrder DESC ")
     List<OrderData> getLimitOrder(Pageable pageable);
 
-    @Query("select distinct new com.pbl5.bookstore.dto.ChartData(substring(o.dateOrder,6,2),sum(b.price*od.quantity)) from User u INNER JOIN  u.orders o INNER JOIN o.orderDetails od INNER JOIN od.book b where o.paymentStatus=?1 and substring(o.dateOrder,1,4)=?2 group by substring(o.dateOrder,6,2) order by o.dateOrder desc ")
-    List<ChartData> getChartData(Boolean status, String year);
+    @Query("select distinct new com.pbl5.bookstore.dto.ChartData(substring(o.dateOrder,1,4),substring(o.dateOrder,6,2),sum(b.price*od.quantity)) from User u INNER JOIN  u.orders o INNER JOIN o.orderDetails od INNER JOIN od.book b where o.paymentStatus=?1 group by substring(o.dateOrder,1,4),substring(o.dateOrder,6,2) order by o.dateOrder desc ")
+    List<ChartData> getChartData(Boolean status);
 }
