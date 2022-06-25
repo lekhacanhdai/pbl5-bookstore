@@ -44,6 +44,21 @@ public class OrderAdminServiceImpl implements OrderAdminService {
         LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int currentMonth = localDate.getMonthValue();
 
+        Map<String, String> monthMap = new HashMap<>();
+        monthMap.put("01", "January");
+        monthMap.put("02", "February");
+        monthMap.put("03", "March");
+        monthMap.put("04", "April");
+        monthMap.put("05", "May");
+        monthMap.put("06", "June");
+        monthMap.put("07", "July");
+        monthMap.put("08", "August");
+        monthMap.put("09", "September");
+        monthMap.put("10", "October");
+        monthMap.put("11", "November");
+        monthMap.put("12", "December");
+
+
 //        List<String> month = new ArrayList<>("1","2","3","4","5","6","7","8","9","10","11","12");
         List<ChartData> listChartData1 = orderRepository.getChartData(status);
 
@@ -79,7 +94,10 @@ public class OrderAdminServiceImpl implements OrderAdminService {
                 .thenComparing(ChartData::getMonth);
 
 
-        return listChartData.stream().sorted(myComparator).collect(Collectors.toList());
+        return listChartData.stream().sorted(myComparator).collect(Collectors.toList())
+                .stream()
+                .map(a -> new ChartData(a.getYear(), monthMap.get(a.getMonth()), a.getRevenueTotal()))
+                .collect(Collectors.toList());
     }
 
     @Override
