@@ -60,6 +60,10 @@ class BookService {
     return axios.get(ADMIN_BOOK_API_BASE_URL + "/orders/" + idOrder, authHeader())
   }
 
+  getChar(){
+    return axios.get(ADMIN_BOOK_API_BASE_URL+ "/dashboard-chart", authHeader())
+  }
+
   postNewBook(book) {
     return axios.post(ADMIN_BOOK_API_BASE_URL + "/books/", book, authHeader());
   }

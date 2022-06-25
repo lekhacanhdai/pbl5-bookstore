@@ -65,6 +65,7 @@ const DatatablePublisher = (props) => {
     }
 
     const handleUpdate = (oldData) => {
+        console.log(oldData)
         setFormData(oldData)
         handleClickOpen()
     }

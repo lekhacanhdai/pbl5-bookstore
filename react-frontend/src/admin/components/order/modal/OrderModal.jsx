@@ -1,4 +1,3 @@
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -7,41 +6,50 @@ import DialogTitle from '@mui/material/DialogTitle';
 import React, { useState, useEffect } from 'react';
 import BookService from '../../../../service/BookService';
 import { DataGrid } from "@mui/x-data-grid";
-import { height } from '@mui/system';
 
 
-const RevenueModal = (props) => {
+const OrderModal = (props) => {
 
     const [details, setDetail] = useState([])
 
     useEffect(() => {
-        // BookService.getDetailBill(idBill)
-        // .then((res) => setDetail(res.data))
-        // .catch((error) => {
-        //     console.log(error)
+        console.log(props.data)
+        // console.log(props.data)
+        // console.log(props.dataId)
+
+        // setDetail(props.dataId.map((obj) => ({
+        //     title: obj.title,
+        //     quantity: obj.quantity,
+        //     price: obj.price,
+        //     amount: obj.amount
+        // })))
+        // BookService.getOrderById(props.data.orderId)
+        // .then((res) =>{
+        //     setDetail(res.data)
         // })
-    })
+        // .catch(error => console.log(error))
+    },[])
 
     const revenueColumns = [
         {
-            field: 'name',
+            field: 'title',
             headerName: 'Tên sách',
-            flex: 5
+            flex: 4
         },
         {
-            field: 'number',
+            field: 'quantity',
             headerName: 'Số lượng',
-            flex: 1
+            flex: 2
         },
         {
             field: 'price',
             headerName: 'Đơn giá',
-            flex: 3
+            flex: 2.5
         },
         {
-            field: 'total',
+            field: `amount`,
             headerName: 'Thành tiền',
-            flex: 3
+            flex: 2.5
         }
     ]
     return (
@@ -51,9 +59,10 @@ const RevenueModal = (props) => {
                 onClose={props.handleClose}
             >
                 <DialogTitle>Chi tiết hóa đơn</DialogTitle>
-                <DialogContent style={{ width: "2000px", height: "800px" }}>
+                <DialogContent style={{ width: "500px", height: "500px" }}>
                     <DataGrid
-                        rows={details}
+                        getRowId={(row) => row.orderId}
+                        rows={props.data}
                         columns={revenueColumns}
                         pageSize={10}
                         rowsPerPageOptions={[10]}
@@ -65,4 +74,4 @@ const RevenueModal = (props) => {
     );
 }
 
-export default RevenueModal;
+export default OrderModal;

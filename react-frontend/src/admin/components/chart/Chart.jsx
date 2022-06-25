@@ -1,5 +1,7 @@
 import "./chart.scss";
 import { AreaChart,  Area,  XAxis,  CartesianGrid,  Tooltip,  ResponsiveContainer} from "recharts";
+import { useEffect , useState } from "react";
+import BookService from "../../../service/BookService";
 
 const data = [
   { name: "January", Total: 1200 },
@@ -11,6 +13,15 @@ const data = [
 ];
 
 const Chart = ({ aspect, title }) => {
+
+  const [char, setChar] = useState([])
+
+  useEffect(() => {
+    BookService.getChar()
+    .then((res) => setChar(res.data))
+    .catch(err => console.log(err))
+  },[])
+
   return (
     <div className="chart">
       <div className="title">{title}</div>
@@ -25,12 +36,12 @@ const Chart = ({ aspect, title }) => {
               <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <XAxis dataKey="name" stroke="gray" />
+          <XAxis dataKey="month" stroke="gray" />
           <CartesianGrid strokeDasharray="3 3" className="chartGrid" />
           <Tooltip />
           <Area
             type="monotone"
-            dataKey="Total"
+            dataKey="revenueTotal"
             stroke="#8884d8"
             fillOpacity={1}
             fill="url(#total)"

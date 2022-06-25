@@ -12,6 +12,17 @@ const DatatableOrder = (props) => {
     const [open, setOpen] = useState(false)
     const [searchTerm, setSearchTerm] = useState("")
     const [searchResults, setSearchResults] = useState([]);
+    const [formData, setFormData] = useState(
+        {
+            orderId: '',
+            username: '',
+            dateOrder: '',
+            amount: '',
+            paymentStatus: ''
+        }
+    )
+
+    const [formDataId, setFormDataId] = useState([])
 
     const inputEl = useRef("");
 
@@ -21,16 +32,32 @@ const DatatableOrder = (props) => {
 
     const handleClose = () => {
         setOpen(false);
+        setFormData({
+            orderId: '',
+            username: '',
+            dateOrder: '',
+            amount: '',
+            paymentStatus: ''
+        })
+        setFormDataId([])
     }
 
     const handleView = (oldData) => {
         handleClickOpen()
+        setFormData(oldData)
+        BookService.getOrderById(oldData.orderId)
+        .then((res) => {
+            setFormDataId(res.data)
+        })
+        .catch(err => console.log(err))
+        
     }
 
     useEffect(() => {
         BookService.getAllOrder()
             .then((res) => {
                 setOrders(res.data);
+                // console.log(res.data)
             })
             .catch((err) => console.log(err));
     }, []);
@@ -39,7 +66,7 @@ const DatatableOrder = (props) => {
         orders.forEach((order) => {
             order.dateOrder = order.dateOrder.substring(0, 10)
             let check = order.paymentStatus
-            check ?  order.paymentStatus = "Đã thanh toán" :   order.paymentStatus = "Chưa thanh toán"                        
+            check ? order.paymentStatus = "Đã thanh toán" : order.paymentStatus = "Chưa thanh toán"
         })
     }, [orders])
 
@@ -122,11 +149,14 @@ const DatatableOrder = (props) => {
                 <OrderModal
                     open={open}
                     handleClose={handleClose}
-                    // data={formData}
-                    // onChange={onChange}
-                    // handleFormSubmit={handleFormSubmit}
+                    data={formData}
+                    dataId={formDataId}
+                    // data={formData.concat(formDataId)}
+                // onChange={onChange}
+                // handleFormSubmit={handleFormSubmit}
                 />
             }
+            {console.log(formData)}
             <div className='navbar'>
                 <div className="wrapper">
                     <div className="search">
