@@ -1,6 +1,6 @@
 import "./revenue.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
-import Datatable from "../../components/datatablerevenue/datatable/Datatable"
+import Datatable from "../../components/order/datatable/Datatable"
 
 const Revenue = () => {
   return (

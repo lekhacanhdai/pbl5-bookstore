@@ -7,6 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import React, { useState, useEffect } from 'react';
 import BookService from '../../../../service/BookService';
 import { DataGrid } from "@mui/x-data-grid";
+import { height } from '@mui/system';
 
 
 const RevenueModal = (props) => {
@@ -16,6 +17,9 @@ const RevenueModal = (props) => {
     useEffect(() => {
         // BookService.getDetailBill(idBill)
         // .then((res) => setDetail(res.data))
+        // .catch((error) => {
+        //     console.log(error)
+        // })
     })
 
     const revenueColumns = [
@@ -47,7 +51,7 @@ const RevenueModal = (props) => {
                 onClose={props.handleClose}
             >
                 <DialogTitle>Chi tiết hóa đơn</DialogTitle>
-                <DialogContent>
+                <DialogContent style={{ width: "2000px", height: "800px" }}>
                     <DataGrid
                         rows={details}
                         columns={revenueColumns}

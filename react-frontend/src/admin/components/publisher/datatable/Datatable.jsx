@@ -73,6 +73,7 @@ const DatatablePublisher = (props) => {
         BookService.getAllPublisher()
             .then((res) => {
                 setPublishers(res.data);
+                console.log(res.data)
             })
             .catch((err) => console.log(err));
     }

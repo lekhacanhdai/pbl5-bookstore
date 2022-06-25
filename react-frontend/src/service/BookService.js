@@ -12,12 +12,10 @@ class BookService {
 
   getBookbyId(idBook) {
     return axios.get(
-      ADMIN_BOOK_API_BASE_URL + "/books/" + idBook, authHeader());
+      ADMIN_BOOK_API_BASE_URL + "/books/" + idBook,
+      authHeader()
+    );
   }
-
-  // getBookbyGenre(genre){
-  //   return axios.get(ADMIN_BOOK_API_BASE_URL + "/books/" + genre, authHeader());
-  // }
 
   getAllAuthor() {
     return axios.get(ADMIN_BOOK_API_BASE_URL + "/authors", authHeader());
@@ -52,6 +50,14 @@ class BookService {
 
   getDashboard() {
     return axios.get(ADMIN_BOOK_API_BASE_URL + "/dashboard", authHeader());
+  }
+
+  getAllOrder() {
+    return axios.get(ADMIN_BOOK_API_BASE_URL + "/orders", authHeader());
+  }
+  
+  getOrderById(idOrder){
+    return axios.get(ADMIN_BOOK_API_BASE_URL + "/orders/" + idOrder, authHeader())
   }
 
   postNewBook(book) {

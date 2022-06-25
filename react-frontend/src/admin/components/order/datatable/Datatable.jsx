@@ -2,15 +2,14 @@ import { DataGrid } from "@mui/x-data-grid";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useEffect, useRef, useState } from "react";
 import BookService from "../../../../service/BookService";
-import GenreModal from "../modal/GenreModal"
+import OrderModal from "../modal/OrderModal";
 import "./datatable.scss";
 
-const DatatableRevenue = (props) => {
+const DatatableOrder = (props) => {
 
-    const [revenues, setRevennues] = useState([]);
+    const [orders, setOrders] = useState([]);
 
     const [open, setOpen] = useState(false)
-    const [formData, setFormData] = useState({ id: '', name: '' })
     const [searchTerm, setSearchTerm] = useState("")
     const [searchResults, setSearchResults] = useState([]);
 
@@ -22,108 +21,80 @@ const DatatableRevenue = (props) => {
 
     const handleClose = () => {
         setOpen(false);
-        setFormData({ id: '', name: '' });
-    }
-
-    const onChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-    }
-
-
-    const handleFormSubmit = async () => {
-        try {
-            if (formData.id) {
-                const updatePublisher = {
-                    name: formData.name
-                }
-                const respone = await BookService.putPublisherById(formData.id, updatePublisher)
-                alert('Cập nhập thành công !')
-                handleClose();
-                getPublishers();
-                setFormData({ id: '', name: '' })
-            } else {
-                const newPublisher = {
-                    name: formData.name
-                }
-                const response = await BookService.postNewPublisher(newPublisher)
-                alert('Thêm thành công !')
-                handleClose();
-                getPublishers();
-                setFormData({ id: '', name: '' })
-            }
-        } catch (error) {
-            alert(error);
-        }
     }
 
     const handleView = (oldData) => {
-        // setFormData(oldData)
         handleClickOpen()
     }
 
-    const getPublishers = () => {
-        BookService.getAllPublisher()
+    useEffect(() => {
+        BookService.getAllOrder()
             .then((res) => {
-                setRevennues(res.data);
+                setOrders(res.data);
             })
             .catch((err) => console.log(err));
-    }
-
-    useEffect(() => {
-        getPublishers()
     }, []);
 
-    const handleSearch =  (searchTerm) => {
-        try{
+    useEffect(() => {
+        orders.forEach((order) => {
+            order.dateOrder = order.dateOrder.substring(0, 10)
+            let check = order.paymentStatus
+            check ?  order.paymentStatus = "Đã thanh toán" :   order.paymentStatus = "Chưa thanh toán"                        
+        })
+    }, [orders])
+
+    const handleSearch = (searchTerm) => {
+        try {
             setSearchTerm(searchTerm)
-            // console.log(searchTerm)
             if (searchTerm !== "") {
-                const newData = revenues.filter((revenue) => {
-                    return Object.values(revenue)
-                    .join("")
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase())
+                const newData = orders.filter((publisher) => {
+                    return Object.values(publisher)
+                        .join("")
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase())
                 })
                 setSearchResults(newData)
             } else {
-                setSearchResults(revenues)
+                setSearchResults(orders)
             }
-        }catch(error){
+        } catch (error) {
             console.log(error)
         }
-
     }
-
-    
 
     const getSearch = () => {
         handleSearch(inputEl.current.value);
     }
 
-    
 
-    const publisherColumns = [
-        { field: "id", headerName: "Mã đơn hàng", flex: 2 },
+    const orderColumns = [
         {
-            field: "name",
-            headerName: "Tên khách hàng",
-            flex: 4
-        },
-        {
-            field: "date",
-            headerName: "Ngày mua",
-            flex: 3
-        },
-        {
-            field: "price",
-            headerName: "Tổng tiền",
+            field: "orderId",
+            headerName: "Mã hóa đơn",
             flex: 2
         },
         {
-            field: "paymentstatus",
+            field: "username",
+            headerName: "Tên khách hàng",
+            flex: 3
+        },
+        {
+            field: "dateOrder",
+            headerName: "Ngày ",
+            flex: 3
+        },
+        {
+            field: "amount",
+            headerName: "Thành tiền",
+            flex: 3
+        },
+        {
+            field: "paymentStatus",
+            className: `${orders.paymentStatus}`,
             headerName: "Trạng thái",
             flex: 3
         },
+
         {
             field: "action",
             headerName: "Hành động",
@@ -147,11 +118,13 @@ const DatatableRevenue = (props) => {
     return (
 
         <div className="datatable">
-             {
-                <GenreModal
+            {
+                <OrderModal
                     open={open}
                     handleClose={handleClose}
                     // data={formData}
+                    // onChange={onChange}
+                    // handleFormSubmit={handleFormSubmit}
                 />
             }
             <div className='navbar'>
@@ -170,15 +143,16 @@ const DatatableRevenue = (props) => {
                     </div>
                 </div>
             </div>
-            
             <div className="datatableTitle">
-                Quản lí doanh thu
+                Quản lí đơn hàng
             </div>
             <DataGrid
+                className="datagrid"
+                getRowId={(row) => row.orderId}
                 rows={
-                    (searchTerm.length < 1) ? revenues : searchResults
+                    (searchTerm.length < 1) ? orders : searchResults
                 }
-                columns={publisherColumns}
+                columns={orderColumns}
                 pageSize={10}
                 rowsPerPageOptions={[10]}
                 disableSelectionOnClick
@@ -187,4 +161,4 @@ const DatatableRevenue = (props) => {
     );
 };
 
-export default DatatableRevenue;
+export default DatatableOrder;

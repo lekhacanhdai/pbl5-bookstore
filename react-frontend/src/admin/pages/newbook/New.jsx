@@ -166,6 +166,7 @@ const New = () => {
                                 <input
                                     type="file"
                                     id="file"
+                                    name="file"
                                     onChange={handleFileChange}
                                     style={{ display: "none" }}
                                 />

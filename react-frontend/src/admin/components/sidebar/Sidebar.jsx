@@ -59,13 +59,13 @@ const Sidebar = () => {
               <span>Quản lí nhà xuất bản</span>
             </li>
           </Link>
-          <Link to="/admin/revenue" className="link">
+          {/* <Link to="/admin/revenue" className="link">
             <li>
               <MonetizationOnIcon className="icon" />
               <span>Quản lí doanh thu</span>
             </li>
-          </Link>
-          <Link to="/admin/order" className="link">
+          </Link> */}
+          <Link to="/admin/orders" className="link">
             <li>
               <TwoWheelerOutlinedIcon className="icon" />
               <span>Quản lí đơn hàng</span>

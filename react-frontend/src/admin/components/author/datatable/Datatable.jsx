@@ -1,7 +1,7 @@
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useRef, useState } from "react";
 import BookService from "../../../../service/BookService";
-import AuthorModal from "../authorModal/AuthorModal";
+import AuthorModal from "../modal/AuthorModal";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import "./datatable.scss";
 

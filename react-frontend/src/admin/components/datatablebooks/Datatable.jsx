@@ -2,7 +2,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import BookService from "../../../service/BookService";
-import { useLocation } from "react-router-dom";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import "./datatable.scss";
 
