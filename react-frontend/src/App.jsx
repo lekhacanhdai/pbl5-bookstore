@@ -1,38 +1,40 @@
-import Home from "./pages/Home";
-import HomeAdmin from "./admin/pages/home/Home";
-import BookDetail from "./pages/BookDetail";
-import BookList from "./pages/BookList";
-import Register from "./pages/Registration";
-import Login from "./pages/Login";
-import Cart from "./pages/Cart";
-import User from "./admin/pages/user/User";
-import Single from "./admin/pages/single/Single";
-import NewUser from "./admin/pages/newuser/New";
-import NewBook from "./admin/pages/newbook/New";
-import Order from "./admin/pages/order/Order";
-import ProductAdmin from "./admin/pages/book/Book";
-import Detail from "./admin/pages/detailbook/Detail";
-import UserProfile from './pages/UserProfile';
-import Comment from "./admin/pages/comment/Comment";
-import Revenue from "./admin/pages/revenue/Revenue";
-import AdminAuthors from "./admin/pages/authors/Author";
-import AdminPublishers from "./admin/pages/publishers/Publisher";
-import AdminGenre from "./admin/pages/genre/Genre";
-import { userInputs } from "./admin/formSource";
-import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import HomeAdmin from './admin/pages/home/Home';
+import User from './admin/pages/user/User';
+import Single from './admin/pages/single/Single';
+import NewUser from './admin/pages/newuser/New';
+import NewBook from './admin/pages/newbook/New';
+import Order from './admin/pages/order/Order';
+import ProductAdmin from './admin/pages/book/Book';
+import Detail from './admin/pages/detailbook/Detail';
+import Comment from './admin/pages/comment/Comment';
+import Revenue from './admin/pages/revenue/Revenue';
+import AdminAuthors from './admin/pages/authors/Author';
+import AdminPublishers from './admin/pages/publishers/Publisher';
+import AdminGenre from './admin/pages/genre/Genre';
+import { userInputs } from './admin/formSource';
+import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
+import { Home } from './user/pages/Home';
+import { BookDetail } from './user/pages/BookDetail';
+import { Login } from './user/pages/Login';
+import { Register } from './user/pages/Register';
+import { Cart } from './user/pages/Cart';
+import { ListAllBooks } from './user/pages/ListAllBooks';
+import { BooksListbyGenres } from './user/pages/BooksListbyGenres';
+import { UserProfile } from './user/pages/Profile';
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" exact element={<Home />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/books/:genresId" element={<BooksListbyGenres />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/books/all" element={<ListAllBooks />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<UserProfile />} />
-        <Route path="/books" exact element={<BookList />} />
-        <Route path="/books/:id" element={<BookDetail />} />
-        <Route path="/carts" element={<Cart />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/book/:id" element={<BookDetail />} />
         <Route path="/admin" element={<HomeAdmin />} />
         <Route path="/admin/user" element={<User />} />
         <Route path="/admin/orders" element={<Order />} />

@@ -16,6 +16,7 @@
     "antd": "^4.19.5",
     "axios": "^0.26.1",
     "cors": "^2.8.5",
+    "formik": "^2.2.9",
     "hoist-non-react-statics": "^3.3.2",
     "node-sass": "^6.0.1",
     "reacharts": "^0.4.5",
@@ -28,7 +29,8 @@
     "recharts": "^2.1.9",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.3",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "build": "react-scripts build --openssl-legacy-provider",

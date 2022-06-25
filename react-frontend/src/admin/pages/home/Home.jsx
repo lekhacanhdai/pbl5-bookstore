@@ -19,10 +19,10 @@ const Home = () => {
         </div>
         <div className="charts">
           <div className="listContainer">
-            <div className="listTitle">Latest Transactions</div>
+            <div className="listTitle">Đơn hàng mới nhất</div>
             <Table />
           </div>
-          <Chart title="Last 6 Months (Revenue)" aspect={2 / 1} />
+          <Chart title="Doanh thu" aspect={2 / 1} />
         </div>
       </div>
     </div>

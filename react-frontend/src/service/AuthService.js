@@ -12,21 +12,19 @@ class AuthService {
     return response.data;
   }
   async register(email, password) {
-    const response = await axios.post(API_URL + 'registration', {
+    return axios.post(API_URL + 'registration', {
       email: email,
       password: password,
     });
-    return response.data;
   }
-  
+  async resetPassword(email) {
+    return axios.put(API_URL + 'accounts/reset-password', null, {
+      params: { email: email },
+    });
+  }
   logout() {
     localStorage.removeItem('user');
   }
-  // async register(email, password) {
-  //   return await axios.post(API_URL + 'registration', null, {
-  //     params: { email: email, password: password },
-  //   });
-  // }
 }
 
 export default new AuthService();

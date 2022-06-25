@@ -3,22 +3,22 @@ import { AreaChart,  Area,  XAxis,  CartesianGrid,  Tooltip,  ResponsiveContaine
 import { useEffect , useState } from "react";
 import BookService from "../../../service/BookService";
 
-const data = [
-  { name: "January", Total: 1200 },
-  { name: "February", Total: 2100 },
-  { name: "March", Total: 800 },
-  { name: "April", Total: 1600 },
-  { name: "May", Total: 900 },
-  { name: "June", Total: 1700 },
-];
+// const data = [
+//   { name: "January", Total: 1200 },
+//   { name: "February", Total: 2100 },
+//   { name: "March", Total: 800 },
+//   { name: "April", Total: 1600 },
+//   { name: "May", Total: 900 },
+//   { name: "June", Total: 1700 },
+// ];
 
 const Chart = ({ aspect, title }) => {
 
-  const [char, setChar] = useState([])
+  const [data, setData] = useState([])
 
   useEffect(() => {
     BookService.getChar()
-    .then((res) => setChar(res.data))
+    .then((res) => setData(res.data))
     .catch(err => console.log(err))
   },[])
 

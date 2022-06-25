@@ -85,7 +85,7 @@ const Widget = ({ type }) => {
     case "books":
       data = {
         title: "SÁCH",
-        isMoney: true,
+        isMoney: false,
         number: `${item.bookNumber}`,
         link: (
           <Link className="link-item" to="books">
@@ -112,7 +112,7 @@ const Widget = ({ type }) => {
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">
-          {data.isMoney && "$ "}
+          {data.isMoney && "VND "}
           {data.number}
         </span>
         <span className="link">{data.link}</span>

@@ -1,0 +1,38 @@
+.Container {
+  width: 100%;
+  margin: 10px 0px;
+  padding: 20px;
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  :global(.MuiDivider-root) {
+    margin: 10px 0px;
+  }
+  .BooksWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    .Card {
+      width: 215px;
+      height: 350px;
+      margin: 10px;
+      display: flex;
+      &:hover {
+        transform: scale(1.03);
+      }
+      :global(.MuiButtonBase-root) {
+        height: 100%;
+        :global(.MuiCardMedia-root) {
+          height: 70%;
+        }
+        :global(.MuiCardContent-root) {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

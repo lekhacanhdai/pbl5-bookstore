@@ -1,0 +1,29 @@
+.PaymentContainer {
+  width: 500px;
+  .TotalContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .AddressContainer {
+    .Error {
+      width: 100%;
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+  }
+  .DialogAction {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    .Button {
+      text-transform: none;
+      font-size: 15px;
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+    }
+  }
+}

@@ -13,16 +13,18 @@ const New = () => {
 
     const [file, setFile] = useState('');
     const [authors, setAuthors] = useState([]);
+    const [author, setAuthor] = useState({});
     const [publishers, setPublishers] = useState([]);
+    const [publisher, setPublisher] = useState({});
     const [genres, setGenres] = useState([]);
-    const [genre, setGenre] = useState([])
+    const [genre, setGenre] = useState({})
 
     const [book, setBook] = useState({
         title: '',
-        publisher: '',
-        author: '',
+        publisher: publisher,
+        author: author,
         price: '',
-        genre: '',
+        genre: genre,
         publiccationDate: '',
         weight: '',
         size: '',
@@ -56,26 +58,39 @@ const New = () => {
 
 
     const handleChange = (e) => {
+        setPublisher({...publisher, [e.target.name]: e.target.value})
         setBook({ ...book, [e.target.name]: e.target.value })
     }
 
     const handleSubmit = async (e) => {
-        if(file){
-            let formdata = new FormData()
-            // formdata.append('file',file, file.name)
-            // formdata.set('data',book)
-            console.log(file)
-            console.log(book)
-            try{    
-                await BookService.postNewBook(formdata)
-                .then((res) => console.log(res))
-                .catch((err) => console.log(err))
-            }catch(error){
-                console.log(error)
-            }
-            alert("Thêm thành công !")
-            window.location('/admin/books')
+        try{    
+
+            // setBook(book)
+            console.log(publisher)
+            await BookService.postNewBook(book)
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err))
+        }catch(error){
+            console.log(error)
         }
+            window.location('/admin/books')
+
+        // if(file){
+        //     let formdata = new FormData()
+        //     // formdata.append('file',file, file.name)
+        //     formdata.set('data',book)
+        //     console.log(file)
+        //     console.log(book)
+        //     try{    
+        //         await BookService.postNewBook(book)
+        //         .then((res) => console.log(res))
+        //         .catch((err) => console.log(err))
+        //     }catch(error){
+        //         console.log(error)
+        //     }
+        //     alert("Thêm thành công !")
+        //     window.location('/admin/books')
+        // }
         
        
     }
@@ -109,12 +124,12 @@ const New = () => {
                                             name="publisher"
                                             className="select"
                                             onChange={handleChange}
-                                            value={book.publisher}
+                                            value={publisher}
                                         >
                                             {publishers.map((publisher) => (
                                                 <option
                                                     key={publisher.id}
-                                                    value={publisher.name}
+                                                    value={publisher}
                                                 >
                                                     {publisher.name}
                                                 </option>
@@ -126,12 +141,12 @@ const New = () => {
                                             name="author"
                                             className="select"
                                             onChange={handleChange}
-                                            value={book.author}
+                                            value={author}
                                         >
                                             {authors.map((author) => (
                                                 <option
                                                     key={author.id}
-                                                    value={author.companyName}
+                                                    value={author}
                                                 >
                                                     {author.companyName}
                                                 </option>
@@ -166,7 +181,7 @@ const New = () => {
                                 <input
                                     type="file"
                                     id="file"
-                                    name="file"
+                                    name="imgBook"
                                     onChange={handleFileChange}
                                     style={{ display: "none" }}
                                 />
@@ -189,7 +204,7 @@ const New = () => {
                                             {genres.map((genre) => (
                                                 <option
                                                     key={genre.id}
-                                                    value={genre.name}
+                                                    value={genre}
                                                 >
                                                     {genre.name}
                                                 </option>

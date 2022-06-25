@@ -40,7 +40,7 @@ public class BookAdminServiceImpl implements BookAdminService {
     public Book updateImg(long bookId, MultipartFile multipartFile) throws IOException {
         Book book = findBookById(bookId);
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        book.setImage(fileName);
+        book.setImage("http://localhost:8080/image/book/" + book.getId() +"/" + fileName);
         Book saveBook = bookRepository.save(book);
         String uploadDir = "src/main/resources/static/image/book/" + book.getId();
         FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
