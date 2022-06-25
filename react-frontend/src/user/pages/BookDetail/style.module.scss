@@ -1,0 +1,37 @@
+.BookDetail {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(235, 235, 235);
+  .Wrapper {
+    background-color: white;
+    position: relative;
+    margin: 10px 0px;
+    width: 80%;
+    border-radius: 10px;
+    height: 60vh;
+    display: flex;
+    .ImageContainer {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .Image {
+        height: 80%;
+      }
+    }
+    .DescContainer {
+      flex: 1;
+      padding-left: 10%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .AmountContainer {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}

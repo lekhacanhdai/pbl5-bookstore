@@ -1,0 +1,46 @@
+.Container {
+  width: 100%;
+  display: flex;
+  background-color: rgb(235, 235, 235);
+  justify-content: center;
+  .Wrapper {
+    background-color: white;
+    margin: 10px 0px;
+    width: 80%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    .Header {
+      padding-top: 20px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .CartItem {
+      :global(.MuiGrid-item) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .AmountContainer {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+    &.TotalContainer {
+      position: sticky;
+      top: 10px;
+      width: 200px;
+      height: 200px;
+      margin-left: 20px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      flex-direction: column;
+    }
+  }
+}

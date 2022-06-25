@@ -1,0 +1,43 @@
+.Container {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  margin: 10px 0px;
+  padding: 20px;
+  padding-top: 10px;
+  :global(.MuiDivider-root) {
+    margin: 10px 0px;
+  }
+  .HeaderContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    :global(.MuiButton-root) {
+      text-transform: none;
+    }
+  }
+  .BooksWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    .Card {
+      width: 215px;
+      height: 350px;
+      margin: 10px;
+      display: flex;
+      &:hover {
+        transform: scale(1.03);
+      }
+      :global(.MuiButtonBase-root) {
+        height: 100%;
+        :global(.MuiCardMedia-root) {
+          height: 70%;
+        }
+        :global(.MuiCardContent-root) {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
