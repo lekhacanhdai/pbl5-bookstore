@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BOOK_API_BASE_URL = 'http://localhost:8080/api/v1';
+const BOOK_API_BASE_URL = 'http://vndat00.cf:8080/api/v1';
 
 class GenresService {
   getAllGenres() {

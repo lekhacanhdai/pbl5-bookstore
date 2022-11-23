@@ -1,7 +1,7 @@
 import axios from 'axios';
 import authHeader from './AuthHeader';
 
-const BASE_URL = 'http://localhost:8080/api/v1/';
+const BASE_URL = 'http://vndat00.cf:8080/api/v1/';
 
 class CartService {
   addtoCart(userId, bookId, quantity) {

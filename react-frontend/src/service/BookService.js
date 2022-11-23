@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const BOOK_API_BASE_URL = 'http://localhost:8080';
+const BOOK_API_BASE_URL = 'http://vndat00.cf:8080';
 
-const BASE_URL = 'http://localhost:8080/api/v1';
+const BASE_URL = 'http://vndat00.cf:8080/api/v1';
 
-const ADMIN_BOOK_API_BASE_URL = 'http://localhost:8080/admin/api/v1';
+const ADMIN_BOOK_API_BASE_URL = 'http://vndat00.cf:8080/admin/api/v1';
 var config = {
   headers: {
     authorization: ' JWT fefege...',
